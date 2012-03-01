@@ -2,7 +2,7 @@
 
 Tablesort is a small and simple sorting component for tables written in Javascript. It has no dependencies and should have no interference with other libraries.
 
-## Basic Usage
+## Basic usage
 
 ```html
 <script src='tablesort.min.js'></script>
@@ -11,7 +11,7 @@ Tablesort is a small and simple sorting component for tables written in Javascri
 </script>
 ```
 
-## Supported features
+## Features
 
 * Sort strings
 * Sort numbers
