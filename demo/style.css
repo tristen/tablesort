@@ -1,0 +1,147 @@
+/* ------------------------------------------
+  Reset ♥
+  http://meyerweb.com/eric/tools/css/reset/
+  v2.0 | 20110126
+  License: none (public domain)
+---------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  }
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+  }
+body { line-height: 1; }
+ol, ul { list-style: none;  }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ''; content: none; }
+/* tables still need 'cellspacing="0"' in the markup */
+table { border-collapse: collapse; border-spacing: 0; }
+/* remember to define focus styles. Hee Haw */
+:focus { outline: 0; }
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  color: #303030;
+  background-color: #f6f6f6;
+  }
+a {
+  color: #404040;
+  font-weight: bold;
+  text-decoration: none;
+  }
+h1 {
+  font-size: 13px;
+  margin: 0 0 20px;
+  display: block;
+  text-shadow: 0 1px 0 #fff;
+  }
+h1 span.description {
+  color: #6d6d6d;
+  }
+table {
+  background: #fff;
+  max-width: 100%;
+  border-spacing: 0;
+  width: 100%;
+  margin-bottom: 18px;
+  border: 1px solid #ddd;
+  border-collapse: separate;
+  *border-collapse: collapsed;
+  -moz-box-shadow: 0 0 4px rgba(0,0,0,0.10);
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.10);
+  box-shadow: 0 0 4px rgba(0,0,0,0.10);
+  }
+  table th,
+  table td {
+    padding: 8px;
+    line-height: 18px;
+    text-align: left;
+    border-top: 1px solid #ddd;
+    }
+  table th {
+    font-weight: bold;
+    vertical-align: bottom;
+    }
+  table td {
+    vertical-align: top;
+    }
+  table thead:first-child tr th,
+  table thead:first-child tr td {
+    border-top: 0;
+    }
+  table tbody + tbody {
+    border-top: 2px solid #ddd;
+    }
+  table th + th,
+  table td + td,
+  table th + td,
+  table td + th {
+    border-left: 1px solid #ddd;
+    }
+  table thead:first-child tr:first-child th,
+  table tbody:first-child tr:first-child th,
+  table tbody:first-child tr:first-child td {
+    border-top: 0;
+    }
+
+/*tablesort specific styling*/
+th.sort-header {
+  background: #eee;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eee));
+  background: -moz-linear-gradient(top, #f6f6f6, #eee);
+  text-shadow: 0 1px 0 #fff;
+  cursor: pointer;
+  }
+th.sort-header::-moz-selection,
+th.sort-header::selection {
+  background: transparent;
+  }
+table th.sort-header:after {
+  content: '';
+  float: right;
+  margin-top: 7px;
+  border-width: 0 4px 4px;
+  border-style: solid;
+  border-color: #404040 transparent;
+  visibility: hidden;
+  }
+table th.sort-header:hover:after {
+  visibility: visible;
+  }
+table th.sort-up:after,
+table th.sort-down:after,
+table th.sort-down:hover:after {
+  visibility: visible;
+  opacity: 0.4;
+  }
+table th.sort-down:after {
+  border-bottom: none;
+  border-width: 4px 4px 0;
+  }
+
+.inner {
+  width: 960px;
+  margin: 100px auto 0;
+  }

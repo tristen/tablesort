@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Table Sorting</title>
+</head>
+<link href='style.css' rel='stylesheet'>
+<body>
+
+  <a href='http://github.com/tristen/tablesort'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67' alt='Fork me on GitHub'></a>
+
+<div class='inner'>
+  <h1><a href='http://github.com/tristen/tablesort'>tablesort.js </a><span class='description'>A small and simple sorting component for tables. Written in Javascript.</span></h1>   
+  <table class='sortable' id='table'>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Grocery item</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Gonzo</td>
+        <td>Radishes</td>
+        <td>$0.63</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Ernie</td>
+        <td>Fish</td>
+        <td>$12.09</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Bert</td>
+        <td>Broccoli</td>
+        <td>$0.79</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Cookie Monster</td>
+        <td>Oreo cookies</td>
+        <td>$2.78</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Kermit</td>
+        <td>Granola</td>
+        <td>$4.73</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Sam the Eagle</td>
+        <td>Corn dog</td>
+        <td>$5.50</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src='../tablesort.min.js'></script>
+<script>
+  new Tablesort(document.getElementById('table'));
+</script>
+</body>
+</html>
