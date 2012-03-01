@@ -5,13 +5,19 @@
 <title>Table Sorting</title>
 </head>
 <link href='style.css' rel='stylesheet'>
+<script src='ender.js'></script>
+<script>
+  $(document).ready(function () {
+    $('table.sort').tablesort();
+  });
+</script>
 <body>
 
   <a href='http://github.com/tristen/tablesort'><img style='position: absolute; top: 0; right: 0; border: 0;' src='https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67' alt='Fork me on GitHub'></a>
 
 <div class='inner'>
   <h1><a href='http://github.com/tristen/tablesort'>tablesort.js </a><span class='description'>A small and simple sorting component for tables. Written in Javascript.</span></h1>   
-  <table class='sortable' id='table'>
+  <table class='sort'>
     <thead>
       <tr>
         <th>#</th>
@@ -60,10 +66,5 @@
     </tbody>
   </table>
 </div>
-
-<script src='../tablesort.min.js'></script>
-<script>
-  new Tablesort(document.getElementById('table'));
-</script>
 </body>
 </html>
