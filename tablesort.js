@@ -1,5 +1,5 @@
 //  tablesort.js
-//  tristen @fallsemoq
+//  tristen @fallsemo
 
 function Tablesort(el) {
     el.tagName === 'TABLE' ? this.init(el) : console.error('Element must be a table');
