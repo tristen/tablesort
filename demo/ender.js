@@ -601,7 +601,7 @@
   var module = { exports: {} }, exports = module.exports;
 
   //  tablesort.js
-  //  tristen @fallsemoq
+  //  tristen @fallsemo
   
   function Tablesort(el) {
       el.tagName === 'TABLE' ? this.init(el) : console.error('Element must be a table');
@@ -628,7 +628,7 @@
               var cell = firstRow.cells[i];
               cell.className = 'sort-header';
               this.addEvent(cell, 'click', function(e) {
-                  //Delete any sort classes on table headers that are not the current one.
+                  // Delete any sort classes on table headers that are not the current one.
                   var siblings = that.getParent(cell, 'tr').getElementsByTagName('th');
                   for (var i = 0; i < siblings.length; i++) {
                       if (that.hasClass(siblings[i], 'sort-up') || that.hasClass(siblings[i], 'sort-down')) {
@@ -645,7 +645,6 @@
           var that = this;
           var column = header.cellIndex;
           var t = this.getParent(header, 'table');
-  
           var sortCaseInsensitive = function(a, b) {
               var aa = that.getInnerText(a.cells[that.col]).toLowerCase();
               var bb = that.getInnerText(b.cells[that.col]).toLowerCase();
@@ -764,12 +763,15 @@
       hasClass: function(el, c) {
           return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
       },
-      // cross-browser events
+      // http://ejohn.org/apps/jselect/event.html
       addEvent: function(object, event, method) {
-          if (object.addEventListener)
+          if (object.attachEvent) {
+              object['e' + event + method] = method;
+              object[event + method] = function(){object['e' + event + method](window.event);}
+              object.attachEvent('on' + event, object[event + method]);
+          } else {
           object.addEventListener(event, method, false);
-          else if (object.attachEvent)
-          object.attachEvent('on' + event, function(){ method(window.event) });
+          }
       }
   };
   
