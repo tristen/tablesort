@@ -145,3 +145,11 @@ table th.sort-down:after {
   width: 960px;
   margin: 100px auto 0;
   }
+  span.download {
+    font-family: Georgia, Times, serif;
+    font-style: italic;
+    font-size: 12px;
+    }
+    span.download a {
+      color: #f26a4b;
+      }
