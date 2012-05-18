@@ -1,8 +1,19 @@
 {
     "name": "tablesort",
     "description": "tablesort BRAP tablesort BRAP",
-    "version": "1.0.2",
-    "authors": ["tristen <@fallsemo>"],
+    "version": "1.0.3",
+    "author": "tristen <@fallsemo>",
     "main": "./tablesort.js",
-    "ender": "./ender.js"
+    "ender": "./ender.js",
+    "homepage": "http://tristen.ca/tablesort/demo",
+    "contributors": [
+      "Olivier Vaillancourt <@ovaillancourt>"
+    ],
+    "licenses": [{
+      "type": "BSD"
+    }],
+    "devDependencies": {
+      "jshint": "0.5.x",
+      "uglify-js": "1.0.x"
+    }
 }

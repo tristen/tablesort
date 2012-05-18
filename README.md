@@ -4,7 +4,7 @@ Tablesort is a small and simple sorting component for tables written in Javascri
 
 ## Basic usage
 
-```html
+``` html
 <script src='tablesort.min.js'></script>
 <script>
   new Tablesort(document.getElementById('table-id'));
@@ -27,6 +27,15 @@ Use it:
 
 ``` js
 $('.table').tablesort();
+```
+
+## Building
+
+Developers can rebuild the minified library by running:
+
+``` bash
+  npm install --dev
+  make
 ```
 
 ## TODOs

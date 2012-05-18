@@ -155,8 +155,8 @@ Tablesort.prototype = {
     trim: function(s) {
         return s.replace(/^\s+|\s+$/g, '');
     },
-    cleanNumber: function(s) {
-        return s.replace(/[^-?0-9.]/g, '');
+    cleanNumber: function(i) {
+        return i.replace(/[^-?0-9.]/g, '');
     },
     hasClass: function(el, c) {
         return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
