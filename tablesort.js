@@ -24,14 +24,16 @@ Tablesort.prototype = {
         //  Assume first row is the header and attach a click handler to each.
         for (var i = 0; i < firstRow.cells.length; i++) {
             var cell = firstRow.cells[i];
-            cell.className = 'sort-header';
+            cell.className += ' sort-header';
             this.addEvent(cell, 'click', function(e) {
                 // Delete any sort classes on table headers that are not the current one.
                 var siblings = that.getParent(cell, 'tr').getElementsByTagName('th');
                 for (var i = 0; i < siblings.length; i++) {
                     if (that.hasClass(siblings[i], 'sort-up') || that.hasClass(siblings[i], 'sort-down')) {
                         if (siblings[i] !== this) {
-                            siblings[i].className = siblings[i].className.replace(/ sort-\w+/, '');
+                            siblings[i].className = siblings[i].className
+                                                    .replace(' sort-up', '')
+                                                    .replace(' sort-down', '');
                         }
                     }
                 }
