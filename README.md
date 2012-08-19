@@ -16,6 +16,8 @@ Tablesort is a small and simple sorting component for tables written in Javascri
 * Sort strings
 * Sort numbers
 * Sort currency 
+* Basic date sorting: either the `dd/mm/yy` format, or '{month} {day}', 
+  e.g. "Sept 25".
 
 ## Ender support
 
@@ -41,7 +43,6 @@ Developers can rebuild the minified library by running:
 ## TODOs
 
 * Tests
-* Sort on date
 * Pass in an options object to:
   - Choose which row to begin sorting on.
   - Column exclusion
