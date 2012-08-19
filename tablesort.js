@@ -128,9 +128,9 @@
         },
         sortNumber = function(a, b) {
             var aa = getInnerText(a.cells[sort_column]);
-            aa = that.cleanNumber(aa);
+            aa = cleanNumber(aa);
             var bb = getInnerText(b.cells[sort_column]);
-            bb = that.cleanNumber(bb);
+            bb = cleanNumber(bb);
 
             return compareNumber(aa, bb);
         },
@@ -208,7 +208,6 @@
             object.addEventListener(event, method, false);
             }
         };
-
 
     window.Tablesort = Tablesort;
 })();
