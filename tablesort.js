@@ -45,6 +45,10 @@ Tablesort.prototype = {
         var that = this;
         var column = header.cellIndex;
         var t = this.getParent(header, 'table');
+        var re_week = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
+            re_common_date = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g,
+            re_month = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
+
         var sortCaseInsensitive = function(a, b) {
             var aa = that.getInnerText(a.cells[that.col]).toLowerCase();
             var bb = that.getInnerText(b.cells[that.col]).toLowerCase();
@@ -58,12 +62,33 @@ Tablesort.prototype = {
             var bb = that.getInnerText(b.cells[that.col]);
             bb = that.cleanNumber(bb);
             return that.compareNumber(aa, bb);
-        }
+            },
+
+            testDate = function(date) {
+                return (
+                    date.search( re_week ) !== -1 ||
+                    date.search( re_common_date ) !== -1  ||
+                    date.search( re_month !== -1 )
+                ) !== -1 ;
+            },
+            parseDate = function( date ) {
+                // strip out days of week
+                date = date.replace( re_week, '' );
+
+                return new Date( date ).getTime();
+            },
+            sortDate = function(a, b) {
+                var aa = that.getInnerText(a.cells[that.col]).toLowerCase(),
+                    bb = that.getInnerText(b.cells[that.col]).toLowerCase()
+
+                return parseDate(aa) - parseDate(bb);
+            }
 
         // Work out a type for the column
         if (t.rows.length <= 1) return;
         var item = '';
-        var i = 0;
+        // Start midway through table, just for fun
+            i = parseInt( t.tBodies[0].rows.length / 2);
         while (item === '' && i < t.tBodies[0].rows.length) {
             var item = that.getInnerText(t.tBodies[0].rows[i].cells[column]);
             item = that.trim(item);
@@ -77,6 +102,8 @@ Tablesort.prototype = {
         // Sort as number if a currency key exists or number
         if (item.match(/^-?[£$Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[-+][\d]+)?%?$/)) {
             sortFunction = sortNumber;
+        } else if ( testDate(item) ) {
+            sortFunction = sortDate;
         } else {
             sortFunction = sortCaseInsensitive;
         }
