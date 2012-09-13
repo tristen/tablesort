@@ -1,7 +1,7 @@
 {
     "name": "tablesort",
     "description": "tablesort BRAP tablesort BRAP",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "author": "tristen <@fallsemo>",
     "main": "./tablesort.js",
     "ender": "./ender.js",
@@ -10,7 +10,7 @@
       "Olivier Vaillancourt <@ovaillancourt>"
     ],
     "licenses": [{
-      "type": "BSD"
+      "type": "MIT"
     }],
     "devDependencies": {
       "jshint": "0.5.x",

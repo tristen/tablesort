@@ -1,8 +1,8 @@
 !function ($) {
     $.ender({
-        tablesort: function () {
+        tablesort: function (options) {
             return this.forEach(function (el) {
-                new Tablesort(el);
+                new Tablesort(el, options);
             });
         }
     }, true);

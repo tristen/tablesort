@@ -1,16 +1,18 @@
 //  tablesort.js
 //  tristen @fallsemo
 
-function Tablesort(el) {
-    el.tagName === 'TABLE' ? this.init(el) : console.error('Element must be a table');
+function Tablesort(el, options) {
+    el.tagName === 'TABLE' ? this.init(el, options || {}) : console.error('Element must be a table');
 }
 
 Tablesort.prototype = {
-    thead: false,
-    col: undefined,
-    init: function(el) {
+    init: function(el, options) {
         var that = this;
         var firstRow;
+        this.thead =  false;
+        this.options = options;
+        this.options.d = options.descending || false;
+
         if (el.rows && el.rows.length > 0) {
             if (el.tHead && el.tHead.rows.length > 0) {
                 firstRow = el.tHead.rows[el.tHead.rows.length -1];
@@ -19,12 +21,12 @@ Tablesort.prototype = {
                 firstRow = el.rows[0];
             }
         }
-        if (!firstRow) { return; }
+        if (!firstRow) return;
 
         //  Assume first row is the header and attach a click handler to each.
         for (var i = 0; i < firstRow.cells.length; i++) {
             var cell = firstRow.cells[i];
-            cell.className += ' sort-header';
+            cell.className += 'sort-header';
             this.addEvent(cell, 'click', function(e) {
                 // Delete any sort classes on table headers that are not the current one.
                 var siblings = that.getParent(cell, 'tr').getElementsByTagName('th');
@@ -48,16 +50,22 @@ Tablesort.prototype = {
         var sortCaseInsensitive = function(a, b) {
             var aa = that.getInnerText(a.cells[that.col]).toLowerCase();
             var bb = that.getInnerText(b.cells[that.col]).toLowerCase();
-            if (aa === bb)  { return 0;  }
-            if (aa < bb)    { return -1; }
-            return 1;
+            if (aa === bb) return 0;
+            if (that.options.d) {
+                if (aa < bb) return -1;
+                return 1;
+            }
+            if (aa < bb) return 1;
+            return -1;
         }
         var sortNumber = function(a, b) {
             var aa = that.getInnerText(a.cells[that.col]);
             aa = that.cleanNumber(aa);
             var bb = that.getInnerText(b.cells[that.col]);
             bb = that.cleanNumber(bb);
-            return that.compareNumber(aa, bb);
+
+            if (that.options.d) return that.compareNumber(aa, bb);
+            return that.compareNumber(bb, aa);
         }
 
         // Work out a type for the column
@@ -149,9 +157,9 @@ Tablesort.prototype = {
     },
     compareNumber: function(a, b) {
         var a = parseFloat(a);
-        a = (isNaN(a) ? 0 : a);
+        a = isNaN(a) ? 0 : a;
         var b = parseFloat(b);
-        b = (isNaN(b) ? 0 : b);
+        b = isNaN(b) ? 0 : b;
         return a - b;
     },
     trim: function(s) {

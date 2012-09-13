@@ -11,6 +11,15 @@ Tablesort is a small and simple sorting component for tables written in Javascri
 </script>
 ```
 
+## Additional options
+You can pass in options as a second parameter. Currently one option is supported: `descending: true`. By default, sort is set to ascending.
+
+``` html
+new Tablesort(document.getElementById('table-id'), {
+  descending: true
+});
+```
+
 ## Features
 
 * Sort strings
