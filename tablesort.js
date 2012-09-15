@@ -34,8 +34,8 @@ Tablesort.prototype = {
                     if (that.hasClass(siblings[i], 'sort-up') || that.hasClass(siblings[i], 'sort-down')) {
                         if (siblings[i] !== this) {
                             siblings[i].className = siblings[i].className
-                                                    .replace(' sort-up', '')
-                                                    .replace(' sort-down', '');
+                                                    .replace(' sort-down', '')
+                                                    .replace(' sort-up', '');
                         }
                     }
                 }
@@ -111,13 +111,25 @@ Tablesort.prototype = {
         }
         newRows.sort(sortFunction);
 
-        if (that.hasClass(header, 'sort-up')) {
-            header.className = header.className.replace(/ sort-up/, '');
-            header.className += ' sort-down';
+        // TODO Optimize.
+        if (that.options.d) {
+            if (that.hasClass(header, 'sort-up')) {
+                header.className = header.className.replace(/ sort-up/, '');
+                header.className += ' sort-down';
+            } else {
+                header.className = header.className.replace(/ sort-down/, '');
+                header.className += ' sort-up';
+                newRows.reverse();
+            }
         } else {
-            header.className = header.className.replace(/ sort-down/, '');
-            header.className += ' sort-up';
-            newRows.reverse();
+            if (that.hasClass(header, 'sort-down')) {
+                header.className = header.className.replace(/ sort-down/, '');
+                header.className += ' sort-up';
+            } else {
+                header.className = header.className.replace(/ sort-up/, '');
+                header.className += ' sort-down';
+                newRows.reverse();
+            }
         }
 
         // append rows that already exist rather than creating new ones

@@ -44,7 +44,7 @@ body {
   font-size:13px;
   line-height:18px;
   color:#303030;
-  background-color:#f6f6f6;
+  background-color:#f8f8f8;
   -webkit-font-smoothing:antialiased;
   }
 h1,h2,h3,h4,h5 {
@@ -183,7 +183,7 @@ table th.sort-header:after {
   content:'';
   float:right;
   margin-top:7px;
-  border-width:0 4px 4px;
+  border-width:4px 4px 0;
   border-style:solid;
   border-color:#404040 transparent;
   visibility:hidden;
@@ -197,9 +197,8 @@ table th.sort-down:hover:after {
   visibility:visible;
   opacity:0.4;
   }
-table th.sort-down:after {
-  border-bottom:none;
-  border-width:4px 4px 0;
+table th.sort-up:after {
+  border-width:0 4px 4px;
   }
 
 .inner {
@@ -222,7 +221,7 @@ table th.sort-down:after {
   background:#fff;
   background:-webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eee));
   background:-moz-linear-gradient(top, #f6f6f6, #eee);
-  border:1px solid #ccc;
+  border:1px solid #b8b8b8;
   width:50%;
   height:40px;
   line-height:38px;
