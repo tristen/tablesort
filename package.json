@@ -1,7 +1,7 @@
 {
     "name": "tablesort",
     "description": "tablesort BRAP tablesort BRAP",
-    "version": "1.1.2",
+    "version": "1.2.2",
     "author": "tristen <@fallsemo>",
     "main": "./tablesort.js",
     "ender": "./ender.js",

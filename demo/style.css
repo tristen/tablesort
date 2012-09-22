@@ -62,7 +62,7 @@ h1 {
 h1 span.description {
   color:#6d6d6d;
   }
-h2 { font-size:17px; line-height: 24px; }
+h2 { font-size:17px; line-height: 24px; margin:20px 0 5px;}
 
 ul { margin:0 0 20px; }
 li {
@@ -72,49 +72,20 @@ li {
 ul li { list-style:disc; }
 ol li { list-style:decimal; }
 
-pre,
-code {
-  font-family:Consolas, Menlo, 'Liberation Mono', Courier, monospace;
-  word-wrap:break-word;
-  color:#333;
-  }
-pre {
-  font-size:13px;
-  line-height:1.25em;
-  background:#f8c781;
-  padding:10px 15px;
-  margin:10px 0;
-  overflow: auto;
-  -webkit-box-shadow:0 1px 4px rgba(0,0,0,0.20);
-          box-shadow:0 1px 4px rgba(0,0,0,0.20);
-  -webkit-border-radius:3px;
-          border-radius:3px;
-  }
-code {
-  font-size:12px;
-  border:0;
-  padding:0;
-  background:#c6615b;
-  box-shadow:#c6615b 0 0 0 2px;
-  }
-pre code {
-  font-size:13px;
-  line-height:1.25em;
-  background:transparent;
-  box-shadow:none;
-  border:none;
-  padding:0;
-  margin:0;
-  }
 .content {
   background:#db7466;
   border-top:1px solid #c6615b;
   color:#643b44;
   margin-top:40px;
-  padding:40px 0 80px;
+  padding:10px 0 80px;
   }
+  .content h3 {
+    color:#fff;
+    text-shadow:0 1px 0 rgba(0,0,0,0.15);
+    }
   .content h2 {
     color:#fff;
+    text-shadow:0 1px 0 rgba(0,0,0,0.15);
     }
 a {
   color:#404040;
@@ -168,11 +139,13 @@ table {
     }
 
 /*tablesort specific styling*/
-th.sort-header {
+th {
   background:#eee;
   background:-webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eee));
   background:-moz-linear-gradient(top, #f6f6f6, #eee);
   text-shadow:0 1px 0 #fff;
+  }
+th.sort-header {
   cursor:pointer;
   }
 th.sort-header::-moz-selection,
@@ -246,6 +219,105 @@ table th.sort-up:after {
             box-shadow:inset 0 1px 4px rgba(0,0,0,0.15);
     }
 
+.options {
+  margin:10px 0 30px 20px;
+  }
+  .options h3 { margin-left: -15px; }
+pre,
+code {
+  font-family:Consolas, Menlo, 'Liberation Mono', Courier, monospace;
+  word-wrap:break-word;
+  color:#333;
+  font-weight:bold;
+  }
+pre {
+  font-size:13px;
+  line-height:1.25em;
+  background:#f8c781;
+  padding:10px 15px;
+  margin:10px 0;
+  overflow: auto;
+  -webkit-box-shadow:0 1px 4px rgba(0,0,0,0.20);
+          box-shadow:0 1px 4px rgba(0,0,0,0.20);
+  -webkit-border-radius:3px;
+          border-radius:3px;
+  }
+code {
+  font-size:12px;
+  border:0;
+  padding:0;
+  background:#c6615b;
+  box-shadow:#c6615b 0 0 0 2px;
+  }
+pre code {
+  font-size:13px;
+  line-height:1.25em;
+  background:transparent;
+  box-shadow:none;
+  border:none;
+  padding:0;
+  margin:0;
+  }
+
+/*  -------------------------------------------------------
+ *    Pretty syntax highlighting
+ *
+ *    Acronym Key
+ *    =====================================================
+ *   .str = string content
+ *   .kwd = keyword
+ *   .com = comment
+ *   .typ = type name
+ *   .lit = literal value
+ *   .pun = punctuation
+ *   .opn = lisp open bracket
+ *   .clo = listp close bracket
+ *   .tag = markup tag name
+ *   .atn = markup attribute name
+ *   .atv = markup attribute value
+ *   .dec = declaration
+ *   .var = variable name
+ *   .fun = function name
+ *
+ *  ------------------------------------------------------- */
+
+/*greys*/
+.pln { color:#616f6f; }
+.com { color:#808080; }
+.pun,
+.opn,
+.clo { color:#909090; }
+
+/*rust*/
+.fun { color:#DF6637; }
+
+/*green*/
+.str,
+.atv { color:#643b44; font-weight:normal; }
+
+/*dark blue*/
+.kwd,
+.linenums,
+.tag { color:#c6615b; }
+
+/*light blue*/
+.lit,
+.typ,
+.atn,
+.dec,
+.var { color:#52867e; }
+
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+  margin:0 0 0 40px;
+  list-style:decimal;
+  }
+  ol.linenums li {
+    padding:0;
+    color:#bebec5;
+    line-height:18px;
+    }
 /*-----------------------------------
   Markup free clearing
   Details: http: //perishablepress.com/press/2009/12/06/new-clearfix-hack

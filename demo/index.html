@@ -5,10 +5,10 @@
 <title>Table Sorting</title>
 <link href='style.css' rel='stylesheet'>
 </head>
-<body>
+<body onload='prettyPrint()'>
 <div class='inner'>
   <div class='heading'>
-    <h1><a href='http://github.com/tristen/tablesort'>tablesort </a><span class='description'>is a small and simple sorting component for tables. Written in Javascript.</span></h1>
+    <h1><a href='http://github.com/tristen/tablesort'>tablesort </a><span class='description'>is a small and simple sorting component for tables. Written in Javascript & dependency free with optional <a href='http://ender.no.de'>Ender</a> support.</span></h1>
   </div>
   <table id='sort' class='sort'>
     <thead>
@@ -67,20 +67,12 @@
 <div class='content'>
   <div class='inner'>
     <h2>Basic usage</h2>
-<pre>
+<pre class='prettyprint'>
 &lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
 
 &lt;script&gt;
   new Tablesort(document.getElementById('table-id'));
 &lt;/script&gt;
-</pre>
-
-    <h2>Additional options</h2>
-    <p>You can pass in options as a second parameter. Currently one option is supported: <code>descending: true</code>. By default, sort is set to ascending.</p>
-<pre>
-new Tablesort(document.getElementById('table-id'), {
-  descending: true
-});
 </pre>
 
     <h2>Current features</h2>
@@ -90,14 +82,65 @@ new Tablesort(document.getElementById('table-id'), {
       <li>Sort currency </li>
     </ul>
 
+    <h2>Additional options</h2>
+    <div class='options'>
+      <h3>1. Ascending/Descending</h3>
+      <p>You can pass in options as a second parameter. Currently one option is supported: <code>descending: true</code>. By default, sort is set to ascending.</p>
+<pre class='prettyprint'>
+new Tablesort(document.getElementById('table-id'), {
+  descending: true
+});
+</pre>
+      <h3>2. Exclude columns</h3>
+      For columns that do not require sorting, you can add a class of <code>no-sort</code>
+<pre class='prettyprint'>
+&lt;th class='no-sort'&gt;Name&lt;/th&gt;
+</pre>
+    </div>
     <h2>Ender support</h2>
     <p>Add <code>tablesort</code> as an internal chain method to your <a href='http://ender.no.de'>Ender</a> compilation.</p>
-<pre>$ ender add tablesort</pre>
-    <p>Use it:</p>
-<pre>$('.table').tablesort();</pre>
+<pre class='prettyprint'>$ ender add tablesort
+
+// Use it:
+$('.table').tablesort();</pre>
+
+    <h2>Default style</h2>
+    <p>Add the styling below to your CSS or roll with your own.</p>
+<pre style='font-weight:normal;'>
+th.sort-header {
+  cursor:pointer;
+  }
+th.sort-header::-moz-selection,
+th.sort-header::selection {
+  background:transparent;
+  }
+table th.sort-header:after {
+  content:'';
+  float:right;
+  margin-top:7px;
+  border-width:4px 4px 0;
+  border-style:solid;
+  border-color:#404040 transparent;
+  visibility:hidden;
+  }
+table th.sort-header:hover:after {
+  visibility:visible;
+  }
+table th.sort-up:after,
+table th.sort-down:after,
+table th.sort-down:hover:after {
+  visibility:visible;
+  opacity:0.4;
+  }
+table th.sort-up:after {
+  border-width:0 4px 4px;
+  }
+</pre>
+
   </div>
 </div>
-<script src='../tablesort.js'></script>
+<script src='prettify.js'></script>
+<script src='../tablesort.min.js'></script>
 <script>
   var table = document.getElementById('sort');
   new Tablesort(table);

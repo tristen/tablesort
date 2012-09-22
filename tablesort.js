@@ -26,21 +26,23 @@ Tablesort.prototype = {
         //  Assume first row is the header and attach a click handler to each.
         for (var i = 0; i < firstRow.cells.length; i++) {
             var cell = firstRow.cells[i];
-            cell.className += ' sort-header';
-            this.addEvent(cell, 'click', function(e) {
-                // Delete any sort classes on table headers that are not the current one.
-                var siblings = that.getParent(cell, 'tr').getElementsByTagName('th');
-                for (var i = 0; i < siblings.length; i++) {
-                    if (that.hasClass(siblings[i], 'sort-up') || that.hasClass(siblings[i], 'sort-down')) {
-                        if (siblings[i] !== this) {
-                            siblings[i].className = siblings[i].className
-                                                    .replace(' sort-down', '')
-                                                    .replace(' sort-up', '');
+            if (!that.hasClass(cell, 'no-sort')) {
+                cell.className += ' sort-header';
+                this.addEvent(cell, 'click', function(e) {
+                    // Delete any sort classes on table headers that are not the current one.
+                    var siblings = that.getParent(cell, 'tr').getElementsByTagName('th');
+                    for (var i = 0; i < siblings.length; i++) {
+                        if (that.hasClass(siblings[i], 'sort-up') || that.hasClass(siblings[i], 'sort-down')) {
+                            if (siblings[i] !== this) {
+                                siblings[i].className = siblings[i].className
+                                                        .replace(' sort-down', '')
+                                                        .replace(' sort-up', '');
+                            }
                         }
                     }
-                }
-                that.sortTable(this);
-            });
+                    that.sortTable(this);
+                });
+            }
         }
     },
     sortTable: function(header) {
@@ -57,7 +59,7 @@ Tablesort.prototype = {
             }
             if (aa < bb) return 1;
             return -1;
-        }
+        };
         var sortNumber = function(a, b) {
             var aa = that.getInnerText(a.cells[that.col]);
             aa = that.cleanNumber(aa);
@@ -66,7 +68,7 @@ Tablesort.prototype = {
 
             if (that.options.d) return that.compareNumber(aa, bb);
             return that.compareNumber(bb, aa);
-        }
+        };
 
         // Work out a type for the column
         if (t.rows.length <= 1) return;
@@ -83,28 +85,28 @@ Tablesort.prototype = {
         if (item === '') return;
         var sortFunction;
         // Sort as number if a currency key exists or number
-        if (item.match(/^-?[£$Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[-+][\d]+)?%?$/)) {
+        if (item.match(/^-?[£$Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/)) {
             sortFunction = sortNumber;
         } else {
             sortFunction = sortCaseInsensitive;
         }
         this.col = column;
-        var firstRow = [], newRows = [];
+        var firstRow = [], newRows = [], k, j;
 
-        for (var k = 0; k < t.tBodies.length; k++) {
-            for (var i = 0; i < t.tBodies[k].rows[0].length; i++) {
+        for (k = 0; k < t.tBodies.length; k++) {
+            for (i = 0; i < t.tBodies[k].rows[0].length; i++) {
                 firstRow[i] = t.tBodies[k].rows[0][i];
             }
         }
-        for (var k = 0; k < t.tBodies.length; k++) {
+        for (k = 0; k < t.tBodies.length; k++) {
             if (!that.thead) {
                 // skip the first row
-                for (var j = 1; j < t.tBodies[k].rows.length; j++) {
+                for (j = 1; j < t.tBodies[k].rows.length; j++) {
                     newRows[j-1] = t.tBodies[k].rows[j];
                 }
             } else {
                 // don't skip the first row
-                for (var j = 0; j < t.tBodies[k].rows.length; j++) {
+                for (j = 0; j < t.tBodies[k].rows.length; j++) {
                     newRows[j] = t.tBodies[k].rows[j];
                 }
             }
@@ -133,7 +135,7 @@ Tablesort.prototype = {
         }
 
         // append rows that already exist rather than creating new ones
-        for (var i = 0; i < newRows.length; i++) {
+        for (i = 0; i < newRows.length; i++) {
             if (!newRows[i].className) {
                 t.tBodies[0].appendChild(newRows[i]);
             }
@@ -168,17 +170,17 @@ Tablesort.prototype = {
         }
     },
     compareNumber: function(a, b) {
-        var a = parseFloat(a);
-        a = isNaN(a) ? 0 : a;
-        var b = parseFloat(b);
-        b = isNaN(b) ? 0 : b;
+        var aa = parseFloat(a);
+        a = isNaN(aa) ? 0 : aa;
+        var bb = parseFloat(b);
+        b = isNaN(bb) ? 0 : bb;
         return a - b;
     },
     trim: function(s) {
         return s.replace(/^\s+|\s+$/g, '');
     },
     cleanNumber: function(i) {
-        return i.replace(/[^-?0-9.]/g, '');
+        return i.replace(/[^\-?0-9.]/g, '');
     },
     hasClass: function(el, c) {
         return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
@@ -187,7 +189,7 @@ Tablesort.prototype = {
     addEvent: function(object, event, method) {
         if (object.attachEvent) {
             object['e' + event + method] = method;
-            object[event + method] = function(){object['e' + event + method](window.event);}
+            object[event + method] = function(){object['e' + event + method](window.event);};
             object.attachEvent('on' + event, object[event + method]);
         } else {
         object.addEventListener(event, method, false);

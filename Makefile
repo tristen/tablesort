@@ -1,8 +1,5 @@
-UGLIFYJS = ./node_modules/.bin/uglifyjs
-LINT = ./node_modules/.bin/uglifyjs
+lint:
+	./node_modules/.bin/jshint tablesort.js
 
 tablesort.min.js:
-	$(UGLIFYJS) tablesort.js > tablesort.min.js
-
-lint:
-	$(LINT) tablesort.js
+	./node_modules/.bin/uglifyjs tablesort.js > tablesort.min.js
