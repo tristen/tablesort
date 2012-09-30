@@ -174,7 +174,7 @@ table th.sort-up:after {
   border-width:0 4px 4px;
   }
 
-.inner {
+.page .inner {
   width:960px;
   margin:0 auto;
   padding:0 40px;
@@ -183,7 +183,7 @@ table th.sort-up:after {
     width:480px;
     }
 .heading {
-  margin-top:70px;
+  margin-top:90px;
   }
 
 .links {

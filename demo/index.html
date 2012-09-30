@@ -3,147 +3,214 @@
 <head>
 <meta charset=utf-8 />
 <title>Table Sorting</title>
+<link href='http://tristen.ca/global.css' rel='stylesheet'>
 <link href='style.css' rel='stylesheet'>
 </head>
 <body onload='prettyPrint()'>
-<div class='inner'>
-  <div class='heading'>
-    <h1><a href='http://github.com/tristen/tablesort'>tablesort </a><span class='description'>is a small and simple sorting component for tables. Written in Javascript & dependency free with optional <a href='http://ender.no.de'>Ender</a> support.</span></h1>
-  </div>
-  <table id='sort' class='sort'>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Grocery item</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Gonzo</td>
-        <td>Radishes</td>
-        <td>$0.63</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Ernie</td>
-        <td>Fish</td>
-        <td>$12.09</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Bert</td>
-        <td>Broccoli</td>
-        <td>$0.79</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Cookie Monster</td>
-        <td>Oreo cookies</td>
-        <td>$2.78</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Kermit</td>
-        <td>Granola</td>
-        <td>$4.73</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Sam the Eagle</td>
-        <td>Corn dog</td>
-        <td>$5.50</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class='links clearfix'>
-    <a href='https://raw.github.com/tristen/tablesort/gh-pages/tablesort.min.js'>Download the minified script</a>
-    <a href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
-  </div>
 
-</div>
-<div class='content'>
-  <div class='inner'>
-    <h2>Basic usage</h2>
-<pre class='prettyprint'>
-&lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
-
-&lt;script&gt;
-  new Tablesort(document.getElementById('table-id'));
-&lt;/script&gt;
-</pre>
-
-    <h2>Current features</h2>
-    <ul>
-      <li>Sort strings</li>
-      <li>Sort numbers</li>
-      <li>Sort currency </li>
-    </ul>
-
-    <h2>Additional options</h2>
-    <div class='options'>
-      <h3>1. Ascending/Descending</h3>
-      <p>You can pass in options as a second parameter. Currently one option is supported: <code>descending: true</code>. By default, sort is set to ascending.</p>
-<pre class='prettyprint'>
-new Tablesort(document.getElementById('table-id'), {
-  descending: true
-});
-</pre>
-      <h3>2. Exclude columns</h3>
-      For columns that do not require sorting, you can add a class of <code>no-sort</code>
-<pre class='prettyprint'>
-&lt;th class='no-sort'&gt;Name&lt;/th&gt;
-</pre>
+ <div id='masthead'>
+  <div class='limiter clearfix'>
+    <div class='col4'>
+      <div class='inner'>
+        <h2>Tristen Brown</h2>
+        <p>A Coder/Designer at <a href='http://mapbox.com'>MapBox.</a></p>
+        <a href='http://tristen.ca' class='icon home' title='Homepage'>Home</a>
+        <a href='http://twitter.com/fallsemo' class='icon twitter' title='Twitter'>Twitter</a>
+        <a href='http://github.com/tristen' class='icon github' title='GitHub'>Github</a>
+      </div>
     </div>
-    <h2>Ender support</h2>
-    <p>Add <code>tablesort</code> as an internal chain method to your <a href='http://ender.no.de'>Ender</a> compilation.</p>
-<pre class='prettyprint'>$ ender add tablesort
-
-// Use it:
-$('.table').tablesort();</pre>
-
-    <h2>Default style</h2>
-    <p>Add the styling below to your CSS or roll with your own.</p>
-<pre style='font-weight:normal;'>
-th.sort-header {
-  cursor:pointer;
-  }
-th.sort-header::-moz-selection,
-th.sort-header::selection {
-  background:transparent;
-  }
-table th.sort-header:after {
-  content:'';
-  float:right;
-  margin-top:7px;
-  border-width:4px 4px 0;
-  border-style:solid;
-  border-color:#404040 transparent;
-  visibility:hidden;
-  }
-table th.sort-header:hover:after {
-  visibility:visible;
-  }
-table th.sort-up:after,
-table th.sort-down:after,
-table th.sort-down:hover:after {
-  visibility:visible;
-  opacity:0.4;
-  }
-table th.sort-up:after {
-  border-width:0 4px 4px;
-  }
-</pre>
-
+    <div class='col4'>
+      <div class='inner'>
+        <h3>Projects</h3>
+        <ul>
+          <li>
+            <a href='http://tristen.ca/forsythe/'>Forsythe Sans</a>
+            <p>A tall open type font.</p>
+          </li>
+          <li>
+            <a href='http://tristen.ca/tablesort/demo/'>tablesort</a>
+             <p>A dependency free sorting component for tables.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class='col4'>
+      <div class='inner'>
+        <h3>&nbsp;</h3>
+        <ul>
+          <li>
+            <a href='http://tristen.ca/hcl-picker/#/hlc/6/1/20313E/EFEE68'>HCL picker</a>
+             <p>A hue, chroma, lightness color picker.</p>
+          </li>
+          <li>
+            <a href='https://github.com/tristen/superman'>Superman</a>
+             <p>A dark vim theme.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <a href='#' id='t-toggle'><span>t</span></a>
   </div>
 </div>
+
+<div class='page'>
+  <div class='inner'>
+    <div class='heading'>
+      <h1><a href='http://github.com/tristen/tablesort'>tablesort </a><span class='description'>is a small and simple sorting component for tables. Written in Javascript & dependency free with optional <a href='http://ender.no.de'>Ender</a> support.</span></h1>
+    </div>
+    <table id='sort' class='sort'>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Grocery item</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Gonzo</td>
+          <td>Radishes</td>
+          <td>$0.63</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Ernie</td>
+          <td>Fish</td>
+          <td>$12.09</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Bert</td>
+          <td>Broccoli</td>
+          <td>$0.79</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Cookie Monster</td>
+          <td>Oreo cookies</td>
+          <td>$2.78</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Kermit</td>
+          <td>Granola</td>
+          <td>$4.73</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Sam the Eagle</td>
+          <td>Corn dog</td>
+          <td>$5.50</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class='links clearfix'>
+      <a href='https://raw.github.com/tristen/tablesort/gh-pages/tablesort.min.js'>Download the minified script</a>
+      <a href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
+    </div>
+
+  </div>
+  <div class='content'>
+    <div class='inner'>
+      <h2>Basic usage</h2>
+  <pre class='prettyprint'>
+  &lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
+
+  &lt;script&gt;
+    new Tablesort(document.getElementById('table-id'));
+  &lt;/script&gt;
+  </pre>
+
+      <h2>Current features</h2>
+      <ul>
+        <li>Sort strings</li>
+        <li>Sort numbers</li>
+        <li>Sort currency </li>
+      </ul>
+
+      <h2>Additional options</h2>
+      <div class='options'>
+        <h3>1. Ascending/Descending</h3>
+        <p>You can pass in options as a second parameter. Currently one option is supported: <code>descending: true</code>. By default, sort is set to ascending.</p>
+  <pre class='prettyprint'>
+  new Tablesort(document.getElementById('table-id'), {
+    descending: true
+  });
+  </pre>
+        <h3>2. Exclude columns</h3>
+        For columns that do not require sorting, you can add a class of <code>no-sort</code>
+  <pre class='prettyprint'>
+  &lt;th class='no-sort'&gt;Name&lt;/th&gt;
+  </pre>
+      </div>
+      <h2>Ender support</h2>
+      <p>Add <code>tablesort</code> as an internal chain method to your <a href='http://ender.no.de'>Ender</a> compilation.</p>
+  <pre class='prettyprint'>$ ender add tablesort
+
+  // Use it:
+  $('.table').tablesort();</pre>
+
+      <h2>Default style</h2>
+      <p>Add the styling below to your CSS or roll with your own.</p>
+  <pre style='font-weight:normal;'>
+  th.sort-header {
+    cursor:pointer;
+    }
+  th.sort-header::-moz-selection,
+  th.sort-header::selection {
+    background:transparent;
+    }
+  table th.sort-header:after {
+    content:'';
+    float:right;
+    margin-top:7px;
+    border-width:4px 4px 0;
+    border-style:solid;
+    border-color:#404040 transparent;
+    visibility:hidden;
+    }
+  table th.sort-header:hover:after {
+    visibility:visible;
+    }
+  table th.sort-up:after,
+  table th.sort-down:after,
+  table th.sort-down:hover:after {
+    visibility:visible;
+    opacity:0.4;
+    }
+  table th.sort-up:after {
+    border-width:0 4px 4px;
+    }
+  </pre>
+
+    </div>
+  </div>
+</div>  
+<script src='http://tristen.ca/site.js'></script>
+<script>
+  var masthead = new Tristen();
+  masthead.masthead();
+</script>
 <script src='prettify.js'></script>
 <script src='../tablesort.min.js'></script>
 <script>
   var table = document.getElementById('sort');
   new Tablesort(table);
+</script>
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setaccount', 'ua-24600152-1']);
+  _gaq.push(['_trackpageview']);
+
+  (function() {
+    var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 </script>
 </body>
 </html>
