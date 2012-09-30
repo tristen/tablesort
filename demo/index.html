@@ -120,8 +120,7 @@
 
   &lt;script&gt;
     new Tablesort(document.getElementById('table-id'));
-  &lt;/script&gt;
-  </pre>
+  &lt;/script&gt;</pre>
 
       <h2>Current features</h2>
       <ul>
@@ -137,24 +136,21 @@
   <pre class='prettyprint'>
   new Tablesort(document.getElementById('table-id'), {
     descending: true
-  });
-  </pre>
+  });</pre>
         <h3>2. Exclude columns</h3>
         For columns that do not require sorting, you can add a class of <code>no-sort</code>
   <pre class='prettyprint'>
-  &lt;th class='no-sort'&gt;Name&lt;/th&gt;
-  </pre>
+  &lt;th class='no-sort'&gt;Name&lt;/th&gt;</pre>
       </div>
       <h2>Ender support</h2>
       <p>Add <code>tablesort</code> as an internal chain method to your <a href='http://ender.no.de'>Ender</a> compilation.</p>
   <pre class='prettyprint'>$ ender add tablesort
-
   // Use it:
   $('.table').tablesort();</pre>
 
       <h2>Default style</h2>
       <p>Add the styling below to your CSS or roll with your own.</p>
-  <pre style='font-weight:normal;'>
+  <pre class='prettyprint' style='font-weight:normal;'>
   th.sort-header {
     cursor:pointer;
     }
@@ -182,8 +178,7 @@
     }
   table th.sort-up:after {
     border-width:0 4px 4px;
-    }
-  </pre>
+    }</pre>
 
     </div>
   </div>

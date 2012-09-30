@@ -73,19 +73,13 @@ ul li { list-style:disc; }
 ol li { list-style:decimal; }
 
 .content {
-  background:#db7466;
-  border-top:1px solid #c6615b;
-  color:#643b44;
+  background:#e0e0e0;
   margin-top:40px;
   padding:10px 0 80px;
   }
+  .content h2,
   .content h3 {
-    color:#fff;
-    text-shadow:0 1px 0 rgba(0,0,0,0.15);
-    }
-  .content h2 {
-    color:#fff;
-    text-shadow:0 1px 0 rgba(0,0,0,0.15);
+    color:#202020;
     }
 a {
   color:#404040;
@@ -228,17 +222,16 @@ code {
   font-family:Consolas, Menlo, 'Liberation Mono', Courier, monospace;
   word-wrap:break-word;
   color:#333;
-  font-weight:bold;
   }
 pre {
   font-size:13px;
   line-height:1.25em;
-  background:#f8c781;
+  background:#fff;
   padding:10px 15px;
   margin:10px 0;
   overflow: auto;
-  -webkit-box-shadow:0 1px 4px rgba(0,0,0,0.20);
-          box-shadow:0 1px 4px rgba(0,0,0,0.20);
+  -webkit-box-shadow:0 2px 3px rgba(0, 0, 0, 0.30);
+          box-shadow:0 2px 3px rgba(0, 0, 0, 0.30);
   -webkit-border-radius:3px;
           border-radius:3px;
   }
@@ -246,8 +239,8 @@ code {
   font-size:12px;
   border:0;
   padding:0;
-  background:#c6615b;
-  box-shadow:#c6615b 0 0 0 2px;
+  background:rgba(0,0,0,0.10);
+  box-shadow:0 0 0 2px rgba(0,0,0,0.10);
   }
 pre code {
   font-size:13px;
@@ -259,53 +252,60 @@ pre code {
   margin:0;
   }
 
-/*  -------------------------------------------------------
- *    Pretty syntax highlighting
- *
- *    Acronym Key
- *    =====================================================
- *   .str = string content
- *   .kwd = keyword
- *   .com = comment
- *   .typ = type name
- *   .lit = literal value
- *   .pun = punctuation
- *   .opn = lisp open bracket
- *   .clo = listp close bracket
- *   .tag = markup tag name
- *   .atn = markup attribute name
- *   .atv = markup attribute value
- *   .dec = declaration
- *   .var = variable name
- *   .fun = function name
- *
- *  ------------------------------------------------------- */
+@media screen {
+  .com { color: #999988; }  /* a comment */
+  .lit, .typ { color: #445588; } /* literal, type */
+  .tag { color: navy; } /* tag */
+  .atv, str { color: #dd1144; } /* attribute, string */
+  .dec, .clo, .opn, .pun, .kwd { color: #333333; } /* a declaration, close bracket, open bracket, punctuation, keyword */
+  .var, .atn { color: teal; } /* variable, markup attribute */
+  .fun { color: #990000; } /* functione */ 
+}
+/* Use higher contrast and text-weight for printable form. */
+@media print, projection {
+  .str { color: #060; }
+  .kwd { color: #006; font-weight: bold; }
+  .com { color: #600; font-style: italic; }
+  .typ { color: #404; font-weight: bold; }
+  .lit { color: #044; }
+  .pun, .opn, .clo  { color: #440; }
+  .tag { color: #006; font-weight: bold; }
+  .atn { color: #404; }
+  .atv { color: #060; } 
+}
+/* Style */
+pre.prettyprint {
+  background: white;
+  font-family: Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px; }
 
-/*greys*/
-.pln { color:#616f6f; }
-.com { color:#808080; }
-.pun,
-.opn,
-.clo { color:#909090; }
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+  margin-top: 0;
+  margin-bottom: 0; }
 
-/*rust*/
-.fun { color:#DF6637; }
+/* IE indents via margin-left */
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L4,
+li.L5,
+li.L6,
+li.L7,
+li.L8,
+li.L9 {
+  /* */ }
 
-/*green*/
-.str,
-.atv { color:#643b44; font-weight:normal; }
-
-/*dark blue*/
-.kwd,
-.linenums,
-.tag { color:#c6615b; }
-
-/*light blue*/
-.lit,
-.typ,
-.atn,
-.dec,
-.var { color:#52867e; }
+/* Alternate shading for lines */
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 {
+  /* */ }
 
 
 /* Specify class=linenums on a pre to get line numbering */
