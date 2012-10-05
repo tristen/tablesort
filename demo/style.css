@@ -73,9 +73,8 @@ ul li { list-style:disc; }
 ol li { list-style:decimal; }
 
 .content {
-  background:#EAEEF1;
   margin-top:40px;
-  padding:10px 0 80px;
+  padding:0 0 60px;
   }
   .content h2,
   .content h3 {
