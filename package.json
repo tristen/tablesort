@@ -1,13 +1,14 @@
 {
     "name": "tablesort",
-    "description": "tablesort BRAP tablesort BRAP",
-    "version": "1.2.2",
+    "description": "A sorting component for HTML tables",
+    "version": "1.3.0",
     "author": "tristen <@fallsemo>",
     "main": "./tablesort.js",
     "ender": "./ender.js",
     "homepage": "http://tristen.ca/tablesort/demo",
     "contributors": [
-      "Olivier Vaillancourt <@ovaillancourt>"
+      "Olivier Vaillancourt <@ovaillancourt>",
+      "Dmitry Kichenko <@imissmyjuno>"
     ],
     "licenses": [{
       "type": "MIT"

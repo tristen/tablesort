@@ -63,6 +63,7 @@
         <tr>
           <th>#</th>
           <th>Name</th>
+          <th>Birthday</th>
           <th>Grocery item</th>
           <th>Price</th>
         </tr>
@@ -70,37 +71,43 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>Gonzo</td>
+          <td>Gonzo the Great</td>
+          <td>12/02/70</td>
           <td>Radishes</td>
           <td>$0.63</td>
         </tr>
         <tr>
           <td>2</td>
           <td>Ernie</td>
+          <td>10/11/69</td>
           <td>Fish</td>
           <td>$12.09</td>
         </tr>
         <tr>
           <td>3</td>
           <td>Bert</td>
+          <td>10/11/69</td>
           <td>Broccoli</td>
           <td>$0.79</td>
         </tr>
         <tr>
           <td>4</td>
           <td>Cookie Monster</td>
+          <td>01/09/66</td>
           <td>Oreo cookies</td>
           <td>$2.78</td>
         </tr>
         <tr>
           <td>5</td>
           <td>Kermit</td>
+          <td>12/05/55</td>
           <td>Granola</td>
           <td>$4.73</td>
         </tr>
         <tr>
           <td>6</td>
           <td>Sam the Eagle</td>
+          <td>04/07/75</td>
           <td>Corn dog</td>
           <td>$5.50</td>
         </tr>
@@ -127,6 +134,7 @@
         <li>Sort strings</li>
         <li>Sort numbers</li>
         <li>Sort currency </li>
+        <li>Basic date sorting: in <code>dd/mm/yy</code> or <code>dd-mm-yy</code> format.</li>
       </ul>
 
       <h2>Additional options</h2>
@@ -180,6 +188,8 @@
     border-width:0 4px 4px;
     }</pre>
 
+    <h2>Licence</h2>
+    <p>MIT</p>
     </div>
   </div>
 </div>  
@@ -189,12 +199,12 @@
   masthead.masthead();
 </script>
 <script src='prettify.js'></script>
-<script src='../tablesort.min.js'></script>
+<script src='../tablesort.js'></script>
 <script>
   var table = document.getElementById('sort');
   new Tablesort(table);
 </script>
-<script type="text/javascript">
+<script>
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-15498769-1']);

@@ -76,10 +76,6 @@ ol li { list-style:decimal; }
   margin-top:40px;
   padding:0 0 60px;
   }
-  .content h2,
-  .content h3 {
-    color:#202020;
-    }
 a {
   color:#404040;
   font-weight:bold;
@@ -184,32 +180,35 @@ table th.sort-up:after {
   margin:50px auto 0;
   }
 .links a {
-  background:#fff;
-  background:-webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eee));
-  background:-moz-linear-gradient(top, #f6f6f6, #eee);
-  border:1px solid #b8b8b8;
+  background:#1F90FF;
+  background:-webkit-gradient(linear, left top, left bottom, from(#1F90FF), to(#0081ff));
+  background:-moz-linear-gradient(top, #1F90FF, #0081ff);
+  border:1px solid #1f4fff;
   width:50%;
   height:40px;
   line-height:38px;
+  color:#fff;
+  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
   display:inline-block;
   float:left;
   margin-left:-1px;
   text-align:center;
-  -webkit-transition:all 150ms linear;
-     -moz-transition:all 150ms linear;
-       -o-transition:all 150ms linear;
-          transition:all 150ms linear;
+  -webkit-transition:box-shadow 150ms linear;
+     -moz-transition:box-shadow 150ms linear;
+       -o-transition:box-shadow 150ms linear;
+          transition:box-shadow 150ms linear;
   -moz-box-sizing:border-box;
        box-sizing:border-box;
   }
   .links a:hover {
-    -webkit-box-shadow:0 1px 4px rgba(0,0,0,0.15);
-            box-shadow:0 1px 4px rgba(0,0,0,0.15);
+    -webkit-box-shadow:0 1px 5px rgba(0,0,0,0.25);
+            box-shadow:0 1px 5px rgba(0,0,0,0.25);
     }
+  .links a:focus,
   .links a:active {
-    background:#fff;
-    -webkit-box-shadow:inset 0 1px 4px rgba(0,0,0,0.15);
-            box-shadow:inset 0 1px 4px rgba(0,0,0,0.15);
+    background:#0081ff;
+    -webkit-box-shadow:inset 0 1px 5px rgba(0,0,0,0.25);
+            box-shadow:inset 0 1px 5px rgba(0,0,0,0.25);
     }
 
 .options {
@@ -229,17 +228,15 @@ pre {
   padding:10px 15px;
   margin:10px 0;
   overflow: auto;
-  -webkit-box-shadow:0 2px 3px rgba(0, 0, 0, 0.30);
-          box-shadow:0 2px 3px rgba(0, 0, 0, 0.30);
-  -webkit-border-radius:3px;
-          border-radius:3px;
+  -webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.30);
+          box-shadow:0 1px 3px rgba(0, 0, 0, 0.30);
   }
 code {
   font-size:12px;
   border:0;
   padding:0;
-  background:rgba(0,0,0,0.10);
-  box-shadow:0 0 0 2px rgba(0,0,0,0.10);
+  background:rgba(0,0,0,0.08);
+  box-shadow:0 0 0 2px rgba(0,0,0,0.08);
   }
 pre code {
   font-size:13px;
@@ -278,7 +275,7 @@ pre.prettyprint {
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
   line-height: 1.5;
-  padding: 10px; }
+  padding: 15px 10px; }
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums {

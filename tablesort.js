@@ -1,198 +1,227 @@
 //  tablesort.js
 //  tristen @fallsemo
+(function () {
+    function Tablesort(el, options) {
+        el.tagName === 'TABLE' ? this.init(el, options || {}) : console.error('Element must be a table');
+    }
 
-function Tablesort(el, options) {
-    el.tagName === 'TABLE' ? this.init(el, options || {}) : console.error('Element must be a table');
-}
+    Tablesort.prototype = {
+        init: function (el, options) {
+            var that = this;
+            var firstRow;
+            this.thead = false;
+            this.options = options;
+            this.options.d = options.descending || false;
 
-Tablesort.prototype = {
-    init: function(el, options) {
-        var that = this;
-        var firstRow;
-        this.thead =  false;
-        this.options = options;
-        this.options.d = options.descending || false;
-
-        if (el.rows && el.rows.length > 0) {
-            if (el.tHead && el.tHead.rows.length > 0) {
-                firstRow = el.tHead.rows[el.tHead.rows.length -1];
-                that.thead = true;
-            } else {
-                firstRow = el.rows[0];
+            if(el.rows && el.rows.length > 0) {
+                if(el.tHead && el.tHead.rows.length > 0) {
+                    firstRow = el.tHead.rows[el.tHead.rows.length - 1];
+                    that.thead = true;
+                } else {
+                    firstRow = el.rows[0];
+                }
             }
-        }
-        if (!firstRow) return;
+            if(!firstRow) return;
 
-        //  Assume first row is the header and attach a click handler to each.
-        for (var i = 0; i < firstRow.cells.length; i++) {
-            var cell = firstRow.cells[i];
-            if (!that.hasClass(cell, 'no-sort')) {
-                cell.className += ' sort-header';
-                this.addEvent(cell, 'click', function(e) {
-                    // Delete any sort classes on table headers that are not the current one.
-                    var siblings = that.getParent(cell, 'tr').getElementsByTagName('th');
-                    for (var i = 0; i < siblings.length; i++) {
-                        if (that.hasClass(siblings[i], 'sort-up') || that.hasClass(siblings[i], 'sort-down')) {
-                            if (siblings[i] !== this) {
-                                siblings[i].className = siblings[i].className
-                                                        .replace(' sort-down', '')
-                                                        .replace(' sort-up', '');
+            //  Assume first row is the header and attach a click handler to eech.
+            for(var i = 0; i < firstRow.cells.length; i++) {
+                var cell = firstRow.cells[i];
+                if(!hasClass(cell, 'no-sort')) {
+                    cell.className += ' sort-header';
+                    addEvent(cell, 'click', function (e) {
+                        // Delete any sort classes on table headers that are not the current one.
+                        var siblings = getParent(cell, 'tr').getElementsByTagName('th');
+                        for(var i = 0; i < siblings.length; i++) {
+                            if(hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
+                                if(siblings[i] !== this) {
+                                    siblings[i].className = siblings[i].className.replace(' sort-down', '')
+                                        .replace(' sort-up', '');
+                                }
                             }
                         }
+                        that.sortTable(this);
+                    });
+                }
+            }
+        },
+        sortTable: function (header) {
+            var that = this;
+            var column = header.cellIndex;
+            var t = getParent(header, 'table');
+
+            var sortCaseInsensitive = function (a, b) {
+                var aa = getInnerText(a.cells[that.col]).toLowerCase();
+                var bb = getInnerText(b.cells[that.col]).toLowerCase();
+                if(aa === bb) return 0;
+                if(aa < bb) return 1;
+                return -1;
+            };
+            var sortNumber = function (a, b) {
+                var aa = getInnerText(a.cells[that.col]);
+                aa = cleanNumber(aa);
+                var bb = getInnerText(b.cells[that.col]);
+                bb = cleanNumber(bb);
+                return compareNumber(bb, aa);
+            };
+            var sortDate = function(a, b) {
+                var aa = getInnerText(a.cells[that.col]).toLowerCase(),
+                    bb = getInnerText(b.cells[that.col]).toLowerCase();
+                return parseDate(bb) - parseDate(aa);
+            };
+
+            // Work out a type for the column
+            if(t.rows.length <= 1) return;
+            var item = '';
+            var i = 0;
+            while(item === '' && i < t.tBodies[0].rows.length) {
+                item = getInnerText(t.tBodies[0].rows[i].cells[column]);
+                item = trim(item);
+                if(item.substr(0, 4) === '<!--' || item.length === 0) {
+                    item = '';
+                }
+                i++;
+            }
+            if(item === '') return;
+            var sortFunction;
+
+            // Sort as number if a currency key exists or number
+            if(item.match(/^-?[£$Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[-+][\d]+)?%?$/)) {
+                sortFunction = sortNumber;
+            } else if(testDate(item)) {
+                sortFunction = sortDate;
+            } else {
+                console.log('string');
+                sortFunction = sortCaseInsensitive;
+            }
+            this.col = column;
+            var firstRow = [],
+                newRows = [],
+                k, j;
+
+            for(k = 0; k < t.tBodies.length; k++) {
+                for(i = 0; i < t.tBodies[k].rows[0].length; i++) {
+                    firstRow[i] = t.tBodies[k].rows[0][i];
+                }
+            }
+            for(k = 0; k < t.tBodies.length; k++) {
+                if(!that.thead) {
+                    // skip the first row
+                    for(j = 1; j < t.tBodies[k].rows.length; j++) {
+                        newRows[j - 1] = t.tBodies[k].rows[j];
                     }
-                    that.sortTable(this);
-                });
-            }
-        }
-    },
-    sortTable: function(header) {
-        var that = this;
-        var column = header.cellIndex;
-        var t = this.getParent(header, 'table');
-        var sortCaseInsensitive = function(a, b) {
-            var aa = that.getInnerText(a.cells[that.col]).toLowerCase();
-            var bb = that.getInnerText(b.cells[that.col]).toLowerCase();
-            if (aa === bb) return 0;
-            if (that.options.d) {
-                if (aa < bb) return -1;
-                return 1;
-            }
-            if (aa < bb) return 1;
-            return -1;
-        };
-        var sortNumber = function(a, b) {
-            var aa = that.getInnerText(a.cells[that.col]);
-            aa = that.cleanNumber(aa);
-            var bb = that.getInnerText(b.cells[that.col]);
-            bb = that.cleanNumber(bb);
-
-            if (that.options.d) return that.compareNumber(aa, bb);
-            return that.compareNumber(bb, aa);
-        };
-
-        // Work out a type for the column
-        if (t.rows.length <= 1) return;
-        var item = '';
-        var i = 0;
-        while (item === '' && i < t.tBodies[0].rows.length) {
-            var item = that.getInnerText(t.tBodies[0].rows[i].cells[column]);
-            item = that.trim(item);
-            if (item.substr(0,4) === '<!--' || item.length === 0) {
-                item = '';
-            }
-            i++;
-        }
-        if (item === '') return;
-        var sortFunction;
-        // Sort as number if a currency key exists or number
-        if (item.match(/^-?[£$Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/)) {
-            sortFunction = sortNumber;
-        } else {
-            sortFunction = sortCaseInsensitive;
-        }
-        this.col = column;
-        var firstRow = [], newRows = [], k, j;
-
-        for (k = 0; k < t.tBodies.length; k++) {
-            for (i = 0; i < t.tBodies[k].rows[0].length; i++) {
-                firstRow[i] = t.tBodies[k].rows[0][i];
-            }
-        }
-        for (k = 0; k < t.tBodies.length; k++) {
-            if (!that.thead) {
-                // skip the first row
-                for (j = 1; j < t.tBodies[k].rows.length; j++) {
-                    newRows[j-1] = t.tBodies[k].rows[j];
-                }
-            } else {
-                // don't skip the first row
-                for (j = 0; j < t.tBodies[k].rows.length; j++) {
-                    newRows[j] = t.tBodies[k].rows[j];
+                } else {
+                    // don't skip the first row
+                    for(j = 0; j < t.tBodies[k].rows.length; j++) {
+                        newRows[j] = t.tBodies[k].rows[j];
+                    }
                 }
             }
-        }
-        newRows.sort(sortFunction);
+            newRows.sort(sortFunction);
 
-        // TODO Optimize.
-        if (that.options.d) {
-            if (that.hasClass(header, 'sort-up')) {
-                header.className = header.className.replace(/ sort-up/, '');
-                header.className += ' sort-down';
+            // TODO Optimize.
+            if(that.options.d) {
+                if(hasClass(header, 'sort-up')) {
+                    header.className = header.className.replace(/ sort-up/, '');
+                    header.className += ' sort-down';
+                    newRows.reverse();
+                } else {
+                    header.className = header.className.replace(/ sort-down/, '');
+                    header.className += ' sort-up';
+                }
             } else {
-                header.className = header.className.replace(/ sort-down/, '');
-                header.className += ' sort-up';
-                newRows.reverse();
+                if(hasClass(header, 'sort-down')) {
+                    header.className = header.className.replace(/ sort-down/, '');
+                    header.className += ' sort-up';
+                } else {
+                    header.className = header.className.replace(/ sort-up/, '');
+                    header.className += ' sort-down';
+                    newRows.reverse();
+                }
             }
-        } else {
-            if (that.hasClass(header, 'sort-down')) {
-                header.className = header.className.replace(/ sort-down/, '');
-                header.className += ' sort-up';
-            } else {
-                header.className = header.className.replace(/ sort-up/, '');
-                header.className += ' sort-down';
-                newRows.reverse();
-            }
-        }
 
-        // append rows that already exist rather than creating new ones
-        for (i = 0; i < newRows.length; i++) {
-            if (!newRows[i].className) {
-                t.tBodies[0].appendChild(newRows[i]);
+            // append rows that already exist rather than creating new ones
+            for(i = 0; i < newRows.length; i++) {
+                if(!newRows[i].className) {
+                    t.tBodies[0].appendChild(newRows[i]);
+                    }
             }
         }
-    },
-    getInnerText: function(el) {
-        var that = this;
-        if (typeof el === 'string' || typeof el === 'undefined') return el;
-        if (el.innerText) return el.innerText;
-        var str = '';
-        var cs = el.childNodes;
-        var l = cs.length;
-        for (var i = 0; i < l; i++) {
-            switch (cs[i].nodeType) {
-                case 1: // ELEMENT_NODE
-                str += that.getInnerText(cs[i]);
-                break;
-                case 3:	// TEXT_NODE
-                str += cs[i].nodeValue;
-                break;
+    };
+    
+    var week = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
+        commonDate = /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/,
+        month = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
+
+    var testDate = function(date) {
+            return (
+                date.search(week) !== -1 ||
+                date.search(commonDate) !== -1  ||
+                date.search(month !== -1)
+            ) !== -1 ;
+        },
+        parseDate = function (date) {
+            date = date.replace(/\-/g, '/');
+            date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
+            return new Date(date).getTime();
+        },
+        getParent = function (el, pTagName) {
+            if(el === null) {
+                return null;
+            } else if(el.nodeType === 1 && el.tagName.toLowerCase() === pTagName.toLowerCase()) {
+                return el;
+            } else {
+                return getParent(el.parentNode, pTagName);
             }
-        }
-        return str;
-    },
-    getParent: function(el, pTagName) {
-        if (el === null) {
-            return null;
-        } else if (el.nodeType === 1 && el.tagName.toLowerCase() === pTagName.toLowerCase()) {
-            return el;
-        } else {
-            return this.getParent(el.parentNode, pTagName);
-        }
-    },
-    compareNumber: function(a, b) {
-        var aa = parseFloat(a);
-        a = isNaN(aa) ? 0 : aa;
-        var bb = parseFloat(b);
-        b = isNaN(bb) ? 0 : bb;
-        return a - b;
-    },
-    trim: function(s) {
-        return s.replace(/^\s+|\s+$/g, '');
-    },
-    cleanNumber: function(i) {
-        return i.replace(/[^\-?0-9.]/g, '');
-    },
-    hasClass: function(el, c) {
-        return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
-    },
-    // http://ejohn.org/apps/jselect/event.html
-    addEvent: function(object, event, method) {
-        if (object.attachEvent) {
-            object['e' + event + method] = method;
-            object[event + method] = function(){object['e' + event + method](window.event);};
-            object.attachEvent('on' + event, object[event + method]);
-        } else {
-        object.addEventListener(event, method, false);
-        }
-    }
-};
+        },
+        getInnerText = function (el) {
+            var that = this;
+            if(typeof el === 'string' || typeof el === 'undefined') return el;
+            if(el.innerText) return el.innerText;
+            var str = '';
+            var cs = el.childNodes;
+            var l = cs.length;
+            for(var i = 0; i < l; i++) {
+                switch(cs[i].nodeType) {
+                case 1:
+                    // ELEMENT_NODE
+                    str += that.getInnerText(cs[i]);
+                    break;
+                case 3:
+                    // TEXT_NODE
+                    str += cs[i].nodeValue;
+                    break;
+                }
+            }
+            return str;
+        },
+        compareNumber = function (a, b) {
+            var aa = parseFloat(a);
+            a = isNaN(aa) ? 0 : aa;
+            var bb = parseFloat(b);
+            b = isNaN(bb) ? 0 : bb;
+            return a - b;
+        },
+        trim = function (s) {
+            return s.replace(/^\s+|\s+$/g, '');
+        },
+        cleanNumber = function (i) {
+            return i.replace(/[^\-?0-9.]/g, '');
+        },
+        hasClass = function (el, c) {
+            return(' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
+        },
+        // http://ejohn.org/apps/jselect/event.html
+        addEvent = function (object, event, method) {
+            if(object.attachEvent) {
+                object['e' + event + method] = method;
+                object[event + method] = function () {
+                    object['e' + event + method](window.event);
+                };
+                object.attachEvent('on' + event, object[event + method]);
+            } else {
+                object.addEventListener(event, method, false);
+            }
+        };
+
+    window.Tablesort = Tablesort;
+})();

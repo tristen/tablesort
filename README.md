@@ -15,6 +15,7 @@ Tablesort is a small and simple sorting component for tables written in Javascri
 * Sort strings
 * Sort numbers
 * Sort currency
+* Basic date sorting: in `dd/mm/yy` or `dd-mm-yy` format.
 
 ## Additional options
 
