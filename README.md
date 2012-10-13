@@ -45,7 +45,7 @@ var sort = new Tablesort(table);
 sort.refresh();
 ```
 
-[See homepage page for example](http://tristen.ca/tablesort/demo/#refresh)
+[See homepage for example](http://tristen.ca/tablesort/demo/#refresh)
 
 ## Ender support
 Add `tablesort` as an internal chain method to your [Ender](http://ender.no.de) compilation.
