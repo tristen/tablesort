@@ -1,6 +1,6 @@
 # tablesort.js
 
-Tablesort is a small and simple sorting component for tables written in Javascript. It has no dependencies and should have no interference with other libraries.
+Tablesort is a small & simple sorting component for tables written in Javascript. It has no dependencies and should have no interference with other libraries.
 
 ## Basic usage
 
@@ -10,16 +10,16 @@ Tablesort is a small and simple sorting component for tables written in Javascri
   new Tablesort(document.getElementById('table-id'));
 </script>
 ```
-## Features
+## Sort Types
 
-* Sort strings
-* Sort numbers
-* Sort currency
-* Basic date sorting: in `dd/mm/yy` or `dd-mm-yy` format.
+* strings
+* numbers
+* currency
+* Basic dates in `dd/mm/yy` or `dd-mm-yy` format. Years can be 4 digits. Days and Months can be 1 or 2 digits.
 
 ## Additional options
 
-__1. Ascending/Descending__
+__Ascending/Descending__
 You can pass in options as a second parameter. Currently one option is supported: `descending: true`. By default, sort is set to ascending.
 
 ``` html
@@ -28,17 +28,31 @@ new Tablesort(document.getElementById('table-id'), {
 });
 ```
 
-__2. Exclude columns__
+__Exclude columns__
 For columns that do not require sorting, you can add a class of `no-sort`
 ``` html
 <th class='no-sort'>Name</th>
 ```
 
-## Ender support
+__Refresh sort on appended data__
+Tablesort supports sorting when new data has been added. Simply call the refresh method.
 
+``` js
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table);
+
+// Make some Ajax request to fetch new data and on success:
+sort.refresh();
+```
+
+[See homepage page for example](http://tristen.ca/tablesort/demo/#refresh)
+
+## Ender support
 Add `tablesort` as an internal chain method to your [Ender](http://ender.no.de) compilation.
 
-    $ ender add tablesort
+``` shell
+$ ender add tablesort
+```
 
 Use it:
 
@@ -61,7 +75,7 @@ table th.sort-header:after {
   content:'';
   float:right;
   margin-top:7px;
-  border-width:4px 4px 0;
+  border-width:0 4px 4px;
   border-style:solid;
   border-color:#404040 transparent;
   visibility:hidden;
@@ -76,7 +90,8 @@ table th.sort-down:hover:after {
   opacity:0.4;
   }
 table th.sort-up:after {
-  border-width:0 4px 4px;
+  border-bottom:none;
+  border-width:4px 4px 0;
   }
 ```
 
@@ -92,7 +107,15 @@ Developers can rebuild the minified library by running:
 ## TODOs
 
 * Tests
-* Sort on date
 * Pass in an options object to:
   - Choose which row to begin sorting on.
-  - EventListener to rebuild the table.
+  - EventListener to rebuild the table in Ender.
+
+## Licence
+
+MIT
+
+## Bugs?
+
+[Create an issue](https://github.com/tristen/tablesort/issues)
+

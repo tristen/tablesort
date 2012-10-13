@@ -56,7 +56,7 @@
 <div class='page'>
   <div class='inner'>
     <div class='heading'>
-      <h1><a href='http://github.com/tristen/tablesort'>tablesort </a><span class='description'>is a small and simple sorting component for tables. Written in Javascript & dependency free with optional <a href='http://ender.no.de'>Ender</a> support.</span></h1>
+      <h1><a href='http://github.com/tristen/tablesort'>tablesort</a><span class='description'> a small &amp; simple sorting component for tables. Written in Javascript and dependency free with optional <a href='http://ender.no.de'>Ender</a> support.</span></h1>
     </div>
     <table id='sort' class='sort'>
       <thead>
@@ -72,7 +72,7 @@
         <tr>
           <td>1</td>
           <td>Gonzo the Great</td>
-          <td>12/02/70</td>
+          <td>12-2-70</td>
           <td>Radishes</td>
           <td>$0.63</td>
         </tr>
@@ -86,21 +86,21 @@
         <tr>
           <td>3</td>
           <td>Bert</td>
-          <td>10/11/69</td>
+          <td>10/11/1969</td>
           <td>Broccoli</td>
           <td>$0.79</td>
         </tr>
         <tr>
           <td>4</td>
           <td>Cookie Monster</td>
-          <td>01/09/66</td>
+          <td>1/09/1966</td>
           <td>Oreo cookies</td>
           <td>$2.78</td>
         </tr>
         <tr>
           <td>5</td>
           <td>Kermit</td>
-          <td>12/05/55</td>
+          <td>12-05-1955</td>
           <td>Granola</td>
           <td>$4.73</td>
         </tr>
@@ -114,8 +114,8 @@
       </tbody>
     </table>
     <div class='links clearfix'>
-      <a href='https://raw.github.com/tristen/tablesort/gh-pages/tablesort.min.js'>Download the minified script</a>
-      <a href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
+      <a class='button' href='https://raw.github.com/tristen/tablesort/gh-pages/tablesort.min.js'>Download the minified script</a>
+      <a class='button' href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
     </div>
 
   </div>
@@ -123,76 +123,118 @@
     <div class='inner'>
       <h2>Basic usage</h2>
   <pre class='prettyprint'>
-  &lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
+&lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
 
-  &lt;script&gt;
-    new Tablesort(document.getElementById('table-id'));
-  &lt;/script&gt;</pre>
+&lt;script&gt;
+  new Tablesort(document.getElementById('table-id'));
+&lt;/script&gt;</pre>
 
-      <h2>Current features</h2>
+      <h2>Sort Types</h2>
       <ul>
-        <li>Sort strings</li>
-        <li>Sort numbers</li>
-        <li>Sort currency </li>
-        <li>Basic date sorting: in <code>dd/mm/yy</code> or <code>dd-mm-yy</code> format.</li>
+        <li>strings</li>
+        <li>numbers</li>
+        <li>currency </li>
+        <li>Basic dates in <code>dd/mm/yy</code> or <code>dd-mm-yy</code> format. Years can be
+        4 digits. Days and Months can be 1 or 2 digits.</li>
       </ul>
 
       <h2>Additional options</h2>
       <div class='options'>
-        <h3>1. Ascending/Descending</h3>
-        <p>You can pass in options as a second parameter. Currently one option is supported: <code>descending: true</code>. By default, sort is set to ascending.</p>
+        <h3>Ascending/Descending</h3>
+        <p>You can pass an alternate sort order as a second parameter. By default sort is ascending. To change this, set:</p>
   <pre class='prettyprint'>
-  new Tablesort(document.getElementById('table-id'), {
-    descending: true
-  });</pre>
-        <h3>2. Exclude columns</h3>
+new Tablesort(document.getElementById('table-id'), {
+  descending: true
+});</pre>
+<p class='notice'><strong>Note:</strong> If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</p>
+        <h3>Exclude columns</h3>
         For columns that do not require sorting, you can add a class of <code>no-sort</code>
   <pre class='prettyprint'>
-  &lt;th class='no-sort'&gt;Name&lt;/th&gt;</pre>
+&lt;th class='no-sort'&gt;Name&lt;/th&gt;</pre>
+
+        <h3 id='refresh'>Refresh sort on appended data</h3>
+        <p>Tablesort supports sorting when new data has been added. Simply call the refresh method.</p>
+        <pre class='prettyprint'>
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table);
+
+// Make some Ajax request to fetch new data and on success:
+sort.refresh();
+</pre>
+        <table id='refresh-table' class='sort'>
+          <thead>
+            <tr>
+              <th>Trumpet Player</th>
+              <th>Born</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Roy Eldridge</td>
+              <td>1911</td>
+            </tr>
+            <tr>
+              <td>Tim Hagans</td>
+              <td>1954</td>
+            </tr>
+            <tr>
+              <td>Freddie Hubbard</td>
+              <td>1938</td>
+            </tr>
+          </tbody>
+        </table>
+        <a href='#' id='add' class='button'>Append a row</a>
+        <a href='#' id='remove' class='button'>Remove a row</a>
       </div>
-      <h2>Ender support</h2>
-      <p>Add <code>tablesort</code> as an internal chain method to your <a href='http://ender.no.de'>Ender</a> compilation.</p>
-  <pre class='prettyprint'>$ ender add tablesort
-  // Use it:
-  $('.table').tablesort();</pre>
+      <h2><a href='http://ender.no.de'>Ender</a> support</h2>
+<pre class='prettyprint'>$ ender add tablesort</pre>
+
+<p>Add <code>tablesort</code> as an internal chain method.</p>
+<pre class='prettyprint'>
+$('.table').tablesort();
+</pre>
 
       <h2>Default style</h2>
       <p>Add the styling below to your CSS or roll with your own.</p>
   <pre class='prettyprint' style='font-weight:normal;'>
-  th.sort-header {
-    cursor:pointer;
-    }
-  th.sort-header::-moz-selection,
-  th.sort-header::selection {
-    background:transparent;
-    }
-  table th.sort-header:after {
-    content:'';
-    float:right;
-    margin-top:7px;
-    border-width:4px 4px 0;
-    border-style:solid;
-    border-color:#404040 transparent;
-    visibility:hidden;
-    }
-  table th.sort-header:hover:after {
-    visibility:visible;
-    }
-  table th.sort-up:after,
-  table th.sort-down:after,
-  table th.sort-down:hover:after {
-    visibility:visible;
-    opacity:0.4;
-    }
-  table th.sort-up:after {
-    border-width:0 4px 4px;
-    }</pre>
+th.sort-header {
+  cursor:pointer;
+  }
+th.sort-header::-moz-selection,
+th.sort-header::selection {
+  background:transparent;
+  }
+table th.sort-header:after {
+  content:'';
+  float:right;
+  margin-top:7px;
+  border-width:0 4px 4px;
+  border-style:solid;
+  border-color:#404040 transparent;
+  visibility:hidden;
+  }
+table th.sort-header:hover:after {
+  visibility:visible;
+  }
+table th.sort-up:after,
+table th.sort-down:after,
+table th.sort-down:hover:after {
+  visibility:visible;
+  opacity:0.4;
+  }
+table th.sort-up:after {
+  border-bottom:none;
+  border-width:4px 4px 0;
+  }</pre>
 
     <h2>Licence</h2>
     <p>MIT</p>
+
+    <h2>Bugs?</h2>
+    <a href='https://github.com/tristen/tablesort/issues'>File Them</a>
     </div>
   </div>
-</div>  
+</div>
 <script src='http://tristen.ca/site.js'></script>
 <script>
   var masthead = new Tristen();
@@ -201,8 +243,86 @@
 <script src='prettify.js'></script>
 <script src='../tablesort.js'></script>
 <script>
-  var table = document.getElementById('sort');
-  new Tablesort(table);
+  new Tablesort(document.getElementById('sort'));
+
+  var trumpeters = [
+    {
+      "name": "Miles Davis",
+      "born": 1926
+    },
+    {
+      "name": "Dizzy Gillespie",
+      "born": 1917
+    },
+    {
+      "name": "Wynton Marsalis",
+      "born": 1961
+    },
+    {
+      "name": "Tom Harell",
+      "born": 1946
+    },
+    {
+      "name": "Roy Hargrove",
+      "born": 1969
+    },
+    {
+      "name": "Chet Baker",
+      "born": 1929
+    },
+    {
+      "name": "Nicholas Payton",
+      "born": 1973
+    },
+    {
+      "name": "Wallace Roney",
+      "born": 1960
+    },
+    {
+      "name": "Rex Stewart",
+      "born": 1907
+    },
+    {
+      "name": "Tim Hagans",
+      "born": 1954
+    },
+    {
+      "name": "Roy Eldridge",
+      "born": 1911
+    },
+    {
+      "name": "Freddie Hubbard",
+      "born": 1938
+    }
+  ]
+  var r = document.getElementById('refresh-table');
+  var add = document.getElementById('add');
+  var remove = document.getElementById('remove');
+  var refresh = new Tablesort(r);
+
+addEvent(add, 'click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  var player = trumpeters[Math.floor(Math.random() * trumpeters.length)];
+
+  var rowCount = r.rows.length;
+  var row = r.insertRow(rowCount);
+
+  var cellName = row.insertCell(0);
+      cellName.innerHTML = player.name;
+
+  var cellBorn = row.insertCell(1);
+      cellBorn.innerHTML = player.born;
+
+  refresh.refresh();
+});
+addEvent(remove, 'click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  var rowCount = r.rows.length;
+  if (rowCount === 2) return;
+  r.deleteRow(rowCount - 1);
+});
 </script>
 <script>
 

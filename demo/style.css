@@ -44,7 +44,7 @@ body {
   font-size:13px;
   line-height:18px;
   color:#303030;
-  background-color:#f8f8f8;
+  background-color:#fafafa;
   -webkit-font-smoothing:antialiased;
   }
 h1,h2,h3,h4,h5 {
@@ -62,8 +62,8 @@ h1 {
 h1 span.description {
   color:#6d6d6d;
   }
-h2 { font-size:17px; line-height: 24px; margin:20px 0 5px;}
-
+h2 { font-size:18px; line-height:24px; margin:20px 0 10px;}
+h3 { font-size:15px; }
 ul { margin:0 0 20px; }
 li {
   margin-left:30px;
@@ -72,21 +72,36 @@ li {
 ul li { list-style:disc; }
 ol li { list-style:decimal; }
 
+strong {
+  font-weight:bold;
+  }
+.notice {
+  background:#e6e6e6;
+  background:rgba(0, 0, 0, 0.08);
+  display:block;
+  padding:10px;
+  margin-bottom:10px;
+  }
+
 .content {
   margin-top:40px;
   padding:0 0 60px;
   }
-a {
+.page a {
   color:#404040;
   font-weight:bold;
   text-decoration:none;
+  border-bottom:1px solid #ddd;
   }
+  .page a:hover {
+    border-color:#d0d0d0;
+    }
 table {
   background:#fff;
   max-width:100%;
   border-spacing:0;
   width:100%;
-  margin-bottom:18px;
+  margin:10px 0;
   border:1px solid #ddd;
   border-collapse:separate;
   *border-collapse:collapsed;
@@ -102,6 +117,10 @@ table {
     border-top:1px solid #ddd;
     }
   table th {
+    background:#eee;
+    background:-webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eee));
+    background:-moz-linear-gradient(top, #f6f6f6, #eee);
+    text-shadow:0 1px 0 #fff;
     font-weight:bold;
     vertical-align:bottom;
     }
@@ -128,12 +147,6 @@ table {
     }
 
 /*tablesort specific styling*/
-th {
-  background:#eee;
-  background:-webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eee));
-  background:-moz-linear-gradient(top, #f6f6f6, #eee);
-  text-shadow:0 1px 0 #fff;
-  }
 th.sort-header {
   cursor:pointer;
   }
@@ -145,7 +158,7 @@ table th.sort-header:after {
   content:'';
   float:right;
   margin-top:7px;
-  border-width:4px 4px 0;
+  border-width:0 4px 4px;
   border-style:solid;
   border-color:#404040 transparent;
   visibility:hidden;
@@ -160,7 +173,8 @@ table th.sort-down:hover:after {
   opacity:0.4;
   }
 table th.sort-up:after {
-  border-width:0 4px 4px;
+  border-bottom:none;
+  border-width:4px 4px 0;
   }
 
 .page .inner {
@@ -179,20 +193,23 @@ table th.sort-up:after {
   width:480px;
   margin:50px auto 0;
   }
-.links a {
+  .links a {
+    width:50%;
+    float:left;
+    }
+.page .button {
   background:#1F90FF;
   background:-webkit-gradient(linear, left top, left bottom, from(#1F90FF), to(#0081ff));
   background:-moz-linear-gradient(top, #1F90FF, #0081ff);
   border:1px solid #1f4fff;
-  width:50%;
-  height:40px;
-  line-height:38px;
+  height:36px;
+  line-height:34px;
   color:#fff;
   text-shadow:0 -1px 0 rgba(0, 0, 0, 0.4);
   display:inline-block;
-  float:left;
   margin-left:-1px;
   text-align:center;
+  padding:0 15px;
   -webkit-transition:box-shadow 150ms linear;
      -moz-transition:box-shadow 150ms linear;
        -o-transition:box-shadow 150ms linear;
@@ -200,21 +217,31 @@ table th.sort-up:after {
   -moz-box-sizing:border-box;
        box-sizing:border-box;
   }
-  .links a:hover {
+  .page .button:hover {
     -webkit-box-shadow:0 1px 5px rgba(0,0,0,0.25);
             box-shadow:0 1px 5px rgba(0,0,0,0.25);
+    border:1px solid #1f4fff;
     }
-  .links a:focus,
-  .links a:active {
+  .page .button:focus,
+  .page .button:active {
     background:#0081ff;
     -webkit-box-shadow:inset 0 1px 5px rgba(0,0,0,0.25);
             box-shadow:inset 0 1px 5px rgba(0,0,0,0.25);
     }
 
 .options {
-  margin:10px 0 30px 20px;
+  margin:10px 0 30px 15px;
   }
-  .options h3 { margin-left: -15px; }
+  .options h3 {
+    display:block;
+    padding-top:10px;
+    margin-top:20px;
+    }
+  .options h3:first-child {
+    border:none;
+    margin-top:0;
+    }
+
 pre,
 code {
   font-family:Consolas, Menlo, 'Liberation Mono', Courier, monospace;
@@ -235,6 +262,7 @@ code {
   font-size:12px;
   border:0;
   padding:0;
+  background:#e6e6e6;
   background:rgba(0,0,0,0.08);
   box-shadow:0 0 0 2px rgba(0,0,0,0.08);
   }
@@ -255,7 +283,7 @@ pre code {
   .atv, str { color: #dd1144; } /* attribute, string */
   .dec, .clo, .opn, .pun, .kwd { color: #333333; } /* a declaration, close bracket, open bracket, punctuation, keyword */
   .var, .atn { color: teal; } /* variable, markup attribute */
-  .fun { color: #990000; } /* functione */ 
+  .fun { color: #990000; } /* functione */
 }
 /* Use higher contrast and text-weight for printable form. */
 @media print, projection {
@@ -267,7 +295,7 @@ pre code {
   .pun, .opn, .clo  { color: #440; }
   .tag { color: #006; font-weight: bold; }
   .atn { color: #404; }
-  .atv { color: #060; } 
+  .atv { color: #060; }
 }
 /* Style */
 pre.prettyprint {
@@ -275,7 +303,8 @@ pre.prettyprint {
   font-family: Menlo, Monaco, Consolas, monospace;
   font-size: 12px;
   line-height: 1.5;
-  padding: 15px 10px; }
+  padding: 12px 10px;
+  }
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums {

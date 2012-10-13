@@ -23,13 +23,13 @@
             }
             if(!firstRow) return;
 
-            //  Assume first row is the header and attach a click handler to eech.
+            // Assume first row is the header and attach a click handler to eech.
             for(var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
                 if(!hasClass(cell, 'no-sort')) {
                     cell.className += ' sort-header';
                     addEvent(cell, 'click', function (e) {
-                        // Delete any sort classes on table headers that are not the current one.
+                        // Delete sort classes on headers that are not the current one.
                         var siblings = getParent(cell, 'tr').getElementsByTagName('th');
                         for(var i = 0; i < siblings.length; i++) {
                             if(hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
@@ -39,16 +39,33 @@
                                 }
                             }
                         }
+                        that.current = this;
                         that.sortTable(this);
                     });
                 }
             }
         },
-        sortTable: function (header) {
+        sortTable: function (header, update) {
             var that = this;
             var column = header.cellIndex;
             var t = getParent(header, 'table');
+            if(t.rows.length <= 1) return;
 
+            var item = '', i = 0;
+            while(item === '' && i < t.tBodies[0].rows.length) {
+                item = getInnerText(t.tBodies[0].rows[i].cells[column]);
+                item = trim(item);
+                // Exclude cell values where commented out HTML exists
+                if(item.substr(0, 4) === '<!--' || item.length === 0) {
+                    item = '';
+                }
+                i++;
+            }
+            if(item === '') return;
+
+            var sortFunction;
+
+            // Possible sortFunction scenarios
             var sortCaseInsensitive = function (a, b) {
                 var aa = getInnerText(a.cells[that.col]).toLowerCase();
                 var bb = getInnerText(b.cells[that.col]).toLowerCase();
@@ -69,28 +86,12 @@
                 return parseDate(bb) - parseDate(aa);
             };
 
-            // Work out a type for the column
-            if(t.rows.length <= 1) return;
-            var item = '';
-            var i = 0;
-            while(item === '' && i < t.tBodies[0].rows.length) {
-                item = getInnerText(t.tBodies[0].rows[i].cells[column]);
-                item = trim(item);
-                if(item.substr(0, 4) === '<!--' || item.length === 0) {
-                    item = '';
-                }
-                i++;
-            }
-            if(item === '') return;
-            var sortFunction;
-
             // Sort as number if a currency key exists or number
             if(item.match(/^-?[£$Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[-+][\d]+)?%?$/)) {
                 sortFunction = sortNumber;
             } else if(testDate(item)) {
                 sortFunction = sortDate;
             } else {
-                console.log('string');
                 sortFunction = sortCaseInsensitive;
             }
             this.col = column;
@@ -118,33 +119,38 @@
             }
             newRows.sort(sortFunction);
 
-            // TODO Optimize.
-            if(that.options.d) {
-                if(hasClass(header, 'sort-up')) {
-                    header.className = header.className.replace(/ sort-up/, '');
-                    header.className += ' sort-down';
-                    newRows.reverse();
+            if (!update) {
+                if(that.options.d) {
+                    if(hasClass(header, 'sort-up')) {
+                        header.className = header.className.replace(/ sort-up/, '');
+                        header.className += ' sort-down';
+                    } else {
+                        header.className = header.className.replace(/ sort-down/, '');
+                        header.className += ' sort-up';
+                    }
                 } else {
-                    header.className = header.className.replace(/ sort-down/, '');
-                    header.className += ' sort-up';
-                }
-            } else {
-                if(hasClass(header, 'sort-down')) {
-                    header.className = header.className.replace(/ sort-down/, '');
-                    header.className += ' sort-up';
-                } else {
-                    header.className = header.className.replace(/ sort-up/, '');
-                    header.className += ' sort-down';
-                    newRows.reverse();
+                    if(hasClass(header, 'sort-down')) {
+                        header.className = header.className.replace(/ sort-down/, '');
+                        header.className += ' sort-up';
+                    } else {
+                        header.className = header.className.replace(/ sort-up/, '');
+                        header.className += ' sort-down';
+                    }
                 }
             }
+
+            // Before we append should we reverse the new array or not?
+            if(hasClass(header, 'sort-down')) newRows.reverse();
 
             // append rows that already exist rather than creating new ones
             for(i = 0; i < newRows.length; i++) {
                 if(!newRows[i].className) {
                     t.tBodies[0].appendChild(newRows[i]);
-                    }
+                }
             }
+        },
+        refresh: function() {
+            if (this.current !== undefined) this.sortTable(this.current, true);
         }
     };
     
