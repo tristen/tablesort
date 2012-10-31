@@ -29,7 +29,7 @@ new Tablesort(document.getElementById('table-id'), {
 ```
 
 __Exclude columns__
-For columns that do not require sorting, you can add a class of `no-sort`
+For columns that do not require sorting, you can add a class of `no-sort` to a columns `th` element.
 ``` html
 <th class='no-sort'>Name</th>
 ```
