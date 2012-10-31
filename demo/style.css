@@ -76,8 +76,8 @@ strong {
   font-weight:bold;
   }
 .notice {
-  background:#e6e6e6;
-  background:rgba(0, 0, 0, 0.08);
+  background:#ffa;
+  border:1px solid #cc7;
   display:block;
   padding:10px;
   margin-bottom:10px;
