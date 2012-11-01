@@ -276,9 +276,13 @@ table th.sort-up:after {
   var remove = document.getElementById('remove');
   var refresh = new Tablesort(r);
 
+  function cancel(event) {
+    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+    (event.stopPropagation) ? event.stopPropagation() : event.cancelBubble = true;
+  }
+
 addEvent(add, 'click', function(e) {
-  e.preventDefault();
-  e.stopPropagation();
+  cancel(e);
   var player = trumpeters[Math.floor(Math.random() * trumpeters.length)];
 
   var rowCount = r.rows.length;
@@ -293,8 +297,7 @@ addEvent(add, 'click', function(e) {
   refresh.refresh();
 });
 addEvent(remove, 'click', function(e) {
-  e.preventDefault();
-  e.stopPropagation();
+  cancel(e);
   var rowCount = r.rows.length;
   if (rowCount === 2) return;
   r.deleteRow(rowCount - 1);
