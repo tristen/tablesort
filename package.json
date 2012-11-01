@@ -1,14 +1,15 @@
 {
     "name": "tablesort",
     "description": "A sorting component for HTML tables",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "author": "tristen <@fallsemo>",
     "main": "./tablesort.js",
     "ender": "./ender.js",
     "homepage": "http://tristen.ca/tablesort/demo",
     "contributors": [
       "Olivier Vaillancourt <@ovaillancourt>",
-      "Dmitry Kichenko <@imissmyjuno>"
+      "Dmitry Kichenko <@imissmyjuno>",
+      "Dong Liu <@dongliu>"
     ],
     "licenses": [{
       "type": "MIT"
