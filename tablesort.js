@@ -144,16 +144,14 @@
 
             // append rows that already exist rather than creating new ones
             for(i = 0; i < newRows.length; i++) {
-                if(!newRows[i].className) {
-                    t.tBodies[0].appendChild(newRows[i]);
-                }
+                t.tBodies[0].appendChild(newRows[i]);
             }
         },
         refresh: function() {
             if (this.current !== undefined) this.sortTable(this.current, true);
         }
     };
-    
+
     var week = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
         commonDate = /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/,
         month = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
