@@ -180,6 +180,7 @@
         getInnerText = function (el) {
             var that = this;
             if(typeof el === 'string' || typeof el === 'undefined') return el;
+            if(el.textContent) return el.textContent;
             if(el.innerText) return el.innerText;
             var str = '';
             var cs = el.childNodes;
