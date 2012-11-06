@@ -123,11 +123,19 @@ new Tablesort(document.getElementById('table-id'), {
   descending: true
 });</pre>
 <p class='notice'><strong>Note:</strong> If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</p>
-        <h3>Exclude columns</h3>
-        For columns that do not require sorting, you can add a class of <code>no-sort</code> to a columns <code>th</code> element.
-  <pre class='prettyprint'>
-&lt;th class='no-sort'&gt;Name&lt;/th&gt;</pre>
+        <h3>Exclude columns or rows</h3>
+        For columns or rows that do not require sorting, you can add a class of <code>no-sort</code> to a columns <code>th</code> or a <code>tr</code> element.
+<pre class='prettyprint'>
+&lt;th class='no-sort'&gt;Name&lt;/th&gt;
 
+&lt;tr class='no-sort'&gt;
+  &lt;td&gt;1&lt;/td&gt;
+  &lt;td&gt;Gonzo the Great&lt;/td&gt;
+  &lt;td&gt;12-2-70&lt;/td&gt;
+  &lt;td&gt;Radishes&lt;/td&gt;
+  &lt;td&gt;$0.63&lt;/td&gt;
+&lt;/tr&gt;
+</pre>
         <h3 id='refresh'>Refresh sort on appended data</h3>
         <p>Tablesort supports sorting when new data has been added. Simply call the refresh method.</p>
         <pre class='prettyprint'>

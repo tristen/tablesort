@@ -1,5 +1,7 @@
 //  tablesort.js
-//  tristen @fallsemo
+//  Version: 1.5.0
+//  Author: tristen @fallsemo
+
 (function () {
     function Tablesort(el, options) {
         el.tagName === 'TABLE' ? this.init(el, options || {}) : console.error('Element must be a table');
@@ -144,7 +146,11 @@
 
             // append rows that already exist rather than creating new ones
             for(i = 0; i < newRows.length; i++) {
-                t.tBodies[0].appendChild(newRows[i]);
+                // Don't sort on rows specified. TODO might want to
+                // do this more upstream.
+                if(!hasClass(newRows[i], 'no-sort')) {
+                    t.tBodies[0].appendChild(newRows[i]);
+                }
             }
         },
         refresh: function() {

@@ -28,10 +28,18 @@ new Tablesort(document.getElementById('table-id'), {
 });
 ```
 
-__Exclude columns__
-For columns that do not require sorting, you can add a class of `no-sort` to a columns `th` element.
+__Exclude columns or rows__
+For columns or rows that do not require sorting, you can add a class of `no-sort` to a columns `th` or a `tr` element.
 ``` html
 <th class='no-sort'>Name</th>
+
+<tr class='no-sort'>
+  <td>1</td>
+  <td>Gonzo the Great</td>
+  <td>12-2-70</td>
+  <td>Radishes</td>
+  <td>$0.63</td>
+</tr>
 ```
 
 __Refresh sort on appended data__
