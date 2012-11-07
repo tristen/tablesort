@@ -1,21 +1,22 @@
 {
     "name": "tablesort",
     "description": "A sorting component for HTML tables",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "author": "tristen <@fallsemo>",
-    "main": "./tablesort.js",
     "ender": "./ender.js",
     "homepage": "http://tristen.ca/tablesort/demo",
     "contributors": [
       "Olivier Vaillancourt <@ovaillancourt>",
       "Dmitry Kichenko <@imissmyjuno>",
-      "Dong Liu <@dongliu>"
+      "Dong Liu <@dongliu>",
+      "Andrew Cobby <andrew.cobby@gmail.com>"
     ],
     "licenses": [{
       "type": "MIT"
     }],
     "devDependencies": {
       "jshint": "0.5.x",
-      "uglify-js": "1.0.x"
+      "uglify-js": "1.0.x",
+      "grunt": "0.3.x"
     }
 }
