@@ -1,5 +1,5 @@
 /*!
- * tablesort v0.6.0 (2012-11-10)
+ * tablesort v1.6.0 (2012-11-10)
  * http://tristen.ca/tablesort/demo
  * Copyright (c) 2012 ; Licensed MIT
 */
