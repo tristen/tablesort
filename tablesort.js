@@ -1,6 +1,8 @@
-/*! tablesort - v1.6.0 - 2012-11-07
-* http://tristen.ca/tablesort/demo
-* Copyright (c) 2012 ; Licensed MIT */
+/*!
+ * tablesort v1.6.0 (2012-11-10)
+ * http://tristen.ca/tablesort/demo
+ * Copyright (c) 2012 ; Licensed MIT
+*/
 
 ;(function () {
     function Tablesort(el, options) {
