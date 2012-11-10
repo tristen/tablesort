@@ -105,18 +105,13 @@ table th.sort-up:after {
 
 ## Building
 
-Developers can rebuild the minified library by running:
-
-``` bash
-  npm install --dev
-  make
-```
+Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run `grunt` to package code
+from any contributions you make to `src/tablesort.js` before submitting pull requests.
 
 ## TODOs
 
 * Tests
 * Pass in an options object to:
-  - Choose which row to begin sorting on.
   - EventListener to rebuild the table in Ender.
 
 ## Licence
