@@ -15,8 +15,6 @@
       "type": "MIT"
     }],
     "devDependencies": {
-      "jshint": "0.5.x",
-      "uglify-js": "1.0.x",
       "grunt": "0.3.x"
     }
 }
