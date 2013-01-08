@@ -42,6 +42,20 @@ For columns or rows that do not require sorting, you can add a class of `no-sort
 </tr>
 ```
 
+__Use data-sort attribute to ovveride text__
+Sometimes text inside cells is not normalized, and it becomes rather hard to sort the table properly. With `data-sort` attribute, you are able to specify the data you want to sort using raw values.
+
+``` html
+<tr>
+  <td>1</td>
+  <td data-sort="1357656438">01 / 08 / 13 @ 8:47:18am EST</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td data-sort="1078673085">3 / 7 / 2004 @ 9:24:45 EST</td>
+</tr>
+```
+
 __Refresh sort on appended data__
 Tablesort supports sorting when new data has been added. Simply call the refresh method.
 
