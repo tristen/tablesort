@@ -16,8 +16,8 @@
     Tablesort.prototype = {
 
         init: function(el, options) {
-            var that = this,
-                firstRow;
+            var that = this;
+            var firstRow;
             this.thead = false;
             this.options = options;
             this.options.d = options.descending || false;
@@ -71,6 +71,7 @@
                 return;
             }
 
+
             while (item === '' && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
                 item = trim(item);
@@ -100,7 +101,6 @@
 
                 return -1;
             };
-
             var sortNumber = function (a, b) {
                 var aa = getInnerText(a.cells[that.col]);
                 aa = cleanNumber(aa);
@@ -108,7 +108,6 @@
                 bb = cleanNumber(bb);
                 return compareNumber(bb, aa);
             };
-
             var sortDate = function(a, b) {
                 var aa = getInnerText(a.cells[that.col]).toLowerCase(),
                     bb = getInnerText(b.cells[that.col]).toLowerCase();
@@ -134,7 +133,6 @@
                     firstRow[i] = t.tBodies[k].rows[0][i];
                 }
             }
-
             for (k = 0; k < t.tBodies.length; k++) {
                 if (!that.thead) {
                     // skip the first row
@@ -148,7 +146,6 @@
                     }
                 }
             }
-
             newRows.sort(sortFunction);
 
             if (!update) {
@@ -204,13 +201,11 @@
                 date.search(month !== -1)
             ) !== -1 ;
         },
-
         parseDate = function (date) {
             date = date.replace(/\-/g, '/');
             date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
             return new Date(date).getTime();
         },
-
         getParent = function (el, pTagName) {
             if (el === null) {
                 return null;
@@ -220,27 +215,21 @@
                 return getParent(el.parentNode, pTagName);
             }
         },
-
         getInnerText = function (el) {
             var that = this;
 
             if (typeof el === 'string' || typeof el === 'undefined') {
                 return el;
             }
-
-            var str = el.getAttribute('data-sort');
-
-            if (str) {
-                return str;
-            }
-            else if (el.textContent) {
+            if (el.textContent) {
                 return el.textContent;
             }
-            else if (el.innerText) {
+            if (el.innerText) {
                 return el.innerText;
             }
 
-            var cs = el.childNodes,
+            var str = '',
+                cs = el.childNodes,
                 l = cs.length;
 
             for (var i = 0; i < l; i++) {
@@ -258,7 +247,6 @@
 
             return str;
         },
-
         compareNumber = function (a, b) {
             var aa = parseFloat(a);
             a = isNaN(aa) ? 0 : aa;
@@ -266,19 +254,15 @@
             b = isNaN(bb) ? 0 : bb;
             return a - b;
         },
-
         trim = function (s) {
             return s.replace(/^\s+|\s+$/g, '');
         },
-
         cleanNumber = function (i) {
             return i.replace(/[^\-?0-9.]/g, '');
         },
-
         hasClass = function (el, c) {
             return(' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
         },
-
         // http://ejohn.org/apps/jselect/event.html
         addEvent = function (object, event, method) {
             if(object.attachEvent) {
