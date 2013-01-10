@@ -136,6 +136,21 @@ new Tablesort(document.getElementById('table-id'), {
   &lt;td&gt;$0.63&lt;/td&gt;
 &lt;/tr&gt;
 </pre>
+
+
+        <h3 id='data-sort'>Override data that is sorted on</h3>
+        <p>Sometimes text inside cells is not normalized. Using a `data-sort` attribute you can use optional data to sort on.</p>
+<pre class='prettyprint'>
+&lt;tr>
+  &lt;td&gt;1&lt;/td&gt;
+  &lt;td data-sort='1357656438'&gt;01/08/13 @ 8:47:18am EST&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;2&lt;/td&gt;
+  &lt;td data-sort='1078673085'&gt;3/7/2004 @ 9:24:45 EST&lt;/td&gt;
+&lt;/tr&gt;
+</pre>
+
         <h3 id='refresh'>Refresh sort on appended data</h3>
         <p>Tablesort supports sorting when new data has been added. Simply call the refresh method.</p>
         <pre class='prettyprint'>

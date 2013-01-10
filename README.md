@@ -19,7 +19,7 @@ Tablesort is a small & simple sorting component for tables written in Javascript
 
 ## Additional options
 
-__Ascending/Descending__
+__Ascending/Descending__  
 You can pass in options as a second parameter. Currently one option is supported: `descending: true`. By default, sort is set to ascending.
 
 ``` html
@@ -28,7 +28,7 @@ new Tablesort(document.getElementById('table-id'), {
 });
 ```
 
-__Exclude columns or rows__
+__Exclude columns or rows__  
 For columns or rows that do not require sorting, you can add a class of `no-sort` to a columns `th` or a `tr` element.
 ``` html
 <th class='no-sort'>Name</th>
@@ -42,21 +42,21 @@ For columns or rows that do not require sorting, you can add a class of `no-sort
 </tr>
 ```
 
-__Use data-sort attribute to ovveride text__
-Sometimes text inside cells is not normalized, and it becomes rather hard to sort the table properly. With `data-sort` attribute, you are able to specify the data you want to sort using raw values.
+__Override data that is sorted on__  
+Sometimes text inside cells is not normalized. Using a `data-sort` attribute you can use optional data to sort on.
 
 ``` html
 <tr>
   <td>1</td>
-  <td data-sort="1357656438">01 / 08 / 13 @ 8:47:18am EST</td>
+  <td data-sort='1357656438'>01/08/13 @ 8:47:18am EST</td>
 </tr>
 <tr>
   <td>2</td>
-  <td data-sort="1078673085">3 / 7 / 2004 @ 9:24:45 EST</td>
+  <td data-sort='1078673085'>3/7/2004 @ 9:24:45 EST</td>
 </tr>
 ```
 
-__Refresh sort on appended data__
+__Refresh sort on appended data__  
 Tablesort supports sorting when new data has been added. Simply call the refresh method.
 
 ``` js
