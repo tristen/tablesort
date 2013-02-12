@@ -222,7 +222,7 @@
                 return el;
             }
 
-            var str = el.getAttribute('data-sort');
+            var str = el.getAttribute('data-sort') || '';
 
             if (str) {
                 return str;
