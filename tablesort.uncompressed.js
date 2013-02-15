@@ -1,5 +1,5 @@
 /*!
- * tablesort v1.6.0 (2013-01-09)
+ * tablesort v1.6.1 (2013-02-14)
  * http://tristen.ca/tablesort/demo
  * Copyright (c) 2013 ; Licensed MIT
 */
@@ -61,11 +61,12 @@
         },
 
         sortTable: function(header, update) {
-            var that = this;
-            var column = header.cellIndex;
-            var sortFunction;
-            var t = getParent(header, 'table');
-            var item = '', i = 0;
+            var that = this,
+                column = header.cellIndex,
+                sortFunction,
+                t = getParent(header, 'table'),
+                item = '',
+                i = 0;
 
             if (t.rows.length <= 1) {
                 return;
@@ -87,8 +88,8 @@
 
             // Possible sortFunction scenarios
             var sortCaseInsensitive = function (a, b) {
-                var aa = getInnerText(a.cells[that.col]).toLowerCase();
-                var bb = getInnerText(b.cells[that.col]).toLowerCase();
+                var aa = getInnerText(a.cells[that.col]).toLowerCase(),
+                    bb = getInnerText(b.cells[that.col]).toLowerCase();
 
                 if(aa === bb) {
                     return 0;
@@ -102,9 +103,10 @@
             };
 
             var sortNumber = function (a, b) {
-                var aa = getInnerText(a.cells[that.col]);
+                var aa = getInnerText(a.cells[that.col]),
+                    bb = getInnerText(b.cells[that.col]);
+
                 aa = cleanNumber(aa);
-                var bb = getInnerText(b.cells[that.col]);
                 bb = cleanNumber(bb);
                 return compareNumber(bb, aa);
             };
@@ -125,26 +127,19 @@
             }
 
             this.col = column;
-            var firstRow = [],
-                newRows = [],
-                k, j;
+            var newRows = [],
+                j = 0;
 
-            for (k = 0; k < t.tBodies.length; k++) {
-                for(i = 0; i < t.tBodies[k].rows[0].length; i++) {
-                    firstRow[i] = t.tBodies[k].rows[0][i];
-                }
-            }
-
-            for (k = 0; k < t.tBodies.length; k++) {
+            for (i = 0; i < t.tBodies.length; i++) {
                 if (!that.thead) {
                     // skip the first row
-                    for(j = 1; j < t.tBodies[k].rows.length; j++) {
-                        newRows[j - 1] = t.tBodies[k].rows[j];
+                    for(j = 1; j < t.tBodies[i].rows.length; j++) {
+                        newRows[j - 1] = t.tBodies[i].rows[j];
                     }
                 } else {
                     // don't skip the first row
-                    for(j = 0; j < t.tBodies[k].rows.length; j++) {
-                        newRows[j] = t.tBodies[k].rows[j];
+                    for(j = 0; j < t.tBodies[i].rows.length; j++) {
+                        newRows[j] = t.tBodies[i].rows[j];
                     }
                 }
             }
@@ -228,7 +223,7 @@
                 return el;
             }
 
-            var str = el.getAttribute('data-sort');
+            var str = el.getAttribute('data-sort') || '';
 
             if (str) {
                 return str;
@@ -260,9 +255,10 @@
         },
 
         compareNumber = function (a, b) {
-            var aa = parseFloat(a);
+            var aa = parseFloat(a),
+                bb = parseFloat(b);
+
             a = isNaN(aa) ? 0 : aa;
-            var bb = parseFloat(b);
             b = isNaN(bb) ? 0 : bb;
             return a - b;
         },
