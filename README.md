@@ -135,4 +135,3 @@ MIT
 ## Bugs?
 
 [Create an issue](https://github.com/tristen/tablesort/issues)
-
