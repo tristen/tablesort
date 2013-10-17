@@ -4,6 +4,7 @@
     "version": "1.6.1",
     "author": "tristen <@fallsemo>",
     "ender": "./ender.js",
+    "main": "./src/tablesort.js",
     "homepage": "http://tristen.ca/tablesort/demo",
     "contributors": [
       "Olivier Vaillancourt <@ovaillancourt>",
