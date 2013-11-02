@@ -282,5 +282,9 @@
             }
         };
 
-    window.Tablesort = Tablesort;
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = Tablesort;
+    } else {
+        window.Tablesort = Tablesort;
+    }
 })();
