@@ -191,7 +191,7 @@
                 date.search(week) !== -1 ||
                 date.search(commonDate) !== -1  ||
                 date.search(month !== -1)
-            ) !== -1 ;
+            ) !== -1 && !isNaN(parseDate(date));
         },
 
         parseDate = function (date) {

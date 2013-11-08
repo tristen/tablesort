@@ -1,5 +1,5 @@
 /*!
- * tablesort v1.6.1 (2013-02-14)
+ * tablesort v1.6.1 (2013-11-08)
  * http://tristen.ca/tablesort/demo
  * Copyright (c) 2013 ; Licensed MIT
 */
@@ -197,7 +197,7 @@
                 date.search(week) !== -1 ||
                 date.search(commonDate) !== -1  ||
                 date.search(month !== -1)
-            ) !== -1 ;
+            ) !== -1 && !isNaN(parseDate(date));
         },
 
         parseDate = function (date) {
