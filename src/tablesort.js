@@ -130,18 +130,25 @@
 
             this.col = column;
             var newRows = [],
-                j = 0;
+                noSorts = {},
+                j = 0,
+                totalRows = 0;
 
             for (i = 0; i < t.tBodies.length; i++) {
+                // If table does not have a <thead>, assume that first row is
+                // the a header and skip it.
                 if (!that.thead) {
-                    // skip the first row
-                    for(j = 1; j < t.tBodies[i].rows.length; j++) {
-                        newRows[j - 1] = t.tBodies[i].rows[j];
-                    }
-                } else {
-                    // don't skip the first row
-                    for(j = 0; j < t.tBodies[i].rows.length; j++) {
-                        newRows[j] = t.tBodies[i].rows[j];
+                    j = 1;
+                }
+                for(; j < t.tBodies[i].rows.length; j++) {
+                    totalRows++;
+                    var tr = t.tBodies[i].rows[j];
+                    if (hasClass(tr, 'no-sort')) {
+                        // keep no-sorts in separate list to be able to insert
+                        // them back at their original position later
+                        noSorts[j] = tr;
+                    } else {
+                        newRows.push(tr);
                     }
                 }
             }
@@ -174,12 +181,18 @@
             }
 
             // append rows that already exist rather than creating new ones
-            for(i = 0; i < newRows.length; i++) {
-                // Don't sort on rows specified. TODO might want to
-                // do this more upstream.
-                if(!hasClass(newRows[i], 'no-sort')) {
-                    t.tBodies[0].appendChild(newRows[i]);
+            var noSortsSoFar = 0;
+            for(i = 0; i < totalRows; i++) {
+                var whatToInsert;
+                if (noSorts[i]) {
+                    // We have a no-sort row for this position, insert it here.
+                    whatToInsert = noSorts[i];
+                    noSortsSoFar++;
+                } else {
+                    whatToInsert = newRows[i - noSortsSoFar];
                 }
+                // appendChild(x) moves x if already present somewhere else in the DOM
+                t.tBodies[0].appendChild(whatToInsert);
             }
         },
 
