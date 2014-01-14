@@ -44,7 +44,7 @@
                 that.sortTable(this);
             };
 
-            // Assume first row is the header and attach a click handler to eech.
+            // Assume first row is the header and attach a click handler to each.
             for(var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
                 if(!hasClass(cell, 'no-sort')) {
@@ -54,23 +54,28 @@
             }
         },
 
+        getFirstDataRowIndex: function() {
+            // If table does not have a <thead>, assume that first row is
+            // a header and skip it.
+            if (!this.thead) {
+                return 1;
+            } else {
+                return 0;
+            }
+        },
+
         sortTable: function(header, update) {
             var that = this,
                 column = header.cellIndex,
                 sortFunction,
                 t = getParent(header, 'table'),
                 item = '',
-                i = 0;
+                i = that.getFirstDataRowIndex();
 
             if (t.rows.length <= 1) {
                 return;
             }
 
-            // If table does not have a <thead>, assume that first row is
-            // the a header and skip it.
-            if (!that.thead) {
-                i = 1;
-            }
             while (item === '' && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
                 item = trim(item);
@@ -131,25 +136,20 @@
             this.col = column;
             var newRows = [],
                 noSorts = {},
-                j = 0,
+                j,
                 totalRows = 0;
 
             for (i = 0; i < t.tBodies.length; i++) {
-                // If table does not have a <thead>, assume that first row is
-                // the a header and skip it.
-                if (!that.thead) {
-                    j = 1;
-                }
-                for(; j < t.tBodies[i].rows.length; j++) {
-                    totalRows++;
+                for(j = 0; j < t.tBodies[i].rows.length; j++) {
                     var tr = t.tBodies[i].rows[j];
                     if (hasClass(tr, 'no-sort')) {
                         // keep no-sorts in separate list to be able to insert
                         // them back at their original position later
-                        noSorts[j] = tr;
+                        noSorts[totalRows] = tr;
                     } else {
                         newRows.push(tr);
                     }
+                    totalRows++;
                 }
             }
 
