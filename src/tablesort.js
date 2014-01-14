@@ -66,6 +66,11 @@
                 return;
             }
 
+            // If table does not have a <thead>, assume that first row is
+            // the a header and skip it.
+            if (!that.thead) {
+                i = 1;
+            }
             while (item === '' && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
                 item = trim(item);
