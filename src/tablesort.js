@@ -117,7 +117,10 @@
             };
 
             // Sort as number if a currency key exists or number
-            if (item.match(/^-?[£\x24Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/)) {
+            if (item.match(/^-?[£\x24Û¢´€] ?\d/) || // prefixed currency
+                item.match(/^-?\d+\s*[€]/) || // suffixed currencty
+                item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/) // number
+               ) {
                 sortFunction = sortNumber;
             } else if (testDate(item)) {
                 sortFunction = sortDate;
