@@ -68,9 +68,7 @@
                 item = '',
                 i = 0;
 
-            if (t.rows.length <= 1) {
-                return;
-            }
+            if (t.rows.length <= 1) return;
 
             while (item === '' && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
@@ -82,23 +80,15 @@
                 i++;
             }
 
-            if (item === '') {
-                return;
-            }
+            if (item === '') return;
 
             // Possible sortFunction scenarios
-            var sortCaseInsensitive = function (a, b) {
+            var sortString = function (a, b) {
                 var aa = getInnerText(a.cells[that.col]).toLowerCase(),
                     bb = getInnerText(b.cells[that.col]).toLowerCase();
 
-                if(aa === bb) {
-                    return 0;
-                }
-
-                if(aa < bb) {
-                    return 1;
-                }
-
+                if (aa === bb) return 0;
+                if (aa < bb) return 1;
                 return -1;
             };
 
@@ -123,7 +113,7 @@
             } else if (testDate(item)) {
                 sortFunction = sortDate;
             } else {
-                sortFunction = sortCaseInsensitive;
+                sortFunction = sortString;
             }
 
             this.col = column;
@@ -227,11 +217,9 @@
 
             if (str) {
                 return str;
-            }
-            else if (el.textContent) {
+            } else if (el.textContent) {
                 return el.textContent;
-            }
-            else if (el.innerText) {
+            } else if (el.innerText) {
                 return el.innerText;
             }
 
