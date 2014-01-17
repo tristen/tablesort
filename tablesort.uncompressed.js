@@ -1,7 +1,7 @@
 /*!
- * tablesort v1.6.1 (2013-11-08)
+ * tablesort v1.6.3 (2014-01-16)
  * http://tristen.ca/tablesort/demo
- * Copyright (c) 2013 ; Licensed MIT
+ * Copyright (c) 2014 ; Licensed MIT
 */
 
 ;(function () {
@@ -23,7 +23,7 @@
             this.options.d = options.descending || false;
 
             if (el.rows && el.rows.length > 0) {
-                if(el.tHead && el.tHead.rows.length > 0) {
+                if (el.tHead && el.tHead.rows.length > 0) {
                     firstRow = el.tHead.rows[el.tHead.rows.length - 1];
                     that.thead = true;
                 } else {
@@ -38,9 +38,9 @@
             var onClick = function (e) {
                 // Delete sort classes on headers that are not the current one.
                 var siblings = getParent(cell, 'tr').getElementsByTagName('th');
-                for(var i = 0; i < siblings.length; i++) {
-                    if(hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
-                        if(siblings[i] !== this) {
+                for (var i = 0; i < siblings.length; i++) {
+                    if (hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
+                        if (siblings[i] !== this) {
                             siblings[i].className = siblings[i].className.replace(' sort-down', '')
                                 .replace(' sort-up', '');
                         }
@@ -50,13 +50,23 @@
                 that.sortTable(this);
             };
 
-            // Assume first row is the header and attach a click handler to eech.
-            for(var i = 0; i < firstRow.cells.length; i++) {
+            // Assume first row is the header and attach a click handler to each.
+            for (var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
-                if(!hasClass(cell, 'no-sort')) {
+                if (!hasClass(cell, 'no-sort')) {
                     cell.className += ' sort-header';
                     addEvent(cell, 'click', onClick);
                 }
+            }
+        },
+
+        getFirstDataRowIndex: function() {
+            // If table does not have a <thead>, assume that first row is
+            // a header and skip it.
+            if (!this.thead) {
+                return 1;
+            } else {
+                return 0;
             }
         },
 
@@ -66,7 +76,7 @@
                 sortFunction,
                 t = getParent(header, 'table'),
                 item = '',
-                i = 0;
+                i = that.getFirstDataRowIndex();
 
             if (t.rows.length <= 1) return;
 
@@ -74,7 +84,7 @@
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
                 item = trim(item);
                 // Exclude cell values where commented out HTML exists
-                if(item.substr(0, 4) === '<!--' || item.length === 0) {
+                if (item.substr(0, 4) === '<!--' || item.length === 0) {
                     item = '';
                 }
                 i++;
@@ -83,12 +93,13 @@
             if (item === '') return;
 
             // Possible sortFunction scenarios
-            var sortString = function (a, b) {
+            var sortCaseInsensitive = function (a, b) {
                 var aa = getInnerText(a.cells[that.col]).toLowerCase(),
                     bb = getInnerText(b.cells[that.col]).toLowerCase();
 
                 if (aa === bb) return 0;
                 if (aa < bb) return 1;
+
                 return -1;
             };
 
@@ -108,37 +119,42 @@
             };
 
             // Sort as number if a currency key exists or number
-            if (item.match(/^-?[£\x24Û¢´]\d/) || item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/)) {
+            if (item.match(/^-?[£\x24Û¢´€] ?\d/) || // prefixed currency
+                item.match(/^-?\d+\s*[€]/) || // suffixed currencty
+                item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/) // number
+               ) {
                 sortFunction = sortNumber;
             } else if (testDate(item)) {
                 sortFunction = sortDate;
             } else {
-                sortFunction = sortString;
+                sortFunction = sortCaseInsensitive;
             }
 
             this.col = column;
             var newRows = [],
-                j = 0;
+                noSorts = {},
+                j,
+                totalRows = 0;
 
             for (i = 0; i < t.tBodies.length; i++) {
-                if (!that.thead) {
-                    // skip the first row
-                    for(j = 1; j < t.tBodies[i].rows.length; j++) {
-                        newRows[j - 1] = t.tBodies[i].rows[j];
+                for (j = 0; j < t.tBodies[i].rows.length; j++) {
+                    var tr = t.tBodies[i].rows[j];
+                    if (hasClass(tr, 'no-sort')) {
+                        // keep no-sorts in separate list to be able to insert
+                        // them back at their original position later
+                        noSorts[totalRows] = tr;
+                    } else {
+                        newRows.push(tr);
                     }
-                } else {
-                    // don't skip the first row
-                    for(j = 0; j < t.tBodies[i].rows.length; j++) {
-                        newRows[j] = t.tBodies[i].rows[j];
-                    }
+                    totalRows++;
                 }
             }
 
             newRows.sort(sortFunction);
 
             if (!update) {
-                if(that.options.d) {
-                    if(hasClass(header, 'sort-up')) {
+                if (that.options.d) {
+                    if (hasClass(header, 'sort-up')) {
                         header.className = header.className.replace(/ sort-up/, '');
                         header.className += ' sort-down';
                     } else {
@@ -146,7 +162,7 @@
                         header.className += ' sort-up';
                     }
                 } else {
-                    if(hasClass(header, 'sort-down')) {
+                    if (hasClass(header, 'sort-down')) {
                         header.className = header.className.replace(/ sort-down/, '');
                         header.className += ' sort-up';
                     } else {
@@ -157,17 +173,23 @@
             }
 
             // Before we append should we reverse the new array or not?
-            if(hasClass(header, 'sort-down')) {
+            if (hasClass(header, 'sort-down')) {
                 newRows.reverse();
             }
 
             // append rows that already exist rather than creating new ones
-            for(i = 0; i < newRows.length; i++) {
-                // Don't sort on rows specified. TODO might want to
-                // do this more upstream.
-                if(!hasClass(newRows[i], 'no-sort')) {
-                    t.tBodies[0].appendChild(newRows[i]);
+            var noSortsSoFar = 0;
+            for (i = 0; i < totalRows; i++) {
+                var whatToInsert;
+                if (noSorts[i]) {
+                    // We have a no-sort row for this position, insert it here.
+                    whatToInsert = noSorts[i];
+                    noSortsSoFar++;
+                } else {
+                    whatToInsert = newRows[i - noSortsSoFar];
                 }
+                // appendChild(x) moves x if already present somewhere else in the DOM
+                t.tBodies[0].appendChild(whatToInsert);
             }
         },
 
@@ -217,9 +239,11 @@
 
             if (str) {
                 return str;
-            } else if (el.textContent) {
+            }
+            else if (el.textContent) {
                 return el.textContent;
-            } else if (el.innerText) {
+            }
+            else if (el.innerText) {
                 return el.innerText;
             }
 
@@ -260,12 +284,12 @@
         },
 
         hasClass = function (el, c) {
-            return(' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
+            return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
         },
 
         // http://ejohn.org/apps/jselect/event.html
         addEvent = function (object, event, method) {
-            if(object.attachEvent) {
+            if (object.attachEvent) {
                 object['e' + event + method] = method;
                 object[event + method] = function () {
                     object['e' + event + method](window.event);
@@ -276,5 +300,9 @@
             }
         };
 
-    window.Tablesort = Tablesort;
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = Tablesort;
+    } else {
+        window.Tablesort = Tablesort;
+    }
 })();

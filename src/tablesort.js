@@ -17,7 +17,7 @@
             this.options.d = options.descending || false;
 
             if (el.rows && el.rows.length > 0) {
-                if(el.tHead && el.tHead.rows.length > 0) {
+                if (el.tHead && el.tHead.rows.length > 0) {
                     firstRow = el.tHead.rows[el.tHead.rows.length - 1];
                     that.thead = true;
                 } else {
@@ -32,9 +32,9 @@
             var onClick = function (e) {
                 // Delete sort classes on headers that are not the current one.
                 var siblings = getParent(cell, 'tr').getElementsByTagName('th');
-                for(var i = 0; i < siblings.length; i++) {
-                    if(hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
-                        if(siblings[i] !== this) {
+                for (var i = 0; i < siblings.length; i++) {
+                    if (hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
+                        if (siblings[i] !== this) {
                             siblings[i].className = siblings[i].className.replace(' sort-down', '')
                                 .replace(' sort-up', '');
                         }
@@ -45,9 +45,9 @@
             };
 
             // Assume first row is the header and attach a click handler to each.
-            for(var i = 0; i < firstRow.cells.length; i++) {
+            for (var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
-                if(!hasClass(cell, 'no-sort')) {
+                if (!hasClass(cell, 'no-sort')) {
                     cell.className += ' sort-header';
                     addEvent(cell, 'click', onClick);
                 }
@@ -72,36 +72,27 @@
                 item = '',
                 i = that.getFirstDataRowIndex();
 
-            if (t.rows.length <= 1) {
-                return;
-            }
+            if (t.rows.length <= 1) return;
 
             while (item === '' && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
                 item = trim(item);
                 // Exclude cell values where commented out HTML exists
-                if(item.substr(0, 4) === '<!--' || item.length === 0) {
+                if (item.substr(0, 4) === '<!--' || item.length === 0) {
                     item = '';
                 }
                 i++;
             }
 
-            if (item === '') {
-                return;
-            }
+            if (item === '') return;
 
             // Possible sortFunction scenarios
             var sortCaseInsensitive = function (a, b) {
                 var aa = getInnerText(a.cells[that.col]).toLowerCase(),
                     bb = getInnerText(b.cells[that.col]).toLowerCase();
 
-                if(aa === bb) {
-                    return 0;
-                }
-
-                if(aa < bb) {
-                    return 1;
-                }
+                if (aa === bb) return 0;
+                if (aa < bb) return 1;
 
                 return -1;
             };
@@ -140,7 +131,7 @@
                 totalRows = 0;
 
             for (i = 0; i < t.tBodies.length; i++) {
-                for(j = 0; j < t.tBodies[i].rows.length; j++) {
+                for (j = 0; j < t.tBodies[i].rows.length; j++) {
                     var tr = t.tBodies[i].rows[j];
                     if (hasClass(tr, 'no-sort')) {
                         // keep no-sorts in separate list to be able to insert
@@ -156,8 +147,8 @@
             newRows.sort(sortFunction);
 
             if (!update) {
-                if(that.options.d) {
-                    if(hasClass(header, 'sort-up')) {
+                if (that.options.d) {
+                    if (hasClass(header, 'sort-up')) {
                         header.className = header.className.replace(/ sort-up/, '');
                         header.className += ' sort-down';
                     } else {
@@ -165,7 +156,7 @@
                         header.className += ' sort-up';
                     }
                 } else {
-                    if(hasClass(header, 'sort-down')) {
+                    if (hasClass(header, 'sort-down')) {
                         header.className = header.className.replace(/ sort-down/, '');
                         header.className += ' sort-up';
                     } else {
@@ -176,13 +167,13 @@
             }
 
             // Before we append should we reverse the new array or not?
-            if(hasClass(header, 'sort-down')) {
+            if (hasClass(header, 'sort-down')) {
                 newRows.reverse();
             }
 
             // append rows that already exist rather than creating new ones
             var noSortsSoFar = 0;
-            for(i = 0; i < totalRows; i++) {
+            for (i = 0; i < totalRows; i++) {
                 var whatToInsert;
                 if (noSorts[i]) {
                     // We have a no-sort row for this position, insert it here.
@@ -287,12 +278,12 @@
         },
 
         hasClass = function (el, c) {
-            return(' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
+            return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
         },
 
         // http://ejohn.org/apps/jselect/event.html
         addEvent = function (object, event, method) {
-            if(object.attachEvent) {
+            if (object.attachEvent) {
                 object['e' + event + method] = method;
                 object[event + method] = function () {
                     object['e' + event + method](window.event);
