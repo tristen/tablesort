@@ -1,5 +1,5 @@
 /*!
- * tablesort v1.6.3 (2014-01-16)
+ * tablesort v1.6.3 (2014-06-10)
  * http://tristen.ca/tablesort/demo
  * Copyright (c) 2014 ; Licensed MIT
 */
@@ -144,13 +144,15 @@
                         // them back at their original position later
                         noSorts[totalRows] = tr;
                     } else {
-                        newRows.push(tr);
+                        // Save the index for stable sorting
+                        newRows.push({
+                            tr: tr,
+                            index: totalRows
+                        });
                     }
                     totalRows++;
                 }
             }
-
-            newRows.sort(sortFunction);
 
             if (!update) {
                 if (that.options.d) {
@@ -172,9 +174,38 @@
                 }
             }
 
+            // Make a stable sort function
+            var stabilize = function (sort) {
+                return function (a, b) {
+                    var unstableResult = sort(a.tr, b.tr);
+                    if (unstableResult === 0) {
+                        return a.index - b.index;
+                    }
+                    return unstableResult;
+                };
+            };
+
+            // Make an `anti-stable` sort function. If two elements are equal
+            // under the original sort function, then there relative order is
+            // reversed.
+            var antiStabilize = function (sort) {
+                return function (a, b) {
+                    var unstableResult = sort(a.tr, b.tr);
+                    if (unstableResult === 0) {
+                        return b.index - a.index;
+                    }
+                    return unstableResult;
+                };
+            };
+
             // Before we append should we reverse the new array or not?
+            // If we reverse, the sort needs to be `anti-stable` so that
+            // the double negatives cancel out
             if (hasClass(header, 'sort-down')) {
+                newRows.sort(antiStabilize(sortFunction));
                 newRows.reverse();
+            } else {
+                newRows.sort(stabilize(sortFunction));
             }
 
             // append rows that already exist rather than creating new ones
@@ -186,7 +217,7 @@
                     whatToInsert = noSorts[i];
                     noSortsSoFar++;
                 } else {
-                    whatToInsert = newRows[i - noSortsSoFar];
+                    whatToInsert = newRows[i - noSortsSoFar].tr;
                 }
                 // appendChild(x) moves x if already present somewhere else in the DOM
                 t.tBodies[0].appendChild(whatToInsert);
