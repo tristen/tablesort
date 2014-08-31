@@ -56,6 +56,13 @@ Sometimes text inside cells is not normalized. Using a `data-sort` attribute you
 </tr>
 ```
 
+__Default sort on tablesort initialization__
+It is possible to automatically sort the table once you create a Tablesort instance by adding `sort-default` class.
+
+``` html
+<th class='sort-default'>Name</th>
+```
+
 __Refresh sort on appended data__  
 Tablesort supports sorting when new data has been added. Simply call the refresh method.
 
