@@ -14,7 +14,7 @@ module.exports = function(grunt) {
                     '*/'
             },
             build: {
-                src: '<%= pkg.name %>.uncompressed.js',
+                src: 'src/<%= pkg.name %>.js',
                 dest: '<%= pkg.name %>.min.js'
             }
         }
