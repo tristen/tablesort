@@ -29,7 +29,7 @@
                 return;
             }
 
-            var onClick = function (e) {
+            var onClick = function () {
                 // Delete sort classes on headers that are not the current one.
                 var siblings = getParent(cell, 'tr').getElementsByTagName('th');
                 for (var i = 0; i < siblings.length; i++) {
@@ -44,13 +44,24 @@
                 that.sortTable(this);
             };
 
+            var defaultSort;
+
             // Assume first row is the header and attach a click handler to each.
             for (var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
                 if (!hasClass(cell, 'no-sort')) {
                     cell.className += ' sort-header';
                     addEvent(cell, 'click', onClick);
+
+                    if (hasClass(cell, 'sort-default')) {
+                        defaultSort = cell;
+                    }
                 }
+            }
+            
+            if (defaultSort) {
+                that.current = defaultSort;
+                that.sortTable(defaultSort);
             }
         },
 
