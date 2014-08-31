@@ -115,7 +115,7 @@
             // Sort as number if a currency key exists or number
             if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
                 item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
-                item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/) // number
+                item.match(/^-?(\d)+-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
                ) {
                 sortFunction = sortNumber;
             } else if (testDate(item)) {

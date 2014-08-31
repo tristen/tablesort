@@ -1,5 +1,5 @@
 /*!
- * tablesort v1.6.4 (2014-08-29)
+ * tablesort v1.6.4 (2014-08-31)
  * http://tristen.ca/tablesort/demo
  * Copyright (c) 2014 ; Licensed MIT
 */
@@ -121,7 +121,7 @@
             // Sort as number if a currency key exists or number
             if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
                 item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
-                item.match(/^-?(\d+[,\.]?)+(E[\-+][\d]+)?%?$/) // number
+                item.match(/^-?(\d)+-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
                ) {
                 sortFunction = sortNumber;
             } else if (testDate(item)) {
