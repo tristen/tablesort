@@ -10,13 +10,6 @@
         "type": "git",
         "url": "git://github.com/tristen/tablesort.git"
     },
-    "contributors": [
-      "Olivier Vaillancourt <@ovaillancourt>",
-      "Dmitry Kichenko <@imissmyjuno>",
-      "Dong Liu <@dongliu>",
-      "Andrew Cobby <andrew.cobby@gmail.com>",
-      "Pavel D. <@thexpaw>"
-    ],
     "licenses": [{
       "type": "MIT"
     }],
