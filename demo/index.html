@@ -141,7 +141,7 @@ sort.refresh();
         <table id='refresh-table' class='sort'>
           <thead>
             <tr>
-              <th>Trumpet Player</th>
+              <th>Name</th>
               <th>Born</th>
             </tr>
           </thead>
@@ -162,8 +162,37 @@ sort.refresh();
         </table>
         <a href='#' id='add' class='button'>Append a row</a>
         <a href='#' id='remove' class='button'>Remove a row</a>
-      </div>
-      <h2><a href='http://ender.no.de'>Ender</a> support</h2>
+
+<h3 id='sort-default'>Default sort on tablesort initialization</h3>
+<p>It is possible to automatically sort the table once you create a Tablesort instance by adding <code>sort-default</code> class.</p>
+<pre class='prettyprint'>
+&lt;th class='sort-default'&gt;Born&lt;/th&gt;
+</pre>
+  <table id='defaulting' class='sort'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class='sort-default'>Born</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Roy Eldridge</td>
+        <td>1911</td>
+      </tr>
+      <tr>
+        <td>Tim Hagans</td>
+        <td>1954</td>
+      </tr>
+      <tr>
+        <td>Freddie Hubbard</td>
+        <td>1938</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2><a href='http://ender.no.de'>Ender</a> support</h2>
 <pre class='prettyprint'>$ ender add tablesort</pre>
 
 <p>Add <code>tablesort</code> as an internal chain method.</p>
@@ -216,6 +245,7 @@ table th.sort-up:after {
 <script src='../tablesort.min.js'></script>
 <script>
   new Tablesort(document.getElementById('sort'));
+  new Tablesort(document.getElementById('defaulting'));
 
   var trumpeters = [
     {
