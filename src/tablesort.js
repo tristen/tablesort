@@ -14,7 +14,6 @@
                 firstRow;
             this.thead = false;
             this.options = options;
-            this.options.d = options.descending || false;
 
             if (el.rows && el.rows.length > 0) {
                 if (el.tHead && el.tHead.rows.length > 0) {
@@ -31,13 +30,20 @@
 
             var onClick = function () {
                 // Delete sort classes on headers that are not the current one.
-                var siblings = getParent(cell, 'tr').getElementsByTagName('th');
+                // TODO: Should we just remember previous column and remove class from there instead of looping?
+                var sibling, siblings = getParent(cell, 'tr').getElementsByTagName('th');
                 for (var i = 0; i < siblings.length; i++) {
-                    if (hasClass(siblings[i], 'sort-up') || hasClass(siblings[i], 'sort-down')) {
-                        if (siblings[i] !== this) {
-                            siblings[i].className = siblings[i].className.replace(' sort-down', '')
-                                .replace(' sort-up', '');
-                        }
+                    sibling = siblings[i];
+                    
+                    if (sibling === this) {
+                        continue;
+                    }
+                    
+                    if (sibling.classList.contains(classSortUp)) {
+                        sibling.classList.remove(classSortUp);
+                    }
+                    else if (sibling.classList.contains(classSortDown)) {
+                        sibling.classList.remove(classSortDown);
                     }
                 }
                 that.current = this;
@@ -49,11 +55,11 @@
             // Assume first row is the header and attach a click handler to each.
             for (var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
-                if (!hasClass(cell, 'no-sort')) {
-                    cell.className += ' sort-header';
-                    addEvent(cell, 'click', onClick);
+                if (!cell.classList.contains('no-sort')) {
+                    cell.classList.add('sort-header');
+                    cell.addEventListener('click', onClick, false);
 
-                    if (hasClass(cell, 'sort-default')) {
+                    if (cell.classList.contains('sort-default')) {
                         defaultSort = cell;
                     }
                 }
@@ -87,7 +93,7 @@
 
             while (item === '' && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
-                item = trim(item);
+                item = item.trim();
                 // Exclude cell values where commented out HTML exists
                 if (item.substr(0, 4) === '<!--' || item.length === 0) {
                     item = '';
@@ -144,7 +150,7 @@
             for (i = 0; i < t.tBodies.length; i++) {
                 for (j = 0; j < t.tBodies[i].rows.length; j++) {
                     var tr = t.tBodies[i].rows[j];
-                    if (hasClass(tr, 'no-sort')) {
+                    if (tr.classList.contains('no-sort')) {
                         // keep no-sorts in separate list to be able to insert
                         // them back at their original position later
                         noSorts[totalRows] = tr;
@@ -159,24 +165,19 @@
                 }
             }
 
+            var sortUp   = that.options.descending ? classSortDown : classSortUp,
+                sortDown = that.options.descending ? classSortUp : classSortDown;
+
             if (!update) {
-                if (that.options.d) {
-                    if (hasClass(header, 'sort-up')) {
-                        header.className = header.className.replace(/ sort-up/, '');
-                        header.className += ' sort-down';
-                    } else {
-                        header.className = header.className.replace(/ sort-down/, '');
-                        header.className += ' sort-up';
-                    }
+                if (header.classList.contains(sortUp)) {
+                    header.classList.remove(sortUp);
+                    header.classList.add(sortDown);
                 } else {
-                    if (hasClass(header, 'sort-down')) {
-                        header.className = header.className.replace(/ sort-down/, '');
-                        header.className += ' sort-up';
-                    } else {
-                        header.className = header.className.replace(/ sort-up/, '');
-                        header.className += ' sort-down';
-                    }
+                    header.classList.remove(sortDown);
+                    header.classList.add(sortUp);
                 }
+            } else if (!header.classList.contains(sortUp) && !header.classList.contains(sortDown)) {
+                header.classList.add(sortUp);
             }
 
             // Make a stable sort function
@@ -206,7 +207,7 @@
             // Before we append should we reverse the new array or not?
             // If we reverse, the sort needs to be `anti-stable` so that
             // the double negatives cancel out
-            if (hasClass(header, 'sort-down')) {
+            if (header.classList.contains(classSortDown)) {
                 newRows.sort(antiStabilize(sortFunction));
                 newRows.reverse();
             } else {
@@ -236,9 +237,12 @@
         }
     };
 
-    var week = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
+    var classSortUp   = 'sort-up',
+        classSortDown = 'sort-down';
+
+    var week       = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
         commonDate = /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/,
-        month = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
+        month      = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
 
     var testDate = function(date) {
             return (
@@ -311,29 +315,8 @@
             return a - b;
         },
 
-        trim = function (s) {
-            return s.replace(/^\s+|\s+$/g, '');
-        },
-
         cleanNumber = function (i) {
             return i.replace(/[^\-?0-9.]/g, '');
-        },
-
-        hasClass = function (el, c) {
-            return (' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
-        },
-
-        // http://ejohn.org/apps/jselect/event.html
-        addEvent = function (object, event, method) {
-            if (object.attachEvent) {
-                object['e' + event + method] = method;
-                object[event + method] = function () {
-                    object['e' + event + method](window.event);
-                };
-                object.attachEvent('on' + event, object[event + method]);
-            } else {
-                object.addEventListener(event, method, false);
-            }
         };
 
     if (typeof module !== 'undefined' && module.exports) {
