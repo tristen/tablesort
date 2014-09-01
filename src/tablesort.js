@@ -61,7 +61,7 @@
             
             if (defaultSort) {
                 that.current = defaultSort;
-                that.sortTable(defaultSort);
+                that.sortTable(defaultSort, true);
             }
         },
 
