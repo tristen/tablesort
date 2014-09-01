@@ -1,3 +1,9 @@
+/*!
+ * tablesort v1.6.4 (2014-08-31)
+ * http://tristen.ca/tablesort/demo
+ * Copyright (c) 2014 ; Licensed MIT
+*/
+
 ;(function () {
     function Tablesort(el, options) {
         if (el.tagName !== 'TABLE') {
@@ -29,7 +35,7 @@
                 return;
             }
 
-            var onClick = function () {
+            var onClick = function (e) {
                 // Delete sort classes on headers that are not the current one.
                 var siblings = getParent(cell, 'tr').getElementsByTagName('th');
                 for (var i = 0; i < siblings.length; i++) {
@@ -44,24 +50,13 @@
                 that.sortTable(this);
             };
 
-            var defaultSort;
-
             // Assume first row is the header and attach a click handler to each.
             for (var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
                 if (!hasClass(cell, 'no-sort')) {
                     cell.className += ' sort-header';
                     addEvent(cell, 'click', onClick);
-
-                    if (hasClass(cell, 'sort-default')) {
-                        defaultSort = cell;
-                    }
                 }
-            }
-            
-            if (defaultSort) {
-                that.current = defaultSort;
-                that.sortTable(defaultSort, true);
             }
         },
 
