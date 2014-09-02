@@ -29,12 +29,12 @@
             }
 
             var onClick = function () {
-                if (this.current && this.current !== this) {
-                    if (this.current.classList.contains(classSortUp)) {
-                        this.current.classList.remove(classSortUp);
+                if (that.current && that.current !== this) {
+                    if (that.current.classList.contains(classSortUp)) {
+                        that.current.classList.remove(classSortUp);
                     }
-                    else if (this.current.classList.contains(classSortDown)) {
-                        this.current.classList.remove(classSortDown);
+                    else if (that.current.classList.contains(classSortDown)) {
+                        that.current.classList.remove(classSortDown);
                     }
                 }
 
