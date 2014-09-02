@@ -29,23 +29,15 @@
             }
 
             var onClick = function () {
-                // Delete sort classes on headers that are not the current one.
-                // TODO: Should we just remember previous column and remove class from there instead of looping?
-                var sibling, siblings = getParent(cell, 'tr').getElementsByTagName('th');
-                for (var i = 0; i < siblings.length; i++) {
-                    sibling = siblings[i];
-                    
-                    if (sibling === this) {
-                        continue;
+                if (this.current && this.current !== this) {
+                    if (this.current.classList.contains(classSortUp)) {
+                        this.current.classList.remove(classSortUp);
                     }
-                    
-                    if (sibling.classList.contains(classSortUp)) {
-                        sibling.classList.remove(classSortUp);
-                    }
-                    else if (sibling.classList.contains(classSortDown)) {
-                        sibling.classList.remove(classSortDown);
+                    else if (this.current.classList.contains(classSortDown)) {
+                        this.current.classList.remove(classSortDown);
                     }
                 }
+
                 that.current = this;
                 that.sortTable(this);
             };
