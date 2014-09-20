@@ -1,5 +1,7 @@
 # tablesort.js
 
+[![Build Status](https://travis-ci.org/tristen/tablesort.png?Zeqckz55oF1LjKHEqHT7)](https://travis-ci.org/tristen/tablesort)
+
 Tablesort is a small & simple sorting component for tables written in Javascript. It has no dependencies and should have no interference with other libraries.
 
 ## Basic usage
