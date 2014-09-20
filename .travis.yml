@@ -3,7 +3,6 @@ sudo: false
 
 cache:
   directories:
-    - .bundle
     - node_modules
 
 install:
