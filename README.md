@@ -141,7 +141,9 @@ MIT
 
 ## Tests
 
-    npm test
+```sh
+npm test
+```
 
 ## Bugs?
 
