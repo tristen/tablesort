@@ -139,6 +139,10 @@ from any contributions you make to `src/tablesort.js` before submitting pull req
 
 MIT
 
+## Tests
+
+    npm test
+
 ## Bugs?
 
 [Create an issue](https://github.com/tristen/tablesort/issues)
