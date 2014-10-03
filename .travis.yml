@@ -1,5 +1,9 @@
 language: node_js
 
+branches:
+  only:
+    - gh-pages
+
 cache:
   directories:
     - node_modules
