@@ -1,10 +1,11 @@
-# tablesort.js
+tablesort.js
+---
 
 [![Build Status](https://travis-ci.org/tristen/tablesort.png?Zeqckz55oF1LjKHEqHT7)](https://travis-ci.org/tristen/tablesort)
 
 Tablesort is a small & simple sorting component for tables written in Javascript. It has no dependencies and should have no interference with other libraries.
 
-## Basic usage
+### Basic usage
 
 ``` html
 <script src='tablesort.min.js'></script>
@@ -12,16 +13,16 @@ Tablesort is a small & simple sorting component for tables written in Javascript
   new Tablesort(document.getElementById('table-id'));
 </script>
 ```
-## Sort Types
+### Sort Types
 
 * strings
 * numbers
 * currency
 * Basic dates in `dd/mm/yy` or `dd-mm-yy` format. Years can be 4 digits. Days and Months can be 1 or 2 digits.
 
-## Additional options
+### Additional options
 
-__Ascending/Descending__  
+#### Ascending/Descending
 You can pass in options as a second parameter. Currently one option is supported: `descending: true`. By default, sort is set to ascending.
 
 ``` html
@@ -30,7 +31,7 @@ new Tablesort(document.getElementById('table-id'), {
 });
 ```
 
-__Exclude columns or rows__  
+#### Exclude columns or rows
 For columns or rows that do not require sorting, you can add a class of `no-sort` to a columns `th` or a `tr` element.
 ``` html
 <th class='no-sort'>Name</th>
@@ -44,7 +45,7 @@ For columns or rows that do not require sorting, you can add a class of `no-sort
 </tr>
 ```
 
-__Override data that is sorted on__  
+#### Override data that is sorted on
 Sometimes text inside cells is not normalized. Using a `data-sort` attribute you can use optional data to sort on.
 
 ``` html
@@ -58,14 +59,14 @@ Sometimes text inside cells is not normalized. Using a `data-sort` attribute you
 </tr>
 ```
 
-__Default sort on tablesort initialization__
+#### Default sort on tablesort initialization
 It is possible to automatically sort the table once you create a Tablesort instance by adding `sort-default` class.
 
 ``` html
 <th class='sort-default'>Name</th>
 ```
 
-__Refresh sort on appended data__  
+#### Refresh sort on appended data
 Tablesort supports sorting when new data has been added. Simply call the refresh method.
 
 ``` js
@@ -78,7 +79,7 @@ sort.refresh();
 
 [See homepage for example](http://tristen.ca/tablesort/demo/#refresh)
 
-## Ender support
+### Ender support
 Add `tablesort` as an internal chain method to your [Ender](http://ender.no.de) compilation.
 
 ``` shell
@@ -91,7 +92,7 @@ Use it:
 $('.table').tablesort();
 ```
 
-## Default style
+### Default style
 Add the styling below to your CSS or roll with your own.
 
 ``` css
@@ -126,21 +127,21 @@ table th.sort-up:after {
   }
 ```
 
-## Building
+### Building
 
 Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run `grunt` to package code
 from any contributions you make to `src/tablesort.js` before submitting pull requests.
 
-## Licence
+### Licence
 
 MIT
 
-## Tests
+### Tests
 
 ```sh
 npm test
 ```
 
-## Bugs?
+### Bugs?
 
 [Create an issue](https://github.com/tristen/tablesort/issues)
