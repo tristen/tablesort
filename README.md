@@ -95,6 +95,8 @@ $('.table').tablesort();
 Add the styling below to your CSS or roll with your own.
 
 ``` css
+th.sort-header::-moz-selection { background:transparent; }
+th.sort-header::selection      { background:transparent; } 
 th.sort-header {
   cursor:pointer;
   }

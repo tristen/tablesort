@@ -1,9 +1,7 @@
-;(function () {
+;(function() {
     function Tablesort(el, options) {
-        if (el.tagName !== 'TABLE') {
-            throw new Error('Element must be a table');
-        }
-
+        if (!el) throw new Error('Element not found');
+        if (el.tagName !== 'TABLE') throw new Error('Element must be a table');
         this.init(el, options || {});
     }
 
@@ -24,11 +22,9 @@
                 }
             }
 
-            if (!firstRow) {
-                return;
-            }
+            if (!firstRow) return;
 
-            var onClick = function () {
+            var onClick = function() {
                 if (that.current && that.current !== this) {
                     if (that.current.classList.contains(classSortUp)) {
                         that.current.classList.remove(classSortUp);
@@ -56,7 +52,7 @@
                     }
                 }
             }
-            
+
             if (defaultSort) {
                 that.current = defaultSort;
                 that.sortTable(defaultSort, true);
@@ -96,7 +92,7 @@
             if (item === '') return;
 
             // Possible sortFunction scenarios
-            var sortCaseInsensitive = function (a, b) {
+            var sortCaseInsensitive = function(a, b) {
                 var aa = getInnerText(a.cells[that.col]).toLowerCase(),
                     bb = getInnerText(b.cells[that.col]).toLowerCase();
 
@@ -106,7 +102,7 @@
                 return -1;
             };
 
-            var sortNumber = function (a, b) {
+            var sortNumber = function(a, b) {
                 var aa = getInnerText(a.cells[that.col]),
                     bb = getInnerText(b.cells[that.col]);
 
@@ -173,8 +169,8 @@
             }
 
             // Make a stable sort function
-            var stabilize = function (sort) {
-                return function (a, b) {
+            var stabilize = function(sort) {
+                return function(a, b) {
                     var unstableResult = sort(a.tr, b.tr);
                     if (unstableResult === 0) {
                         return a.index - b.index;
@@ -186,8 +182,8 @@
             // Make an `anti-stable` sort function. If two elements are equal
             // under the original sort function, then there relative order is
             // reversed.
-            var antiStabilize = function (sort) {
-                return function (a, b) {
+            var antiStabilize = function(sort) {
+                return function(a, b) {
                     var unstableResult = sort(a.tr, b.tr);
                     if (unstableResult === 0) {
                         return b.index - a.index;
@@ -244,13 +240,13 @@
             ) !== -1 && !isNaN(parseDate(date));
         },
 
-        parseDate = function (date) {
+        parseDate = function(date) {
             date = date.replace(/\-/g, '/');
             date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
             return new Date(date).getTime();
         },
 
-        getParent = function (el, pTagName) {
+        getParent = function(el, pTagName) {
             if (el === null) {
                 return null;
             } else if (el.nodeType === 1 && el.tagName.toLowerCase() === pTagName.toLowerCase()) {
@@ -260,22 +256,18 @@
             }
         },
 
-        getInnerText = function (el) {
+        getInnerText = function(el) {
             var that = this;
 
-            if (typeof el === 'string' || typeof el === 'undefined') {
-                return el;
-            }
+            if (typeof el === 'string' || typeof el === 'undefined') return el;
 
             var str = el.getAttribute('data-sort') || '';
 
             if (str) {
                 return str;
-            }
-            else if (el.textContent) {
+            } else if (el.textContent) {
                 return el.textContent;
-            }
-            else if (el.innerText) {
+            } else if (el.innerText) {
                 return el.innerText;
             }
 
@@ -298,7 +290,7 @@
             return str;
         },
 
-        compareNumber = function (a, b) {
+        compareNumber = function(a, b) {
             var aa = parseFloat(a),
                 bb = parseFloat(b);
 
@@ -307,7 +299,7 @@
             return a - b;
         },
 
-        cleanNumber = function (i) {
+        cleanNumber = function(i) {
             return i.replace(/[^\-?0-9.]/g, '');
         };
 
