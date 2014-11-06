@@ -79,16 +79,21 @@ sort.refresh();
 
 [See homepage for example](http://tristen.ca/tablesort/demo/#refresh)
 
-### Ender support
-Add `tablesort` as an internal chain method to your [Ender](http://ender.no.de) compilation.
-
-``` shell
-$ ender add tablesort
-```
-
-Use it:
+### Node/Browserify
 
 ``` js
+// npm install tablesort
+var tablesort = require('tablesort');
+
+tablesort(el, options);
+```
+
+### Ender support
+Add `tablesort` as an internal chain method to your [Ender](https://github.com/ender-js/Ender/) compilation.
+
+``` js
+// ender add tablesort
+
 $('.table').tablesort();
 ```
 
