@@ -1,7 +1,8 @@
 tablesort
 ---
 
-A small & simple sorting component for tables written in Javascript.  
+A small & simple sorting component for tables written in Javascript.
+
 [![Build Status](https://travis-ci.org/tristen/tablesort.png?Zeqckz55oF1LjKHEqHT7)](https://travis-ci.org/tristen/tablesort)
 
 ### Basic usage
