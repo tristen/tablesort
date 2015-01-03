@@ -1,0 +1,28 @@
+{
+  "name": "tablesort",
+  "description": "A sorting component for HTML tables",
+  "version": "2.0.2",
+  "license": "MIT",
+  "main": "tablesort.min.js",
+  "authors": [
+    "tristen <@fallsemo>"
+  ],
+  "homepage": "http://tristen.ca/tablesort/demo",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tristen/tablesort.git"
+  },
+  "keywords": [
+    "tablesort",
+    "table",
+    "sort",
+    "sorting"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
