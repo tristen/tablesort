@@ -117,11 +117,29 @@
                 return parseDate(bb) - parseDate(aa);
             };
 
+            var sortDotSep = function(a, b) {
+                var aa = getInnerText(a.cells[that.col]).split('.'),
+                    bb = getInnerText(b.cells[that.col]).split('.');
+
+                for (var i = 0, len = aa.length; i < len; i++) {
+                    var aai = parseInt(aa[i]),
+                        bbi = parseInt(bb[i]);
+
+                    if (aai == bbi) continue;
+                    if (aai < bbi) return -1;
+                    if (aai > bbi) return 1;
+                }
+                return 0;
+            };
+
+            // Sort dot separted numbers, e.g. ip addresses or version numbers
+            if (/^(\d+\.)+\d+$/.test(item)) {
+                sortFunction = sortDotSep;
             // Sort as number if a currency key exists or number
-            if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
-                item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
-                item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
-               ) {
+            } else if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
+                     item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
+                     item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
+            ) {
                 sortFunction = sortNumber;
             } else if (testDate(item)) {
                 sortFunction = sortDate;
