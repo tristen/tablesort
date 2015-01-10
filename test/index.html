@@ -14,6 +14,7 @@
       <th>Birthday</th>
       <th>Grocery item</th>
       <th>Price</th>
+      <th>Version</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,7 @@
       <td>12-2-70</td>
       <td>Radishes</td>
       <td>$0.63</td>
+      <td>31.0.1650.57</td>
     </tr>
     <tr>
       <td>2</td>
@@ -30,6 +32,7 @@
       <td>10/11/69</td>
       <td>Fish</td>
       <td>$12.09</td>
+      <td>11.0.1</td>
     </tr>
     <tr>
       <td>3</td>
@@ -37,6 +40,7 @@
       <td>10/11/1969</td>
       <td>Broccoli</td>
       <td>$0.79</td>
+      <td>18.0.1284.49</td>
     </tr>
   </tbody>
 </table>
@@ -52,7 +56,9 @@
 
     tape('Sorting with no options', function(t) {
         t.plan(3);
-        var el = table.querySelector('th')
+
+        // Number column
+        var el = table.querySelector('th:nth-child(1)');
         var event = document.createEvent('HTMLEvents');
         event.initEvent('click', true, false);
         el.dispatchEvent(event);
@@ -62,6 +68,18 @@
         table.querySelectorAll('td:nth-child(1)').forEach(function(c) {
             t.equal(parseInt(c.textContent, 10), count--, 'Values sorted');
         });
+    });
+
+    tape('Sorting dot separated numbers', function(t) {
+        var el = table.querySelector('th:nth-child(6)');
+        var event = document.createEvent('HTMLEvents');
+        event.initEvent('click', true, false);
+        el.dispatchEvent(event);
+
+        // Test the version column has sorted
+        t.equal(table.rows[1].cells[5].innerHTML, '11.0.1');
+        t.equal(table.rows[2].cells[5].innerHTML, '18.0.1284.49');
+        t.equal(table.rows[3].cells[5].innerHTML, '31.0.1650.57');
     });
 </script>
 </body>
