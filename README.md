@@ -19,6 +19,7 @@ A small & simple sorting component for tables written in Javascript.
 * numbers
 * currency
 * Basic dates in `dd/mm/yy` or `dd-mm-yy` format. Years can be 4 digits. Days and Months can be 1 or 2 digits.
+* Dot separated values. E.g. IP addresses or version numbers.
 
 ### Additional options
 
