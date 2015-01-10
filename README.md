@@ -26,7 +26,7 @@ A small & simple sorting component for tables written in Javascript.
 #### Ascending/Descending
 You can pass in options as a second parameter. Currently one option is supported: `descending: true`. By default, sort is set to ascending.
 
-``` html
+``` js
 new Tablesort(document.getElementById('table-id'), {
   descending: true
 });
