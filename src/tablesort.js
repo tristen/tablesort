@@ -132,11 +132,23 @@
                 return 0;
             };
 
+            var sortFilesize = function(a, b) {
+                var aa = filesize2num(getInnerText(a.cells[that.col]))
+                    bb = filesize2num(getInnerText(b.cells[that.col]));
+
+                return compareNumber(bb, aa);
+            };
+
             // Sort dot separted numbers, e.g. ip addresses or version numbers
             if (/^(\d+\.)+\d+$/.test(item)) {
                 sortFunction = sortDotSep;
+            }
+            // sort filesize, e.g. "123.45 MB"
+            else if (/^\d+(\.\d+)? ?(k|M|G|T)?i?B?$/i.test(item)) {
+                sortFunction = sortFilesize;
+            }
             // Sort as number if a currency key exists or number
-            } else if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
+            else if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
                 item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
                 item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
             ) {
@@ -319,6 +331,39 @@
 
         cleanNumber = function(i) {
             return i.replace(/[^\-?0-9.]/g, '');
+        };
+
+        // Converts filesize to bytes
+        // Ex. filesize2num("123 KB") -> 123000
+        // Ex. filesize2num("123 KiB") -> 125952
+        filesize2num = function(filesize) {
+            var matches = filesize.match(/^(\d+(\.\d+)?) ?((k|M|G|T)?i?B?)$/i);
+
+            var num    = parseFloat(cleanNumber(matches[1])),
+                suffix = matches[3];
+
+            return num * suffix2num(suffix);
+        };
+
+        // Returns suffix multiplier
+        // Ex. suffix2num("KB") -> 1000
+        // Ex. suffix2num("KiB") -> 1024
+        suffix2num = function(suffix) {
+            suffix = suffix.toLowerCase();
+            var base = suffix[1] === "i" ? 1024 : 1000;
+
+            switch(suffix[0]) {
+                case "k":
+                    return Math.pow(base, 2);
+                case "m":
+                    return Math.pow(base, 3);
+                case "g":
+                    return Math.pow(base, 4);
+                case "t":
+                    return Math.pow(base, 5);
+                default:
+                    return base;
+            }
         };
 
     if (typeof module !== 'undefined' && module.exports) {
