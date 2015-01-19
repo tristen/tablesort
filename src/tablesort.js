@@ -144,7 +144,7 @@
                 sortFunction = sortDotSep;
             }
             // sort filesize, e.g. "123.45 MB"
-            else if (/^\d+(\.\d+)? ?(k|M|G|T)?i?B?$/i.test(item)) {
+            else if (/^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item)) {
                 sortFunction = sortFilesize;
             }
             // Sort as number if a currency key exists or number
@@ -337,7 +337,7 @@
         // Ex. filesize2num("123 KB") -> 123000
         // Ex. filesize2num("123 KiB") -> 125952
         filesize2num = function(filesize) {
-            var matches = filesize.match(/^(\d+(\.\d+)?) ?((k|M|G|T)?i?B?)$/i);
+            var matches = filesize.match(/^(\d+(\.\d+)?) ?((k|M|G|T|P|E|Z|Y)?i?B?)$/i);
 
             var num    = parseFloat(cleanNumber(matches[1])),
                 suffix = matches[3];
@@ -361,6 +361,14 @@
                     return Math.pow(base, 4);
                 case "t":
                     return Math.pow(base, 5);
+                case "p":
+                    return Math.pow(base, 6);
+                case "e":
+                    return Math.pow(base, 7);
+                case "z":
+                    return Math.pow(base, 8);
+                case "y":
+                    return Math.pow(base, 9);
                 default:
                     return base;
             }
