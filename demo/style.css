@@ -162,13 +162,7 @@ table {
 /*tablesort specific styling*/
 th.sort-header::-moz-selection { background:transparent; }
 th.sort-header::selection      { background:transparent; }
-th.sort-header {
-  cursor:pointer;
-  }
-th.sort-header::-moz-selection,
-th.sort-header::selection {
-  background:transparent;
-  }
+th.sort-header { cursor:pointer; }
 table th.sort-header:after {
   content:'';
   float:right;
