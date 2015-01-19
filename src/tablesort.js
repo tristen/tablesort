@@ -22,6 +22,16 @@
                 }
             }
 
+            // ensure that each row has the same amount of cells as the header
+            var minCells = firstRow.cells.length;
+            for (var i=0, len=el.rows.length; i < len; i++) {
+                var row   = el.rows[i],
+                    cells = row.cells;
+
+                while (cells.length < minCells)
+                    row.insertCell(cells.length);
+            }
+
             if (!firstRow) return;
 
             var onClick = function() {
@@ -338,6 +348,9 @@
         // Ex. filesize2num("123 KiB") -> 125952
         filesize2num = function(filesize) {
             var matches = filesize.match(/^(\d+(\.\d+)?) ?((k|M|G|T|P|E|Z|Y)?i?B?)$/i);
+
+            if (matches === null)
+                return parseFloat(cleanNumber(filesize));
 
             var num    = parseFloat(cleanNumber(matches[1])),
                 suffix = matches[3];
