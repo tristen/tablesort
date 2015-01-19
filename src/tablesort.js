@@ -22,6 +22,16 @@
                 }
             }
 
+            // ensure that each row has the same amount of cells as the header
+            var minCells = firstRow.cells.length;
+            for (var i=0, len=el.rows.length; i < len; i++) {
+                var row   = el.rows[i],
+                    cells = row.cells;
+
+                while (cells.length < minCells)
+                    row.insertCell(cells.length);
+            }
+
             if (!firstRow) return;
 
             var onClick = function() {
