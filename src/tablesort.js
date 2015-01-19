@@ -349,6 +349,9 @@
         filesize2num = function(filesize) {
             var matches = filesize.match(/^(\d+(\.\d+)?) ?((k|M|G|T|P|E|Z|Y)?i?B?)$/i);
 
+            if (matches === null)
+                return parseFloat(cleanNumber(filesize));
+
             var num    = parseFloat(cleanNumber(matches[1])),
                 suffix = matches[3];
 
