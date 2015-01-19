@@ -15,6 +15,7 @@
       <th>Grocery item</th>
       <th>Price</th>
       <th>Version</th>
+      <th>Filesize</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,7 @@
       <td>Radishes</td>
       <td>$0.63</td>
       <td>31.0.1650.57</td>
+      <td>124k</td>
     </tr>
     <tr>
       <td>2</td>
@@ -33,6 +35,7 @@
       <td>Fish</td>
       <td>$12.09</td>
       <td>11.0.1</td>
+      <td>134.56 GB</td>
     </tr>
     <tr>
       <td>3</td>
@@ -41,6 +44,7 @@
       <td>Broccoli</td>
       <td>$0.79</td>
       <td>18.0.1284.49</td>
+      <td>134 B</td>
     </tr>
   </tbody>
 </table>
@@ -82,6 +86,20 @@
         t.equal(table.rows[1].cells[5].innerHTML, '11.0.1');
         t.equal(table.rows[2].cells[5].innerHTML, '18.0.1284.49');
         t.equal(table.rows[3].cells[5].innerHTML, '31.0.1650.57');
+    });
+
+    tape('Sorting filesizes', function(t) {
+        t.plan(3);
+
+        var el = table.querySelector('th:nth-child(7)');
+        var event = document.createEvent('HTMLEvents');
+        event.initEvent('click', true, false);
+        el.dispatchEvent(event);
+
+        // Test the version column has sorted
+        t.equal(table.rows[1].cells[6].innerHTML, '134.56 GB');
+        t.equal(table.rows[2].cells[6].innerHTML, '124k');
+        t.equal(table.rows[3].cells[6].innerHTML, '134 B');
     });
 </script>
 </body>
