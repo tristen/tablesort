@@ -183,20 +183,13 @@
                 }
             }
 
-            var sortUp   = that.options.descending ? classSortDown : classSortUp,
-                sortDown = that.options.descending ? classSortUp : classSortDown;
-
-            if (!update) {
-                if (header.classList.contains(sortUp)) {
-                    header.classList.remove(sortUp);
-                    header.classList.add(sortDown);
-                } else {
-                    header.classList.remove(sortDown);
-                    header.classList.add(sortUp);
-                }
-            } else if (!header.classList.contains(sortUp) && !header.classList.contains(sortDown)) {
-                header.classList.add(sortUp);
-            }
+            var sortDir;
+            if (header.classList.contains(classSortUp)) sortDir = classSortDown;
+            else if (header.classList.contains(classSortDown)) sortDir = classSortUp;
+            else sortDir = that.options.descending ? classSortUp : classSortDown;
+            header.classList.remove(classSortUp, false);
+            header.classList.remove(classSortDown, false);
+            header.classList.add(sortDir, true);
 
             // Make a stable sort function
             var stabilize = function(sort) {
