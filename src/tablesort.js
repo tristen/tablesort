@@ -4,6 +4,50 @@
         if (el.tagName !== 'TABLE') throw new Error('Element must be a table');
         this.init(el, options || {});
     }
+    
+    Tablesort.sortNumber = function(aa, bb, dir, atr, btr, col) {
+        aa = cleanNumber(aa);
+        bb = cleanNumber(bb);
+        return compareNumber(bb, aa);
+    };
+
+    Tablesort.sortDotSep = function(aa, bb, dir, atr, btr, col) {
+        aa = aa.split('.');
+        bb = bb.split('.');
+
+        for (var i = 0, len = aa.length; i < len; i++) {
+            var aai = parseInt(aa[i]),
+                bbi = parseInt(bb[i]);
+
+            if (aai == bbi) continue;
+            if (aai < bbi) return -1;
+            if (aai > bbi) return 1;
+        }
+        return 0;
+    };
+
+    Tablesort.sortDate = function(aa, bb, dir, atr, btr, col) {
+        aa = aa.toLowerCase();
+        bb = bb.toLowerCase();
+        return parseDate(bb) - parseDate(aa);
+    };
+
+    Tablesort.sortFilesize = function(aa, bb, dir, atr, btr, col) {
+        aa = filesize2num(aa);
+        bb = filesize2num(bb);
+
+        return compareNumber(bb, aa);
+    };
+
+    Tablesort.sortCaseInsensitive = function(aa, bb, dir, atr, btr, col) {
+        var aa = aa.toLowerCase(),
+            bb = bb.toLowerCase();
+
+        if (aa === bb) return 0;
+        if (aa < bb) return 1;
+
+        return -1;
+    };
 
     Tablesort.prototype = {
 
@@ -75,7 +119,8 @@
                 sortFunction,
                 t = getParent(header, 'table'),
                 item = '',
-                i = that.getFirstDataRowIndex();
+                i = that.getFirstDataRowIndex(),
+                customSort = false;
 
             if (t.rows.length <= 1) return;
 
@@ -91,72 +136,31 @@
 
             if (item === '') return;
 
-            // Possible sortFunction scenarios
-            var sortCaseInsensitive = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]).toLowerCase(),
-                    bb = getInnerText(b.cells[that.col]).toLowerCase();
-
-                if (aa === bb) return 0;
-                if (aa < bb) return 1;
-
-                return -1;
-            };
-
-            var sortNumber = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]),
-                    bb = getInnerText(b.cells[that.col]);
-
-                aa = cleanNumber(aa);
-                bb = cleanNumber(bb);
-                return compareNumber(bb, aa);
-            };
-
-            var sortDate = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]).toLowerCase(),
-                    bb = getInnerText(b.cells[that.col]).toLowerCase();
-                return parseDate(bb) - parseDate(aa);
-            };
-
-            var sortDotSep = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]).split('.'),
-                    bb = getInnerText(b.cells[that.col]).split('.');
-
-                for (var i = 0, len = aa.length; i < len; i++) {
-                    var aai = parseInt(aa[i]),
-                        bbi = parseInt(bb[i]);
-
-                    if (aai == bbi) continue;
-                    if (aai < bbi) return -1;
-                    if (aai > bbi) return 1;
-                }
-                return 0;
-            };
-
-            var sortFilesize = function(a, b) {
-                var aa = filesize2num(getInnerText(a.cells[that.col]))
-                    bb = filesize2num(getInnerText(b.cells[that.col]));
-
-                return compareNumber(bb, aa);
-            };
-
-            // Sort dot separted numbers, e.g. ip addresses or version numbers
-            if (/^(\d+\.)+\d+$/.test(item)) {
-                sortFunction = sortDotSep;
-            }
-            // sort filesize, e.g. "123.45 MB"
-            else if (/^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item)) {
-                sortFunction = sortFilesize;
+            // custom sort function for this column
+            if (typeof(that.options.customSort) === 'object' &&
+                ((header.cellIndex.toString()) in that.options.customSort) &&
+                typeof(that.options.customSort[header.cellIndex.toString()]) === 'function'){
+                sortFunction = that.options.customSort[header.cellIndex.toString()];
+                customSort = true;
             }
             // Sort as number if a currency key exists or number
             else if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
                 item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
                 item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
-            ) {
-                sortFunction = sortNumber;
+            ) { 
+                sortFunction = Tablesort.sortNumber;
+            }
+            // Sort dot separted numbers, e.g. ip addresses or version numbers
+            else if (/^(\d+\.)+\d+$/.test(item)) {
+                sortFunction = Tablesort.sortDotSep;
+            }
+            // sort filesize, e.g. "123.45 MB"
+            else if (/^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item)) {
+                sortFunction = Tablesort.sortFilesize;
             } else if (testDate(item)) {
-                sortFunction = sortDate;
+                sortFunction = Tablesort.sortDate;
             } else {
-                sortFunction = sortCaseInsensitive;
+                sortFunction = Tablesort.sortCaseInsensitive;
             }
 
             this.col = column;
@@ -183,40 +187,31 @@
                 }
             }
 
-            var sortUp   = that.options.descending ? classSortDown : classSortUp,
-                sortDown = that.options.descending ? classSortUp : classSortDown;
-
-            if (!update) {
-                if (header.classList.contains(sortUp)) {
-                    header.classList.remove(sortUp);
-                    header.classList.add(sortDown);
-                } else {
-                    header.classList.remove(sortDown);
-                    header.classList.add(sortUp);
-                }
-            } else if (!header.classList.contains(sortUp) && !header.classList.contains(sortDown)) {
-                header.classList.add(sortUp);
-            }
+            var sortDir;
+            if (header.classList.contains(classSortUp)) sortDir = classSortDown;
+            else if (header.classList.contains(classSortDown)) sortDir = classSortUp;
+            else sortDir = that.options.descending ? classSortUp : classSortDown;
+            header.classList.remove(classSortUp, false);
+            header.classList.remove(classSortDown, false);
+            header.classList.add(sortDir, true);
 
             // Make a stable sort function
-            var stabilize = function(sort) {
+            var stabilize = function(sort, col, dir, anti) {
                 return function(a, b) {
-                    var unstableResult = sort(a.tr, b.tr);
-                    if (unstableResult === 0) {
+                    var unstableResult = sort(
+                        getInnerText(a.tr.cells[col]), 
+                        getInnerText(b.tr.cells[col]), 
+                        dir,
+                        a.tr, 
+                        b.tr, 
+                        col
+                    );
+                    if (unstableResult === 0){ 
+                        // If two elements are equal
+                        // under the original sort function, then there relative order is
+                        // reversed.
+                        if (anti) b.index - a.index;
                         return a.index - b.index;
-                    }
-                    return unstableResult;
-                };
-            };
-
-            // Make an `anti-stable` sort function. If two elements are equal
-            // under the original sort function, then there relative order is
-            // reversed.
-            var antiStabilize = function(sort) {
-                return function(a, b) {
-                    var unstableResult = sort(a.tr, b.tr);
-                    if (unstableResult === 0) {
-                        return b.index - a.index;
                     }
                     return unstableResult;
                 };
@@ -225,11 +220,11 @@
             // Before we append should we reverse the new array or not?
             // If we reverse, the sort needs to be `anti-stable` so that
             // the double negatives cancel out
-            if (header.classList.contains(classSortDown)) {
-                newRows.sort(antiStabilize(sortFunction));
-                newRows.reverse();
+            if (header.classList.contains(classSortDown)){
+                newRows.sort(stabilize(sortFunction, this.col, 'asc', true));
+                if (! customSort) newRows.reverse();
             } else {
-                newRows.sort(stabilize(sortFunction));
+                newRows.sort(stabilize(sortFunction, this.col, 'desc'));
             }
 
             // append rows that already exist rather than creating new ones

@@ -3,9 +3,45 @@
 <head>
 <meta charset=utf-8 />
 <title>tablesort | tristen</title>
-<link href='style.css' rel='stylesheet'>
-</head>
-<body onload='prettyPrint()'>
+<!--
+<script src='https://raw.githubusercontent.com/tristen/tablesort/gh-pages/src/tablesort.js'></script>
+-->
+<script src="../src/tablesort.js"></script>
+<style>
+
+    th.sort-header::-moz-selection { background:transparent; }
+    th.sort-header::selection      { background:transparent; }
+    th.sort-header {
+      cursor:pointer;
+      }
+    th.sort-header::-moz-selection,
+    th.sort-header::selection {
+      background:transparent;
+      }
+    table th.sort-header:after {
+      content:'';
+      float:right;
+      margin-top:7px;
+      border-width:0 4px 4px;
+      border-style:solid;
+      border-color:#404040 transparent;
+      visibility:hidden;
+      }
+    table th.sort-header:hover:after {
+      visibility:visible;
+      }
+    table th.sort-up:after,
+    table th.sort-down:after,
+    table th.sort-down:hover:after {
+      visibility:visible;
+      opacity:0.4;
+      }
+    table th.sort-up:after {
+      border-bottom:none;
+      border-width:4px 4px 0;
+      }
+</style>
+<body> 
 
 <div class='page'>
   <div class='inner'>
@@ -82,274 +118,5 @@
       </tbody>
     </table>
   </div>
-  <div class='content'>
-    <div class='inner'>
-      <a class='button stretch' href='https://raw.github.com/tristen/tablesort/gh-pages/tablesort.min.js'>Download the minified script</a>
-
-      <div class='col12 center pad1y'>
-        <a href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
-      </div>
-
-      <h2 id='usage'>Basic usage</h2>
-  <pre class='prettyprint'>
-&lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
-
-&lt;script&gt;
-  new Tablesort(document.getElementById('table-id'));
-&lt;/script&gt;</pre>
-
-      <h2 id='types'>Sort Types</h2>
-      <ul>
-        <li>strings</li>
-        <li>numbers</li>
-        <li>currency </li>
-        <li>Basic dates in <code>dd/mm/yy</code> or <code>dd-mm-yy</code> format. Years can be
-        4 digits. Days and Months can be 1 or 2 digits.</li>
-        <li>Dot separated values. E.g. IP addresses or version numbers.</td>
-        <li>Filesizes. E.g. "5.35 K", "10 MB", "12.45 GB", "4.67 TiB"</td>
-      </ul>
-
-      <h2 id='options'>Additional options</h2>
-      <div class='options'>
-        <h3 id='direction'>Ascending/Descending</h3>
-        <p>You can pass an alternate sort order as a second parameter. By default sort is ascending. To change this, set:</p>
-  <pre class='prettyprint'>
-new Tablesort(document.getElementById('table-id'), {
-  descending: true
-});</pre>
-<p class='notice'><strong>Note:</strong> If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</p>
-        <h3 id='exclude'>Exclude columns or rows</h3>
-        For columns or rows that do not require sorting, you can add a class of <code>no-sort</code> to a columns <code>th</code> or a <code>tr</code> element.
-<pre class='prettyprint'>
-&lt;th class='no-sort'&gt;Name&lt;/th&gt;
-
-&lt;tr class='no-sort'&gt;
-  &lt;td&gt;1&lt;/td&gt;
-  &lt;td&gt;Gonzo the Great&lt;/td&gt;
-  &lt;td&gt;12-2-70&lt;/td&gt;
-  &lt;td&gt;Radishes&lt;/td&gt;
-  &lt;td&gt;$0.63&lt;/td&gt;
-&lt;/tr&gt;
-</pre>
-
-
-        <h3 id='data-sort'>Override data that is sorted on</h3>
-        <p>Sometimes text inside cells is not normalized. Using a `data-sort` attribute you can use optional data to sort on.</p>
-<pre class='prettyprint'>
-&lt;tr>
-  &lt;td&gt;1&lt;/td&gt;
-  &lt;td data-sort='1357656438'&gt;01/08/13 @ 8:47:18am EST&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td&gt;2&lt;/td&gt;
-  &lt;td data-sort='1078673085'&gt;3/7/2004 @ 9:24:45 EST&lt;/td&gt;
-&lt;/tr&gt;
-</pre>
-
-        <h3 id='refresh'>Refresh sort on appended data</h3>
-        <p>Tablesort supports sorting when new data has been added. Simply call the refresh method.</p>
-        <pre class='prettyprint'>
-var table = document.getElementById('table-id');
-var sort = new Tablesort(table);
-
-// Make some Ajax request to fetch new data and on success:
-sort.refresh();
-</pre>
-        <table id='refresh-table' class='sort'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Born</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Roy Eldridge</td>
-              <td>1911</td>
-            </tr>
-            <tr>
-              <td>Tim Hagans</td>
-              <td>1954</td>
-            </tr>
-            <tr>
-              <td>Freddie Hubbard</td>
-              <td>1938</td>
-            </tr>
-          </tbody>
-        </table>
-        <a href='#' id='add' class='button'>Append a row</a>
-        <a href='#' id='remove' class='button'>Remove a row</a>
-
-<h3 id='sort-default'>Default sort on tablesort initialization</h3>
-<p>It is possible to automatically sort the table once you create a Tablesort instance by adding <code>sort-default</code> class.</p>
-<pre class='prettyprint'>
-&lt;th class='sort-default'&gt;Born&lt;/th&gt;
-</pre>
-  <table id='defaulting' class='sort'>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th class='sort-default'>Born</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Roy Eldridge</td>
-        <td>1911</td>
-      </tr>
-      <tr>
-        <td>Tim Hagans</td>
-        <td>1954</td>
-      </tr>
-      <tr>
-        <td>Freddie Hubbard</td>
-        <td>1938</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-      <h2 id='style'>Default style</h2>
-      <p>Add the styling below to your CSS or roll with your own.</p>
-  <pre class='prettyprint' style='font-weight:normal;'>
-th.sort-header::-moz-selection { background:transparent; }
-th.sort-header::selection      { background:transparent; }
-th.sort-header { cursor:pointer; }
-table th.sort-header:after {
-  content:'';
-  float:right;
-  margin-top:7px;
-  border-width:0 4px 4px;
-  border-style:solid;
-  border-color:#404040 transparent;
-  visibility:hidden;
-  }
-table th.sort-header:hover:after {
-  visibility:visible;
-  }
-table th.sort-up:after,
-table th.sort-down:after,
-table th.sort-down:hover:after {
-  visibility:visible;
-  opacity:0.4;
-  }
-table th.sort-up:after {
-  border-bottom:none;
-  border-width:4px 4px 0;
-  }</pre>
-
-    <h2 id='licence'>Licence</h2>
-    <p>MIT</p>
-
-    <h2 id='issues'>Bugs?</h2>
-    <a href='https://github.com/tristen/tablesort/issues'>File Them</a>
-    </div>
-  </div>
-</div>
-<script src='prettify.js'></script>
-<script src='../src/tablesort.js'></script>
-<script>
-  new Tablesort(document.getElementById('sort'));
-  new Tablesort(document.getElementById('defaulting'));
-
-  var trumpeters = [
-    {
-      "name": "Miles Davis",
-      "born": 1926
-    },
-    {
-      "name": "Dizzy Gillespie",
-      "born": 1917
-    },
-    {
-      "name": "Wynton Marsalis",
-      "born": 1961
-    },
-    {
-      "name": "Tom Harell",
-      "born": 1946
-    },
-    {
-      "name": "Roy Hargrove",
-      "born": 1969
-    },
-    {
-      "name": "Chet Baker",
-      "born": 1929
-    },
-    {
-      "name": "Nicholas Payton",
-      "born": 1973
-    },
-    {
-      "name": "Wallace Roney",
-      "born": 1960
-    },
-    {
-      "name": "Rex Stewart",
-      "born": 1907
-    },
-    {
-      "name": "Tim Hagans",
-      "born": 1954
-    },
-    {
-      "name": "Roy Eldridge",
-      "born": 1911
-    },
-    {
-      "name": "Freddie Hubbard",
-      "born": 1938
-    }
-  ]
-  var r = document.getElementById('refresh-table');
-  var add = document.getElementById('add');
-  var remove = document.getElementById('remove');
-  var refresh = new Tablesort(r);
-
-  function cancel(event) {
-    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
-    (event.stopPropagation) ? event.stopPropagation() : event.cancelBubble = true;
-  }
-var addEvent = function(object, event, method) {
-    if (object.attachEvent) {
-        object['e' + event + method] = method;
-        object[event + method] = function(){object['e' + event + method](window.event);};
-        object.attachEvent('on' + event, object[event + method]);
-    } else {
-    object.addEventListener(event, method, false);
-    }
-};
-
-var cancel = function(event) {
-    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
-    (event.stopPropagation) ? event.stopPropagation() : event.cancelBubble = true;
-};
-addEvent(add, 'click', function(e) {
-  cancel(e);
-  var player = trumpeters[Math.floor(Math.random() * trumpeters.length)];
-
-  var rowCount = r.rows.length;
-  var row = r.insertRow(rowCount);
-
-  var cellName = row.insertCell(0);
-      cellName.innerHTML = player.name;
-
-  var cellBorn = row.insertCell(1);
-      cellBorn.innerHTML = player.born;
-
-  refresh.refresh();
-});
-addEvent(remove, 'click', function(e) {
-  cancel(e);
-  var rowCount = r.rows.length;
-  if (rowCount === 2) return;
-  r.deleteRow(rowCount - 1);
-});
-
-var analytics=analytics||[];(function(){var e=["identify","track","trackLink","trackForm","trackClick","trackSubmit","page","pageview","ab","alias","ready","group"],t=function(e){return function(){analytics.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var n=0;n<e.length;n++)analytics[e[n]]=t(e[n])})(),analytics.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"d2dq2ahtl5zl1z.cloudfront.net/analytics.js/v1/"+e+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)};
-analytics.load("ppyh4q5xb3");
-</script>
-
 </body>
 </html>
