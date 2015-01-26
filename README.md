@@ -74,11 +74,11 @@ Keep in mind that when using customSort functions, it's up to you to reverse the
 ### Static Class Methods
 The following class methods are available and the typical use case is within your own customSort functions.  They take the same arguments as the above customSort option functions. See "Sort Types" below.
 
-Tablesort.sortNumber - sorts a numbers/currencies
-Tablesort.sortDate - sorts dates
-Tablesort.sortDotSep - sorts dot separated strings like IP addresses and version numbers 
-Tablesort.sortFileSize - ie. "5.35 K", "10 MB", "12.45 GB", "4.67 TiB" 
-Tablesort.sortCaseInsensitive - case insensitive string sort
+* **Tablesort.sortNumber** - sorts a numbers/currencies
+* **Tablesort.sortDate** - sorts dates
+* **Tablesort.sortDotSep** - sorts dot separated strings like IP addresses and version numbers 
+* **Tablesort.sortFileSize** - ie. "5.35 K", "10 MB", "12.45 GB", "4.67 TiB" 
+* **Tablesort.sortCaseInsensitive** - case insensitive string sort
 
 #### Exclude columns or rows
 For columns or rows that do not require sorting, you can add a class of `no-sort` to a columns `th` or a `tr` element.
