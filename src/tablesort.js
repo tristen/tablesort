@@ -139,20 +139,21 @@
                 return compareNumber(bb, aa);
             };
 
+
+            // Sort as number if a currency key exists or number
+            if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
+                item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
+                item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
+            ) { 
+                sortFunction = sortNumber;
+            }
             // Sort dot separted numbers, e.g. ip addresses or version numbers
-            if (/^(\d+\.)+\d+$/.test(item)) {
+            else if (/^(\d+\.)+\d+$/.test(item)) {
                 sortFunction = sortDotSep;
             }
             // sort filesize, e.g. "123.45 MB"
             else if (/^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item)) {
                 sortFunction = sortFilesize;
-            }
-            // Sort as number if a currency key exists or number
-            else if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
-                item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
-                item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
-            ) {
-                sortFunction = sortNumber;
             } else if (testDate(item)) {
                 sortFunction = sortDate;
             } else {
