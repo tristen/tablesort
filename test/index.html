@@ -83,9 +83,9 @@
         el.dispatchEvent(event);
 
         // Test the version column has sorted
-        t.equal(table.rows[1].cells[5].innerHTML, '11.0.1');
+        t.equal(table.rows[1].cells[5].innerHTML, '31.0.1650.57');
         t.equal(table.rows[2].cells[5].innerHTML, '18.0.1284.49');
-        t.equal(table.rows[3].cells[5].innerHTML, '31.0.1650.57');
+        t.equal(table.rows[3].cells[5].innerHTML, '11.0.1');
     });
 
     tape('Sorting filesizes', function(t) {
@@ -96,7 +96,7 @@
         event.initEvent('click', true, false);
         el.dispatchEvent(event);
 
-        // Test the version column has sorted
+        // Test the filesize column has sorted
         t.equal(table.rows[1].cells[6].innerHTML, '134.56 GB');
         t.equal(table.rows[2].cells[6].innerHTML, '124k');
         t.equal(table.rows[3].cells[6].innerHTML, '134 B');
