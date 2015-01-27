@@ -126,8 +126,8 @@
                         bbi = parseInt(bb[i]);
 
                     if (aai == bbi) continue;
-                    if (aai < bbi) return -1;
-                    if (aai > bbi) return 1;
+                    if (aai > bbi) return -1;
+                    if (aai < bbi) return 1;
                 }
                 return 0;
             };
