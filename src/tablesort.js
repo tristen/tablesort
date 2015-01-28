@@ -246,6 +246,11 @@
                 // appendChild(x) moves x if already present somewhere else in the DOM
                 t.tBodies[0].appendChild(whatToInsert);
             }
+
+            // callback
+            if (that.options.callback && typeof that.options.callback === 'function') {
+                that.options.callback(header);
+            }
         },
 
         refresh: function() {
