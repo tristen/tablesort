@@ -16,6 +16,7 @@
       <th>Price</th>
       <th>Version</th>
       <th>Filesize</th>
+      <th>Insensitive</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,7 @@
       <td>$0.63</td>
       <td>31.0.1650.57</td>
       <td>124k</td>
+      <td>B</td>
     </tr>
     <tr>
       <td>2</td>
@@ -36,6 +38,7 @@
       <td>$12.09</td>
       <td>11.0.1</td>
       <td>134.56 GB</td>
+      <td>1</td>
     </tr>
     <tr>
       <td>3</td>
@@ -45,6 +48,7 @@
       <td>$0.79</td>
       <td>18.0.1284.49</td>
       <td>134 B</td>
+      <td>A</td>
     </tr>
   </tbody>
 </table>
@@ -100,6 +104,33 @@
         t.equal(table.rows[1].cells[6].innerHTML, '134.56 GB');
         t.equal(table.rows[2].cells[6].innerHTML, '124k');
         t.equal(table.rows[3].cells[6].innerHTML, '134 B');
+    });
+
+    tape('Sorting insensitive', function(t) {
+        t.plan(9);
+
+        var el = table.querySelector('th:nth-child(8)');
+        var event = document.createEvent('HTMLEvents');
+        event.initEvent('click', true, false);
+        el.dispatchEvent(event);
+
+        t.equal(table.rows[1].cells[7].innerHTML, 'B');
+        t.equal(table.rows[2].cells[7].innerHTML, 'A');
+        t.equal(table.rows[3].cells[7].innerHTML, '1');
+
+        event.initEvent('click', true, false);
+        el.dispatchEvent(event);
+
+        t.equal(table.rows[1].cells[7].innerHTML, '1');
+        t.equal(table.rows[2].cells[7].innerHTML, 'A');
+        t.equal(table.rows[3].cells[7].innerHTML, 'B');
+
+        event.initEvent('click', true, false);
+        el.dispatchEvent(event);
+
+        t.equal(table.rows[1].cells[7].innerHTML, 'B');
+        t.equal(table.rows[2].cells[7].innerHTML, 'A');
+        t.equal(table.rows[3].cells[7].innerHTML, '1');
     });
 </script>
 </body>
