@@ -324,7 +324,11 @@
                 switch (cs[i].nodeType) {
                     case 1:
                         // ELEMENT_NODE
-                        str += that.getInnerText(cs[i]);
+                        if (cs[i].tagName === 'IMG') {
+                            str += (cs[i].alt || cs[i].title || "");
+                        } else {
+                            str += that.getInnerText(cs[i]);
+                        }
                     break;
                     case 3:
                         // TEXT_NODE
