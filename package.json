@@ -7,7 +7,7 @@
   "main": "./src/tablesort.js",
   "homepage": "http://tristen.ca/tablesort/demo",
   "scripts": {
-    "test": "tape test/test.client.js"
+    "test": "tape test/test.client.js | tap-spec"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "grunt-contrib-uglify": "~0.5.0",
     "phantomjs": "~1.9.x",
     "serve-static": "1.6.x",
+    "tap-spec": "^2.2.0",
     "tape": "^3.0.0"
   }
 }
