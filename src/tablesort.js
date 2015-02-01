@@ -75,21 +75,22 @@
                 sortFunction,
                 t = getParent(header, 'table'),
                 item = '',
+                items = [],
                 i = that.getFirstDataRowIndex();
 
             if (t.rows.length <= 1) return;
 
-            while (item === '' && i < t.tBodies[0].rows.length) {
+            while (items.length < 3 && i < t.tBodies[0].rows.length) {
                 item = getInnerText(t.tBodies[0].rows[i].cells[column]);
                 item = item.trim();
                 // Exclude cell values where commented out HTML exists
-                if (item.substr(0, 4) === '<!--' || item.length === 0) {
-                    item = '';
+                if (item.substr(0, 4) !== '<!--' && item.length !== 0) {
+                    items.push(item);
                 }
                 i++;
             }
 
-            if (item === '') return;
+            if (!items) return;
 
             // Possible sortFunction scenarios
             var sortCaseInsensitive = function(a, b) {
@@ -139,21 +140,18 @@
                 return compareNumber(bb, aa);
             };
 
-            // Sort dot separted numbers, e.g. ip addresses or version numbers
-            if (/^(\d+\.)+\d+$/.test(item)) {
+            // Sort dot separated numbers, e.g. ip addresses or version numbers
+            if (items.every(testDotSeparatedNumbers)) {
                 sortFunction = sortDotSep;
             }
             // sort filesize, e.g. "123.45 MB"
-            else if (/^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item)) {
+            else if (items.every(testFilesize)) {
                 sortFunction = sortFilesize;
             }
             // Sort as number if a currency key exists or number
-            else if (item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
-                item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
-                item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/) // number
-            ) {
+            else if (items.every(testNumber)) {
                 sortFunction = sortNumber;
-            } else if (testDate(item)) {
+            } else if (items.every(testDate)) {
                 sortFunction = sortDate;
             } else {
                 sortFunction = sortCaseInsensitive;
@@ -246,7 +244,6 @@
                 // appendChild(x) moves x if already present somewhere else in the DOM
                 t.tBodies[0].appendChild(whatToInsert);
             }
-
             // callback
             if (that.options.callback && typeof that.options.callback === 'function') {
                 that.options.callback(header);
@@ -266,6 +263,20 @@
     var week       = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
         commonDate = /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/,
         month      = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
+
+    var testDotSeparatedNumbers = function(item){
+        return /^(\d+\.)+\d+$/.test(item);
+    };
+
+    var testFilesize = function(item){
+        return /^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item);
+    };
+
+    var testNumber = function(item){
+        return item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
+               item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
+               item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // number
+    };
 
     var testDate = function(date) {
             return (
