@@ -324,7 +324,7 @@
                 switch (cs[i].nodeType) {
                     case 1:
                         // ELEMENT_NODE
-                        if (cs[i].tagName === 'IMG') {
+                        if (cs[i].tagName === 'IMG' || cs[i].tagName === 'SPAN') {
                             str += (cs[i].alt || cs[i].title || "");
                         } else {
                             str += that.getInnerText(cs[i]);
