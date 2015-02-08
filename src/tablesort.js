@@ -303,41 +303,9 @@
         },
 
         getInnerText = function(el) {
-            var that = this;
-
             if (typeof el === 'string' || typeof el === 'undefined') return el;
 
-            var str = el.getAttribute('data-sort') || '';
-
-            if (str) {
-                return str;
-            } else if (el.textContent) {
-                return el.textContent;
-            } else if (el.innerText) {
-                return el.innerText;
-            }
-
-            var cs = el.childNodes,
-                l = cs.length;
-
-            for (var i = 0; i < l; i++) {
-                switch (cs[i].nodeType) {
-                    case 1:
-                        // ELEMENT_NODE
-                        if (cs[i].tagName === 'IMG' || cs[i].tagName === 'SPAN') {
-                            str += (cs[i].alt || cs[i].title || "");
-                        } else {
-                            str += that.getInnerText(cs[i]);
-                        }
-                    break;
-                    case 3:
-                        // TEXT_NODE
-                        str += cs[i].nodeValue;
-                    break;
-                }
-            }
-
-            return str;
+            return el.getAttribute('data-sort') || el.textContent || el.innerText || '';
         },
 
         compareNumber = function(a, b) {
