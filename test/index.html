@@ -114,13 +114,6 @@
         event.initEvent('click', true, false);
         el.dispatchEvent(event);
 
-        t.equal(table.rows[1].cells[7].innerHTML, 'B');
-        t.equal(table.rows[2].cells[7].innerHTML, 'A');
-        t.equal(table.rows[3].cells[7].innerHTML, '1');
-
-        event.initEvent('click', true, false);
-        el.dispatchEvent(event);
-
         t.equal(table.rows[1].cells[7].innerHTML, '1');
         t.equal(table.rows[2].cells[7].innerHTML, 'A');
         t.equal(table.rows[3].cells[7].innerHTML, 'B');
@@ -131,6 +124,13 @@
         t.equal(table.rows[1].cells[7].innerHTML, 'B');
         t.equal(table.rows[2].cells[7].innerHTML, 'A');
         t.equal(table.rows[3].cells[7].innerHTML, '1');
+
+        event.initEvent('click', true, false);
+        el.dispatchEvent(event);
+
+        t.equal(table.rows[1].cells[7].innerHTML, '1');
+        t.equal(table.rows[2].cells[7].innerHTML, 'A');
+        t.equal(table.rows[3].cells[7].innerHTML, 'B');
     });
 </script>
 </body>
