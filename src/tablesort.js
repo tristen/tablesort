@@ -69,7 +69,7 @@
             }
         },
 
-        sortTable: function(header, update) {
+        sortTable: function(header) {
             var that = this,
                 column = header.cellIndex,
                 sortFunction,
