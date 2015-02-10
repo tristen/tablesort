@@ -134,7 +134,7 @@
             };
 
             var sortFilesize = function(a, b) {
-                var aa = filesize2num(getInnerText(a.cells[that.col]))
+                var aa = filesize2num(getInnerText(a.cells[that.col])),
                     bb = filesize2num(getInnerText(b.cells[that.col]));
 
                 return compareNumber(bb, aa);
@@ -312,7 +312,7 @@
 
         cleanNumber = function(i) {
             return i.replace(/[^\-?0-9.]/g, '');
-        };
+        },
 
         // Converts filesize to bytes
         // Ex. filesize2num("123 KB") -> 123000
@@ -324,7 +324,7 @@
                 suffix = matches[3];
 
             return num * suffix2num(suffix);
-        };
+        },
 
         // Returns suffix multiplier
         // Ex. suffix2num("KB") -> 1000
