@@ -216,7 +216,7 @@
             // Before we append should we reverse the new array or not?
             // If we reverse, the sort needs to be `anti-stable` so that
             // the double negatives cancel out
-            if (header.classList.contains(classSortDown)) {
+            if (sortDir === classSortDown) {
                 newRows.sort(antiStabilize(sortFunction));
                 newRows.reverse();
             } else {
