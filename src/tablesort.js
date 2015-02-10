@@ -55,7 +55,7 @@
 
             if (defaultSort) {
                 that.current = defaultSort;
-                that.sortTable(defaultSort, true);
+                that.sortTable(defaultSort);
             }
         },
 
@@ -245,7 +245,7 @@
 
         refresh: function() {
             if (this.current !== undefined) {
-                this.sortTable(this.current, true);
+                this.sortTable(this.current);
             }
         }
     };
