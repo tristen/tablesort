@@ -190,7 +190,12 @@
             var sortDir;
             if (header.classList.contains(classSortUp)) sortDir = classSortDown;
             else if (header.classList.contains(classSortDown)) sortDir = classSortUp;
-            else sortDir = that.options.descending ? classSortUp : classSortDown;
+            else{
+                if (that.options.defaultSortDir && that.options.defaultSortDir[column]){
+                    sortDir = that.options.defaultSortDir[column] === 'asc' ? classSortDown : classSortUp;  
+                }
+                else sortDir = that.options.descending ? classSortUp : classSortDown;
+            }
             header.classList.remove(classSortUp, false);
             header.classList.remove(classSortDown, false);
             header.classList.add(sortDir, true);
