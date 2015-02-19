@@ -26,12 +26,8 @@
 
             var onClick = function() {
                 if (that.current && that.current !== this) {
-                    if (that.current.classList.contains(classSortUp)) {
-                        that.current.classList.remove(classSortUp);
-                    }
-                    else if (that.current.classList.contains(classSortDown)) {
-                        that.current.classList.remove(classSortDown);
-                    }
+                    that.current.classList.remove(classSortUp);
+                    that.current.classList.remove(classSortDown);
                 }
 
                 that.current = this;
@@ -185,9 +181,9 @@
             if (header.classList.contains(classSortUp)) sortDir = classSortDown;
             else if (header.classList.contains(classSortDown)) sortDir = classSortUp;
             else sortDir = that.options.descending ? classSortUp : classSortDown;
-            header.classList.remove(classSortUp, false);
-            header.classList.remove(classSortDown, false);
-            header.classList.add(sortDir, true);
+            header.classList.remove(classSortUp);
+            header.classList.remove(classSortDown);
+            header.classList.add(sortDir);
 
             // Make a stable sort function
             var stabilize = function(sort) {
