@@ -10,6 +10,7 @@
         init: function(el, options) {
             var that = this,
                 firstRow;
+            this.table = el;
             this.thead = false;
             this.options = options;
 
@@ -69,7 +70,7 @@
             var that = this,
                 column = header.cellIndex,
                 sortFunction,
-                t = getParent(header, 'table'),
+                t = this.table,
                 item = '',
                 items = [],
                 i = that.getFirstDataRowIndex();
@@ -279,16 +280,6 @@
             date = date.replace(/\-/g, '/');
             date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
             return new Date(date).getTime();
-        },
-
-        getParent = function(el, pTagName) {
-            if (el === null) {
-                return null;
-            } else if (el.nodeType === 1 && el.tagName.toLowerCase() === pTagName.toLowerCase()) {
-                return el;
-            } else {
-                return getParent(el.parentNode, pTagName);
-            }
         },
 
         getInnerText = function(el) {
