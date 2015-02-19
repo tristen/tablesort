@@ -70,15 +70,16 @@
             var that = this,
                 column = header.cellIndex,
                 sortFunction,
-                t = this.table,
                 item = '',
                 items = [],
                 i = that.getFirstDataRowIndex();
 
-            if (t.rows.length <= 1) return;
+            that.table.dispatchEvent(createEvent('tablesort-pre-sort'));
 
-            while (items.length < 3 && i < t.tBodies[0].rows.length) {
-                item = getInnerText(t.tBodies[0].rows[i].cells[column]);
+            if (that.table.rows.length <= 1) return;
+
+            while (items.length < 3 && i < that.table.tBodies[0].rows.length) {
+                item = getInnerText(that.table.tBodies[0].rows[i].cells[column]);
                 item = item.trim();
                 // Exclude cell values where commented out HTML exists
                 if (item.substr(0, 4) !== '<!--' && item.length !== 0) {
@@ -112,9 +113,9 @@
                 j,
                 totalRows = 0;
 
-            for (i = 0; i < t.tBodies.length; i++) {
-                for (j = 0; j < t.tBodies[i].rows.length; j++) {
-                    var tr = t.tBodies[i].rows[j];
+            for (i = 0; i < that.table.tBodies.length; i++) {
+                for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
+                    var tr = that.table.tBodies[i].rows[j];
                     if (tr.classList.contains('no-sort')) {
                         // keep no-sorts in separate list to be able to insert
                         // them back at their original position later
@@ -161,12 +162,10 @@
                     whatToInsert = newRows[i - noSortsSoFar].tr;
                 }
                 // appendChild(x) moves x if already present somewhere else in the DOM
-                t.tBodies[0].appendChild(whatToInsert);
+                that.table.tBodies[0].appendChild(whatToInsert);
             }
-            // callback
-            if (that.options.callback && typeof that.options.callback === 'function') {
-                that.options.callback(header);
-            }
+
+            that.table.dispatchEvent(createEvent('tablesort-post-sort'));
         },
 
         refresh: function() {
@@ -176,7 +175,20 @@
         }
     };
 
-    var testDotSeparatedNumbers = function(item) {
+    var createEvent = function(name) {
+            var evt;
+
+            if (!window.CustomEvent || typeof window.CustomEvent !== 'function') {
+                evt = document.createEvent( 'CustomEvent' );
+                evt.initCustomEvent(name, false, false, undefined);
+            } else {
+                evt = new CustomEvent(name);
+            }
+
+            return evt;
+        },
+
+        testDotSeparatedNumbers = function(item) {
             return /^(\d+\.)+\d+$/.test(item);
         },
 
