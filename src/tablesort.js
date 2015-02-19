@@ -27,8 +27,8 @@
 
             var onClick = function() {
                 if (that.current && that.current !== this) {
-                    that.current.classList.remove(classSortUp);
-                    that.current.classList.remove(classSortDown);
+                    that.current.classList.remove('sort-up');
+                    that.current.classList.remove('sort-down');
                 }
 
                 that.current = this;
@@ -89,54 +89,6 @@
 
             if (!items) return;
 
-            // Possible sortFunction scenarios
-            var sortCaseInsensitive = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]).toLowerCase(),
-                    bb = getInnerText(b.cells[that.col]).toLowerCase();
-
-                if (aa === bb) return 0;
-                if (aa < bb) return 1;
-
-                return -1;
-            };
-
-            var sortNumber = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]),
-                    bb = getInnerText(b.cells[that.col]);
-
-                aa = cleanNumber(aa);
-                bb = cleanNumber(bb);
-                return compareNumber(bb, aa);
-            };
-
-            var sortDate = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]).toLowerCase(),
-                    bb = getInnerText(b.cells[that.col]).toLowerCase();
-                return parseDate(bb) - parseDate(aa);
-            };
-
-            var sortDotSep = function(a, b) {
-                var aa = getInnerText(a.cells[that.col]).split('.'),
-                    bb = getInnerText(b.cells[that.col]).split('.');
-
-                for (var i = 0, len = aa.length; i < len; i++) {
-                    var aai = parseInt(aa[i]),
-                        bbi = parseInt(bb[i]);
-
-                    if (aai == bbi) continue;
-                    if (aai > bbi) return -1;
-                    if (aai < bbi) return 1;
-                }
-                return 0;
-            };
-
-            var sortFilesize = function(a, b) {
-                var aa = filesize2num(getInnerText(a.cells[that.col])),
-                    bb = filesize2num(getInnerText(b.cells[that.col]));
-
-                return compareNumber(bb, aa);
-            };
-
             // Sort dot separated numbers, e.g. ip addresses or version numbers
             if (items.every(testDotSeparatedNumbers)) {
                 sortFunction = sortDotSep;
@@ -171,6 +123,7 @@
                         // Save the index for stable sorting
                         newRows.push({
                             tr: tr,
+                            td: tr.cells[that.col],
                             index: totalRows
                         });
                     }
@@ -179,17 +132,17 @@
             }
 
             var sortDir;
-            if (header.classList.contains(classSortUp)) sortDir = classSortDown;
-            else if (header.classList.contains(classSortDown)) sortDir = classSortUp;
-            else sortDir = that.options.descending ? classSortUp : classSortDown;
-            header.classList.remove(classSortUp);
-            header.classList.remove(classSortDown);
+            if (header.classList.contains('sort-up')) sortDir = 'sort-down';
+            else if (header.classList.contains('sort-down')) sortDir = 'sort-up';
+            else sortDir = that.options.descending ? 'sort-up' : 'sort-down';
+            header.classList.remove('sort-up');
+            header.classList.remove('sort-down');
             header.classList.add(sortDir);
 
             // Make a stable sort function
             var stabilize = function(sort) {
                 return function(a, b) {
-                    var unstableResult = sort(a.tr, b.tr);
+                    var unstableResult = sort(a.td, b.td);
                     if (unstableResult === 0) {
                         return a.index - b.index;
                     }
@@ -202,7 +155,7 @@
             // reversed.
             var antiStabilize = function(sort) {
                 return function(a, b) {
-                    var unstableResult = sort(a.tr, b.tr);
+                    var unstableResult = sort(a.td, b.td);
                     if (unstableResult === 0) {
                         return b.index - a.index;
                     }
@@ -213,7 +166,7 @@
             // Before we append should we reverse the new array or not?
             // If we reverse, the sort needs to be `anti-stable` so that
             // the double negatives cancel out
-            if (sortDir === classSortDown) {
+            if (sortDir === 'sort-down') {
                 newRows.sort(antiStabilize(sortFunction));
                 newRows.reverse();
             } else {
@@ -247,38 +200,79 @@
         }
     };
 
-    var classSortUp   = 'sort-up',
-        classSortDown = 'sort-down';
+    var testDotSeparatedNumbers = function(item) {
+            return /^(\d+\.)+\d+$/.test(item);
+        },
 
-    var week       = /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i,
-        commonDate = /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/,
-        month      = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i;
+        testFilesize = function(item) {
+            return /^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item);
+        },
 
-    var testDotSeparatedNumbers = function(item){
-        return /^(\d+\.)+\d+$/.test(item);
-    };
+        testNumber = function(item) {
+            return item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
+                   item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
+                   item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // number
+        },
 
-    var testFilesize = function(item){
-        return /^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item);
-    };
-
-    var testNumber = function(item){
-        return item.match(/^-?[£\x24Û¢´€]?\d+\s*([,\.]\d{0,2})/) || // prefixed currency
-               item.match(/^-?\d+\s*([,\.]\d{0,2})?[£\x24Û¢´€]/) || // suffixed currency
-               item.match(/^-?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // number
-    };
-
-    var testDate = function(date) {
+        testDate = function(date) {
             return (
-                date.search(week) !== -1 ||
-                date.search(commonDate) !== -1  ||
-                date.search(month !== -1)
-            ) !== -1 && !isNaN(parseDate(date));
+                date.search(/(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\.?\,?\s*/i) !== -1 ||
+                date.search(/\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}/) !== -1 ||
+                date.search(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i) !== -1
+            ) && !isNaN(parseDate(date));
+        },
+
+        sortCaseInsensitive = function(a, b) {
+            a = getInnerText(a).toLowerCase();
+            b = getInnerText(b).toLowerCase();
+
+            if (a === b) return 0;
+            if (a < b) return 1;
+
+            return -1;
+        },
+
+        sortNumber = function(a, b) {
+            a = cleanNumber(getInnerText(a));
+            b = cleanNumber(getInnerText(b));
+
+            return compareNumber(b, a);
+        },
+
+        sortDate = function(a, b) {
+            a = getInnerText(a).toLowerCase();
+            b = getInnerText(b).toLowerCase();
+
+            return parseDate(b) - parseDate(a);
+        },
+
+        sortDotSep = function(a, b) {
+            a = getInnerText(a).split('.');
+            b = getInnerText(b).split('.');
+
+            for (var i = 0, len = a.length, ai, bi; i < len; i++) {
+                ai = parseInt(a[i], 10);
+                bi = parseInt(b[i], 10);
+
+                if (ai == bi) continue;
+                if (ai > bi) return -1;
+                if (ai < bi) return 1;
+            }
+
+            return 0;
+        },
+
+        sortFilesize = function(a, b) {
+            a = filesize2num(getInnerText(a));
+            b = filesize2num(getInnerText(b));
+
+            return compareNumber(b, a);
         },
 
         parseDate = function(date) {
             date = date.replace(/\-/g, '/');
             date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
+
             return new Date(date).getTime();
         },
 
@@ -289,11 +283,12 @@
         },
 
         compareNumber = function(a, b) {
-            var aa = parseFloat(a),
-                bb = parseFloat(b);
+            a = parseFloat(a);
+            b = parseFloat(b);
 
-            a = isNaN(aa) ? 0 : aa;
-            b = isNaN(bb) ? 0 : bb;
+            a = isNaN(a) ? 0 : a;
+            b = isNaN(b) ? 0 : b;
+
             return a - b;
         },
 
