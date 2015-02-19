@@ -205,7 +205,7 @@
         },
 
         testFilesize = function(item) {
-            return /^\d+(\.\d+)? ?(k|M|G|T|P|E|Z|Y)?i?B?$/i.test(item);
+            return /^\d+(\.\d+)? ?(K|M|G|T|P|E|Z|Y|B$)i?B?$/i.test(item);
         },
 
         testNumber = function(item) {
@@ -300,7 +300,7 @@
         // Ex. filesize2num("123 KB") -> 123000
         // Ex. filesize2num("123 KiB") -> 125952
         filesize2num = function(filesize) {
-            var matches = filesize.match(/^(\d+(\.\d+)?) ?((k|M|G|T|P|E|Z|Y)?i?B?)$/i);
+            var matches = filesize.match(/^(\d+(\.\d+)?) ?((K|M|G|T|P|E|Z|Y|B$)i?B?)$/i);
 
             var num    = parseFloat(cleanNumber(matches[1])),
                 suffix = matches[3];
