@@ -139,30 +139,6 @@
             header.classList.remove('sort-down');
             header.classList.add(sortDir);
 
-            // Make a stable sort function
-            var stabilize = function(sort) {
-                return function(a, b) {
-                    var unstableResult = sort(a.td, b.td);
-                    if (unstableResult === 0) {
-                        return a.index - b.index;
-                    }
-                    return unstableResult;
-                };
-            };
-
-            // Make an `anti-stable` sort function. If two elements are equal
-            // under the original sort function, then there relative order is
-            // reversed.
-            var antiStabilize = function(sort) {
-                return function(a, b) {
-                    var unstableResult = sort(a.td, b.td);
-                    if (unstableResult === 0) {
-                        return b.index - a.index;
-                    }
-                    return unstableResult;
-                };
-            };
-
             // Before we append should we reverse the new array or not?
             // If we reverse, the sort needs to be `anti-stable` so that
             // the double negatives cancel out
@@ -267,6 +243,30 @@
             b = filesize2num(getInnerText(b));
 
             return compareNumber(b, a);
+        },
+
+        // Make a stable sort function
+        stabilize = function(sort) {
+            return function(a, b) {
+                var unstableResult = sort(a.td, b.td);
+                if (unstableResult === 0) {
+                    return a.index - b.index;
+                }
+                return unstableResult;
+            };
+        },
+        
+        // Make an `anti-stable` sort function. If two elements are equal
+        // under the original sort function, then there relative order is
+        // reversed.
+        antiStabilize = function(sort) {
+            return function(a, b) {
+                var unstableResult = sort(a.td, b.td);
+                if (unstableResult === 0) {
+                    return b.index - a.index;
+                }
+                return unstableResult;
+            };
         },
 
         parseDate = function(date) {
