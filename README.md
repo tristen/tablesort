@@ -20,7 +20,7 @@ A small & simple sorting component for tables written in Javascript.
 * currency
 * Basic dates in `dd/mm/yy` or `dd-mm-yy` format. Years can be 4 digits. Days and Months can be 1 or 2 digits.
 * Dot separated values. E.g. IP addresses or version numbers.
-* Filesizes. E.g. "5.35 K", "10 MB", "12.45 GB", "4.67 TiB"
+* Filesizes. E.g. "5.35 K", "10 MB", "12.45 GB", or "4.67 TiB"
 
 ### Additional options
 
