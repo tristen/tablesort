@@ -138,8 +138,9 @@
 
           if (item.length > 0) {
             items.push(item);
-            i++;
           }
+
+          i++;
         }
 
         if (!items) return;
