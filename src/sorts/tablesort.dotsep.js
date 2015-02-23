@@ -9,10 +9,10 @@ Tablesort.extend('dotsep', function(item) {
     ai = parseInt(a[i], 10);
     bi = parseInt(b[i], 10);
 
-		if (ai === bi) continue;
-		if (ai > bi) return -1;
-		if (ai < bi) return 1;
-	}
+    if (ai === bi) continue;
+    if (ai > bi) return -1;
+    if (ai < bi) return 1;
+  }
 
-	return 0;
+  return 0;
 });
