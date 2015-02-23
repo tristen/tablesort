@@ -5,27 +5,29 @@ A small & simple sorting component for tables written in Javascript.
 
 [![Build Status](https://travis-ci.org/tristen/tablesort.png?Zeqckz55oF1LjKHEqHT7)](https://travis-ci.org/tristen/tablesort)
 
-### Basic usage
+### Quick start
 
 ``` html
 <script src='tablesort.min.js'></script>
+
+<!-- Include sort types you need -->
+<script src='tablesort.numeric.js'></script>
+<script src='tablesort.date.js'></script>
+
 <script>
   new Tablesort(document.getElementById('table-id'));
 </script>
 ```
 ### Sort Types
 
-* strings
-* numbers
-* currency
-* Basic dates in `dd/mm/yy` or `dd-mm-yy` format. Years can be 4 digits. Days and Months can be 1 or 2 digits.
-* Dot separated values. E.g. IP addresses or version numbers.
-* Filesizes. E.g. "5.35 K", "10 MB", "12.45 GB", or "4.67 TiB"
+See all available sort types in the [sorts](https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/)
+directory. Defaults to string if no sort types are provided.
 
 ### Additional options
 
 #### Ascending/Descending
-You can pass in options as a second parameter. Currently one option is supported: `descending: true`. By default, sort is set to ascending.
+You can pass in options as a second parameter. Currently one option is
+supported: `descending: true`. By default, sort is set to ascending.
 
 ``` js
 new Tablesort(document.getElementById('table-id'), {
@@ -34,7 +36,8 @@ new Tablesort(document.getElementById('table-id'), {
 ```
 
 #### Exclude columns or rows
-For columns or rows that do not require sorting, you can add a class of `no-sort` to a columns `th` or a `tr` element.
+For columns or rows that do not require sorting, you can add a class of
+`no-sort` to a columns `th` or a `tr` element.
 ``` html
 <th class='no-sort'>Name</th>
 
@@ -48,7 +51,8 @@ For columns or rows that do not require sorting, you can add a class of `no-sort
 ```
 
 #### Override data that is sorted on
-Sometimes text inside cells is not normalized. Using a `data-sort` attribute you can use optional data to sort on.
+Sometimes text inside cells is not normalized. Using a `data-sort` attribute
+you can use optional data to sort on.
 
 ``` html
 <tr>
@@ -61,15 +65,51 @@ Sometimes text inside cells is not normalized. Using a `data-sort` attribute you
 </tr>
 ```
 
+#### Specify the sort method for a column
+By adding a `data-sort-method` attribute to a table heading you can force
+Tablesort to use a specific sorting method rather than guessing it. The value
+of `data-sort-method` corresponds to the name of a sort function.
+
+``` html
+<th>Number</th>
+<th data-sort-method='dotsep'>Version</th>
+<tr>
+  <td>1</td>
+  <td>1.08.2013</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>3.7.2004</td>
+</tr>
+```
+
 #### Default sort on tablesort initialization
-It is possible to automatically sort the table once you create a Tablesort instance by adding `sort-default` class.
+It is possible to automatically sort the table once you create a Tablesort
+instance by adding `sort-default` class.
 
 ``` html
 <th class='sort-default'>Name</th>
 ```
 
+#### Events
+Tablesort supports two custom events: `beforeSort` & `afterSort`.
+
+``` js
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table);
+
+table.addEventListener('beforeSort', function() {
+  alert('Table is about to be sorted!');
+});
+
+table.addEventListener('afterSort', function() {
+  alert('Table sorted!');
+});
+```
+
 #### Refresh sort on appended data
-Tablesort supports sorting when new data has been added. Simply call the refresh method.
+Tablesort supports sorting when new data has been added. Simply call the refresh
+method.
 
 ``` js
 var table = document.getElementById('table-id');
@@ -91,7 +131,8 @@ tablesort(el, options);
 ```
 
 ### Ender support
-Add `tablesort` as an internal chain method to your [Ender](https://github.com/ender-js/Ender/) compilation.
+Add `tablesort` as an internal chain method to your [Ender](https://github.com/ender-js/Ender/)
+compilation.
 
 ``` js
 // ender add tablesort
@@ -99,12 +140,12 @@ Add `tablesort` as an internal chain method to your [Ender](https://github.com/e
 $('.table').tablesort();
 ```
 
-### Default style
+### Default CSS
 Add the styling below to your CSS or roll with your own.
 
 ``` css
 th.sort-header::-moz-selection { background:transparent; }
-th.sort-header::selection      { background:transparent; } 
+th.sort-header::selection      { background:transparent; }
 th.sort-header {
   cursor:pointer;
   }
@@ -136,20 +177,44 @@ table th.sort-up:after {
   }
 ```
 
-### Building
+### Extending Tablesort
 
-Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run `grunt` to package code
-from any contributions you make to `src/tablesort.js` before submitting pull requests.
+If you require a sort operation that does not exist
+in the [sorts](https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/)
+directory, you can add your own.
+
+`` js
+Tablesort.extend('name', function(item) {
+
+  // Regular expression to test against.
+  // `item` is a table value to evaluate.
+  return /foo/.test(item);
+}, function(a, b) {
+
+  // Custom sort functionality goes here.
+  // e.g var n = (a > b) ? -1 : 1;
+  return n;
+});
+```
+
+If you've made an extend function that others would benifit from pull requests
+are gladly accepted!
+
+### Contributing
+
+Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run
+`grunt` to package code from any contributions you make to `src/tablesort.js`
+before submitting pull requests.
+
+Tests are run via:
+
+```sh
+npm install && npm test
+```
 
 ### Licence
 
 MIT
-
-### Tests
-
-```sh
-npm test
-```
 
 ### Bugs?
 

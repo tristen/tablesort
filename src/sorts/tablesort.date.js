@@ -1,6 +1,8 @@
+// Basic dates in dd/mm/yy or dd-mm-yy format.
+// Years can be 4 digits. Days and Months can be 1 or 2 digits.
 (function(){
-	var parseDate = function(date) {
-		date = date.replace(/\-/g, '/');
+  var parseDate = function(date) {
+    date = date.replace(/\-/g, '/');
 		date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
 
 		return new Date(date).getTime();

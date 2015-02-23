@@ -1,3 +1,4 @@
+// Filesizes. e.g. '5.35 K', '10 MB', '12.45 GB', or '4.67 TiB'
 (function(){
 	var compareNumber = function(a, b) {
 		a = parseFloat(a);
@@ -10,12 +11,12 @@
 	},
 
 	cleanNumber = function(i) {
-		return i.replace(/[^\-?0-9.]/g, '');
+    return i.replace(/[^\-?0-9.]/g, '');
 	},
 
 	// Converts filesize to bytes
-	// Ex. filesize2num("123 KB") -> 123000
-	// Ex. filesize2num("123 KiB") -> 125952
+	// Ex. filesize2num('123 KB') -> 123000
+	// Ex. filesize2num('123 KiB') -> 125952
 	filesize2num = function(filesize) {
 		var matches = filesize.match(/^(\d+(\.\d+)?) ?((K|M|G|T|P|E|Z|Y|B$)i?B?)$/i);
 
@@ -26,35 +27,35 @@
 	},
 
 	// Returns suffix multiplier
-	// Ex. suffix2num("KB") -> 1000
-	// Ex. suffix2num("KiB") -> 1024
+	// Ex. suffix2num('KB') -> 1000
+	// Ex. suffix2num('KiB') -> 1024
 	suffix2num = function(suffix) {
 		suffix = suffix.toLowerCase();
-		var base = suffix[1] === "i" ? 1024 : 1000;
+		var base = suffix[1] === 'i' ? 1024 : 1000;
 
 		switch(suffix[0]) {
-			case "k":
+			case 'k':
 				return Math.pow(base, 2);
-			case "m":
+			case 'm':
 				return Math.pow(base, 3);
-			case "g":
+			case 'g':
 				return Math.pow(base, 4);
-			case "t":
+			case 't':
 				return Math.pow(base, 5);
-			case "p":
+			case 'p':
 				return Math.pow(base, 6);
-			case "e":
+			case 'e':
 				return Math.pow(base, 7);
-			case "z":
+			case 'z':
 				return Math.pow(base, 8);
-			case "y":
+			case 'y':
 				return Math.pow(base, 9);
 			default:
 				return base;
 		}
 	};
 
-	Tablesort.extend('filesize', function(item) {
+  Tablesort.extend('filesize', function(item) {
 		return /^\d+(\.\d+)? ?(K|M|G|T|P|E|Z|Y|B$)i?B?$/i.test(item);
 	}, function(a, b) {
 		a = filesize2num(a);

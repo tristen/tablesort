@@ -1,11 +1,11 @@
 {
   "name": "tablesort",
   "description": "A sorting component for HTML tables",
-  "version": "2.2.3",
+  "version": "3.0.0",
   "license": "MIT",
   "main": "tablesort.min.js",
   "authors": [
-    "tristen <@fallsemo>"
+    "tristen"
   ],
   "homepage": "http://tristen.ca/tablesort/demo",
   "repository": {

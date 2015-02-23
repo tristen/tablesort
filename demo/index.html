@@ -90,24 +90,20 @@
         <a href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
       </div>
 
-      <h2 id='usage'>Basic usage</h2>
+      <h2 id='usage'>Quick start</h2>
   <pre class='prettyprint'>
 &lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
+
+&lt;!-- Include sort types you need --&gt;
+&lt;script src='tablesort.numeric.js'&gt;&lt;/script&gt;
+&lt;script src='tablesort.date.js'&gt;&lt;/script&gt;
 
 &lt;script&gt;
   new Tablesort(document.getElementById('table-id'));
 &lt;/script&gt;</pre>
 
       <h2 id='types'>Sort Types</h2>
-      <ul>
-        <li>strings</li>
-        <li>numbers</li>
-        <li>currency </li>
-        <li>Basic dates in <code>dd/mm/yy</code> or <code>dd-mm-yy</code> format. Years can be
-        4 digits. Days and Months can be 1 or 2 digits.</li>
-        <li>Dot separated values. E.g. IP addresses or version numbers.</td>
-        <li>Filesizes. E.g. "5.35 K", "10 MB", "12.45 GB", "4.67 TiB"</td>
-      </ul>
+      <p>See all available sort types in the <a href='https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/'> sort directory of the project</a>. Defaults to string if no sort types are provided.</p>
 
       <h2 id='options'>Additional options</h2>
       <div class='options'>
@@ -134,9 +130,9 @@ new Tablesort(document.getElementById('table-id'), {
 
 
         <h3 id='data-sort'>Override data that is sorted on</h3>
-        <p>Sometimes text inside cells is not normalized. Using a `data-sort` attribute you can use optional data to sort on.</p>
+        <p>Sometimes text inside cells is not normalized. Using a <code>data-sort</code> attribute you can use optional data to sort on.</p>
 <pre class='prettyprint'>
-&lt;tr>
+&lt;tr&gt;
   &lt;td&gt;1&lt;/td&gt;
   &lt;td data-sort='1357656438'&gt;01/08/13 @ 8:47:18am EST&lt;/td&gt;
 &lt;/tr&gt;
@@ -145,6 +141,65 @@ new Tablesort(document.getElementById('table-id'), {
   &lt;td data-sort='1078673085'&gt;3/7/2004 @ 9:24:45 EST&lt;/td&gt;
 &lt;/tr&gt;
 </pre>
+
+        <h3 id='data-sort-method'>Specify the sort method for a column</h3>
+        <p>By adding a <code>data-sort-method</code> attribute to a table heading you can force Tablesort to use a specific sorting method rather than guessing it. The value of <code>data-sort-method</code> corresponds to the name of a sort function.</p>
+<pre class='prettyprint'>
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Number&lt;/th&gt;
+      &lt;th data-sort-method='dotsep'&gt;Version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;3.7.2004&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;1.08.2013&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+
+        <h3 id='events'>Events</h3>
+        <p>Tablesort supports two custom events <code>beforeSort</code> & <code>afterSort</code>.</p>
+        <pre class='prettyprint'>
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table);
+
+table.addEventListener('beforeSort', function() {
+  alert('Table is about to be sorted!');
+});
+
+table.addEventListener('afterSort', function() {
+  alert('Table sorted!');
+});</pre>
+        <table id='event-table' class='sort'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Born</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Roy Eldridge</td>
+              <td>1911</td>
+            </tr>
+            <tr>
+              <td>Tim Hagans</td>
+              <td>1954</td>
+            </tr>
+            <tr>
+              <td>Freddie Hubbard</td>
+              <td>1938</td>
+            </tr>
+          </tbody>
+        </table>
 
         <h3 id='refresh'>Refresh sort on appended data</h3>
         <p>Tablesort supports sorting when new data has been added. Simply call the refresh method.</p>
@@ -209,9 +264,9 @@ sort.refresh();
   </table>
 </div>
 
-      <h2 id='style'>Default style</h2>
-      <p>Add the styling below to your CSS or roll with your own.</p>
-  <pre class='prettyprint' style='font-weight:normal;'>
+<h2 id='style'>CSS styling</h2>
+<p>Add the styling below to your CSS or roll with your own.</p>
+<pre class='prettyprint' style='font-weight:normal;'>
 th.sort-header::-moz-selection { background:transparent; }
 th.sort-header::selection      { background:transparent; }
 th.sort-header { cursor:pointer; }
@@ -247,12 +302,26 @@ table th.sort-up:after {
   </div>
 </div>
 <script src='prettify.js'></script>
+
 <script src='../src/tablesort.js'></script>
-<script src='../src/tablesort.dotsep.js'></script>
-<script src='../src/tablesort.filesize.js'></script>
+<script src='../src/sorts/tablesort.date.js'></script>
+<script src='../src/sorts/tablesort.dotsep.js'></script>
+<script src='../src/sorts/tablesort.filesize.js'></script>
+<script src='../src/sorts/tablesort.numeric.js'></script>
+
 <script>
   new Tablesort(document.getElementById('sort'));
   new Tablesort(document.getElementById('defaulting'));
+
+  var events = document.getElementById('event-table')
+  new Tablesort(events);
+
+  addEvent(events, 'beforeSort', function(e) {
+    alert('Table is about to be sorted!');
+  });
+  addEvent(events, 'afterSort', function(e) {
+    alert('Table sorted!');
+  });
 
   var trumpeters = [
     {
@@ -313,41 +382,37 @@ table th.sort-up:after {
     (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
     (event.stopPropagation) ? event.stopPropagation() : event.cancelBubble = true;
   }
-var addEvent = function(object, event, method) {
-    if (object.attachEvent) {
-        object['e' + event + method] = method;
-        object[event + method] = function(){object['e' + event + method](window.event);};
-        object.attachEvent('on' + event, object[event + method]);
-    } else {
-    object.addEventListener(event, method, false);
-    }
-};
+  function addEvent(object, event, method) {
+      if (object.attachEvent) {
+          object['e' + event + method] = method;
+          object[event + method] = function(){object['e' + event + method](window.event);};
+          object.attachEvent('on' + event, object[event + method]);
+      } else {
+      object.addEventListener(event, method, false);
+      }
+  };
 
-var cancel = function(event) {
-    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
-    (event.stopPropagation) ? event.stopPropagation() : event.cancelBubble = true;
-};
-addEvent(add, 'click', function(e) {
-  cancel(e);
-  var player = trumpeters[Math.floor(Math.random() * trumpeters.length)];
+  addEvent(add, 'click', function(e) {
+    cancel(e);
+    var player = trumpeters[Math.floor(Math.random() * trumpeters.length)];
 
-  var rowCount = r.rows.length;
-  var row = r.insertRow(rowCount);
+    var rowCount = r.rows.length;
+    var row = r.insertRow(rowCount);
 
-  var cellName = row.insertCell(0);
-      cellName.innerHTML = player.name;
+    var cellName = row.insertCell(0);
+        cellName.innerHTML = player.name;
 
-  var cellBorn = row.insertCell(1);
-      cellBorn.innerHTML = player.born;
+    var cellBorn = row.insertCell(1);
+        cellBorn.innerHTML = player.born;
 
-  refresh.refresh();
-});
-addEvent(remove, 'click', function(e) {
-  cancel(e);
-  var rowCount = r.rows.length;
-  if (rowCount === 2) return;
-  r.deleteRow(rowCount - 1);
-});
+    refresh.refresh();
+  });
+  addEvent(remove, 'click', function(e) {
+    cancel(e);
+    var rowCount = r.rows.length;
+    if (rowCount === 2) return;
+    r.deleteRow(rowCount - 1);
+  });
 
 var analytics=analytics||[];(function(){var e=["identify","track","trackLink","trackForm","trackClick","trackSubmit","page","pageview","ab","alias","ready","group"],t=function(e){return function(){analytics.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var n=0;n<e.length;n++)analytics[e[n]]=t(e[n])})(),analytics.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"d2dq2ahtl5zl1z.cloudfront.net/analytics.js/v1/"+e+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)};
 analytics.load("ppyh4q5xb3");
