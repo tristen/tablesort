@@ -1,11 +1,11 @@
 {
   "name": "tablesort",
   "description": "A sorting component for HTML tables",
-  "version": "2.2.5",
-  "author": "tristen <@fallsemo>",
+  "version": "3.0.0",
+  "author": "tristen",
   "ender": "./ender.js",
   "main": "./src/tablesort.js",
-  "homepage": "http://tristen.ca/tablesort/demo",
+  "homepage": "http://tristen.ca/tablesort/demo/",
   "scripts": {
     "test": "tape test/test.client.js | tap-spec"
   },
