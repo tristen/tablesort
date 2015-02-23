@@ -183,7 +183,7 @@ If you require a sort operation that does not exist
 in the [sorts](https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/)
 directory, you can add your own.
 
-`` js
+``` js
 Tablesort.extend('name', function(item) {
 
   // Regular expression to test against.
