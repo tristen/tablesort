@@ -1,4 +1,4 @@
-### v3.0.1
+### v3.0.1 & v3.0.2
 
 - __Fix:__ Bug causing an infinite loop.
 
