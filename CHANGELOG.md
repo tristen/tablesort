@@ -1,3 +1,7 @@
+### v3.0.1
+
+- __Fix:__ Bug causing an infinite loop.
+
 ### v3.0.0
 
 - __Breaking change:__ Move to a modular structure to support opt in sort functions [Ref](https://github.com/tristen/tablesort/pull/75).
