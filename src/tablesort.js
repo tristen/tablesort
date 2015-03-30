@@ -103,6 +103,7 @@
         cell = firstRow.cells[i];
         if (!cell.classList.contains('no-sort')) {
           cell.classList.add('sort-header');
+          cell.tabindex = 0;
           cell.addEventListener('click', onClick, false);
 
           if (cell.classList.contains('sort-default')) {
