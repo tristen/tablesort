@@ -129,6 +129,22 @@
 
       that.table.dispatchEvent(createEvent('beforeSort'));
 
+      // If updating an existing sort `sortDir` should remain unchanged.
+      if (update) {
+        sortDir = header.classList.contains('sort-up') ? 'sort-up' : 'sort-down';
+      } else {
+        if (header.classList.contains('sort-up')) {
+          sortDir = 'sort-down';
+        } else if (header.classList.contains('sort-down')) {
+          sortDir = 'sort-up';
+        } else {
+          sortDir = that.options.descending ? 'sort-up' : 'sort-down';
+        }
+
+        header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
+        header.classList.add(sortDir);
+      }
+
       if (that.table.rows.length < 2) return;
 
       // If we force a sort method, it is not necessary to check rows
@@ -186,22 +202,6 @@
           }
           totalRows++;
         }
-      }
-
-      // If updating an existing sort `sortDir` should remain unchanged.
-      if (update) {
-        sortDir = header.classList.contains('sort-up') ? 'sort-up' : 'sort-down';
-      } else {
-        if (header.classList.contains('sort-up')) {
-          sortDir = 'sort-down';
-        } else if (header.classList.contains('sort-down')) {
-          sortDir = 'sort-up';
-        } else {
-          sortDir = that.options.descending ? 'sort-up' : 'sort-down';
-        }
-
-        header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
-        header.classList.add(sortDir);
       }
 
       // Before we append should we reverse the new array or not?
