@@ -18,6 +18,7 @@
       <th>Filesize</th>
       <th>Insensitive</th>
       <th>data-sort</th>
+      <th data-sort-method="monthname">Monthname</th>
     </tr>
   </thead>
   <tbody>
@@ -31,6 +32,7 @@
       <td>124k</td>
       <td>B</td>
       <td data-sort='b'>3</td>
+      <td>February</td>
     </tr>
     <tr>
       <td>1</td>
@@ -42,6 +44,7 @@
       <td>134.56 GB</td>
       <td>1</td>
       <td data-sort='a'>2</td>
+      <td>April</td>
     </tr>
     <tr>
       <td>3</td>
@@ -53,6 +56,7 @@
       <td>134 B</td>
       <td>A</td>
       <td data-sort='c'>1</td>
+      <td>January</td>
     </tr>
   </tbody>
 </table>
@@ -120,6 +124,7 @@
 <script src='../src/sorts/tablesort.filesize.js'></script>
 <script src='../src/sorts/tablesort.date.js'></script>
 <script src='../src/sorts/tablesort.numeric.js'></script>
+<script src='../src/sorts/tablesort.monthname.js'></script>
 
 <!-- Tests -->
 <script>
@@ -147,6 +152,7 @@ refresh.refresh();
 <script src='spec/filesize.js'></script>
 <script src='spec/date.js'></script>
 <script src='spec/numeric.js'></script>
+<script src='spec/monthname.js'></script>
 
 </body>
 </html>
