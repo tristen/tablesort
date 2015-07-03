@@ -1,3 +1,10 @@
+### v3.1.0
+
+- __Addition:__ Sort by month name [Ref](https://github.com/tristen/tablesort/pull/89).
+- __Fix:__ `instanceOf` check [Ref](https://github.com/tristen/tablesort/issues/82)
+- __Fix:__ Move CSS class setting logic above the 'return if less than two rows'
+in sortTable function [Ref](https://github.com/tristen/tablesort/pull/88).
+
 ### v3.0.1 & v3.0.2
 
 - __Fix:__ Bug causing an infinite loop.
