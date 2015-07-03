@@ -1,5 +1,7 @@
 ;(function() {
   function Tablesort(el, options) {
+    if (!(this instanceof Tablesort)) return new Tablesort(el, options);
+
     if (!el || el.tagName !== 'TABLE') {
       throw new Error('Element must be a table');
     }
