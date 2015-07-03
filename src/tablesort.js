@@ -127,6 +127,7 @@
           item = '',
           items = [],
           i = that.thead ? 0 : 1,
+          sortDir,
           sortMethod = header.getAttribute('data-sort-method');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
@@ -184,8 +185,7 @@
           noSorts = {},
           j,
           totalRows = 0,
-          noSortsSoFar = 0,
-          sortDir;
+          noSortsSoFar = 0;
 
       for (i = 0; i < that.table.tBodies.length; i++) {
         for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
