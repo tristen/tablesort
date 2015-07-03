@@ -5,7 +5,7 @@
     date = date.replace(/\-/g, '/');
     date = date.replace(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2})/, '$1/$2/$3'); // format before getTime
 
-    return new Date(date).getTime();
+    return new Date(date).getTime() || -1;
   };
 
   Tablesort.extend('date', function(item) {

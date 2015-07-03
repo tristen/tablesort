@@ -103,6 +103,7 @@
         cell = firstRow.cells[i];
         if (!cell.classList.contains('no-sort')) {
           cell.classList.add('sort-header');
+          cell.tabindex = 0;
           cell.addEventListener('click', onClick, false);
 
           if (cell.classList.contains('sort-default')) {
@@ -127,6 +128,22 @@
           sortMethod = header.getAttribute('data-sort-method');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
+
+      // If updating an existing sort `sortDir` should remain unchanged.
+      if (update) {
+        sortDir = header.classList.contains('sort-up') ? 'sort-up' : 'sort-down';
+      } else {
+        if (header.classList.contains('sort-up')) {
+          sortDir = 'sort-down';
+        } else if (header.classList.contains('sort-down')) {
+          sortDir = 'sort-up';
+        } else {
+          sortDir = that.options.descending ? 'sort-up' : 'sort-down';
+        }
+
+        header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
+        header.classList.add(sortDir);
+      }
 
       if (that.table.rows.length < 2) return;
 
@@ -185,22 +202,6 @@
           }
           totalRows++;
         }
-      }
-
-      // If updating an existing sort `sortDir` should remain unchanged.
-      if (update) {
-        sortDir = header.classList.contains('sort-up') ? 'sort-up' : 'sort-down';
-      } else {
-        if (header.classList.contains('sort-up')) {
-          sortDir = 'sort-down';
-        } else if (header.classList.contains('sort-down')) {
-          sortDir = 'sort-up';
-        } else {
-          sortDir = that.options.descending ? 'sort-up' : 'sort-down';
-        }
-
-        header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
-        header.classList.add(sortDir);
       }
 
       // Before we append should we reverse the new array or not?
