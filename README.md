@@ -11,7 +11,7 @@ A small & simple sorting component for tables written in Javascript.
 <script src='tablesort.min.js'></script>
 
 <!-- Include sort types you need -->
-<script src='tablesort.numeric.js'></script>
+<script src='tablesort.number.js'></script>
 <script src='tablesort.date.js'></script>
 
 <script>
