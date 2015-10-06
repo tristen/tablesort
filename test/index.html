@@ -128,6 +128,17 @@
   </div>
 </div>
 
+<table id='sort-and-save-to-cookie'>
+  <thead>
+  <tr><th class='sort-default'>Save to cookie</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>2</td></tr>
+  <tr><td>1</td></tr>
+  <tr><td>3</td></tr>
+  </tbody>
+</table>
+
 <script src='tape.js'></script>
 
 <script src='../src/tablesort.js'></script>
@@ -145,12 +156,14 @@
   tableDefault = document.getElementById('sort-default');
   tableRefresh = document.getElementById('sort-refresh');
   divTable     = document.getElementById('div-table-sort');
+  tableSave    = document.getElementById('sort-and-save-to-cookie');
 
   new Tablesort(table);
   new Tablesort(tableDescend, { descending: true });
   new Tablesort(tableExclude);
   new Tablesort(tableDefault);
   new Tablesort(divTable);
+  new Tablesort(tableSave, {saveToCookie: 'saved-table'});
   var refresh = new Tablesort(tableRefresh);
 
   var rowCount = tableRefresh.rows.length;

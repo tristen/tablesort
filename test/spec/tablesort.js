@@ -157,3 +157,27 @@ tape('sort works for divs', function(t) {
 
   t.end();
 });
+
+
+tape('saves sort to cookie', function(t) {
+  var el = tableSave.querySelector('th:nth-child(1)');
+  var event = document.createEvent('HTMLEvents');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(tableSave.rows[1].cells[0].innerHTML, '3');
+  t.equal(tableSave.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableSave.rows[3].cells[0].innerHTML, '1');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(tableSave.rows[1].cells[0].innerHTML, '1');
+  t.equal(tableSave.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableSave.rows[3].cells[0].innerHTML, '3');
+
+  t.equal(document.cookie, 'saved-table=0; saved-tableDir=sort-down');
+
+  t.end();
+});
