@@ -2,9 +2,6 @@
   function Tablesort(el, options) {
     if (!(this instanceof Tablesort)) return new Tablesort(el, options);
 
-    if (!el || el.tagName !== 'TABLE') {
-      throw new Error('Element must be a table');
-    }
     this.init(el, options || {});
   }
 
@@ -54,6 +51,57 @@
     };
   };
 
+
+  var createTableFromDivs = function(divTable) {
+    function getElementsByClassNameAsArray(element, className) {
+      return Array.prototype.slice.call(element.getElementsByClassName(className));
+    }
+
+    function generateCellsForRows(rows, cellClassname) {
+      rows.forEach(function(row) {
+        row.cells = getElementsByClassNameAsArray(row, cellClassname);
+      });
+    }
+
+    function generateRowsAndCellsForTableElements(tElements, cellClassname) {
+      tElements.forEach(function(tElement) {
+        tElement.rows = getElementsByClassNameAsArray(tElement, 'tr');
+        generateCellsForRows(tElement.rows, cellClassname);
+      });
+    }
+
+    function addCellIndexesToHeaders(tHead) {
+      tHead.rows[0].cells.forEach(function(cell, index) {
+        cell.cellIndex = index;
+      });
+    }
+
+    divTable.tHeads  = getElementsByClassNameAsArray(divTable, 'thead');
+    generateRowsAndCellsForTableElements(divTable.tHeads, 'th');
+    divTable.tHead = divTable.tHeads[0];
+    addCellIndexesToHeaders(divTable.tHead);
+    divTable.tBodies = getElementsByClassNameAsArray(divTable, 'tbody');
+    generateRowsAndCellsForTableElements(divTable.tBodies, 'td');
+
+    divTable.rows = divTable.tHead.rows.concat(divTable.tBodies[0].rows);
+
+    return divTable;
+  };
+
+  var loadPreviousSort = function(element, options) {
+    var indexRegex = new RegExp('(?:(?:^|.*;\\s*)' + options.saveToCookie + '\\s*\\=\\s*([^;]*).*$)|^.*$');
+    var directionRegex = new RegExp('(?:(?:^|.*;\\s*)' + options.saveToCookie + 'Dir\\s*\\=\\s*([^;]*).*$)|^.*$');
+    var index = document.cookie.replace(indexRegex, "$1");
+    var direction = document.cookie.replace(directionRegex, "$1");
+    if (index) {
+      var el = element.tHead.rows[0].cells[index];
+      el.className += ' sort-default';
+      if (direction === 'sort-up') {
+        options.descending = true;
+      }
+    }
+  };
+
   Tablesort.extend = function(name, pattern, sort) {
     if (typeof pattern !== 'function' || typeof sort !== 'function') {
       throw new Error('Pattern and sort must be a function');
@@ -70,10 +118,18 @@
 
     init: function(el, options) {
       var that = this,
-          firstRow,
-          defaultSort,
-          i,
-          cell;
+        firstRow,
+        defaultSort,
+        i,
+        cell;
+
+      if (el.tagName !== 'TABLE') {
+        el = createTableFromDivs(el);
+      }
+
+      if( options.saveToCookie ) {
+        loadPreviousSort(el, options);
+      }
 
       that.table = el;
       that.thead = false;
@@ -97,7 +153,7 @@
         }
 
         that.current = this;
-        that.sortTable(this);
+        that.sortTable(this, false, that.options.saveToCookie);
       };
 
       // Assume first row is the header and attach a click handler to each.
@@ -106,6 +162,7 @@
         if (!cell.classList.contains('no-sort')) {
           cell.classList.add('sort-header');
           cell.tabindex = 0;
+
           cell.addEventListener('click', onClick, false);
 
           if (cell.classList.contains('sort-default')) {
@@ -120,15 +177,15 @@
       }
     },
 
-    sortTable: function(header, update) {
+    sortTable: function(header, update, saveToCookie) {
       var that = this,
-          column = header.cellIndex,
-          sortFunction = caseInsensitiveSort,
-          item = '',
-          items = [],
-          i = that.thead ? 0 : 1,
-          sortDir,
-          sortMethod = header.getAttribute('data-sort-method');
+        column = header.cellIndex,
+        sortFunction = caseInsensitiveSort,
+        item = '',
+        items = [],
+        i = that.thead ? 0 : 1,
+        sortDir,
+        sortMethod = header.getAttribute('data-sort-method');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
 
@@ -146,6 +203,12 @@
 
         header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
         header.classList.add(sortDir);
+
+
+        if (saveToCookie) {
+          document.cookie = saveToCookie + '=' + column + '; path=/';
+          document.cookie = saveToCookie + 'Dir=' + sortDir + '; path=/';
+        }
       }
 
       if (that.table.rows.length < 2) return;
@@ -182,10 +245,10 @@
 
       that.col = column;
       var newRows = [],
-          noSorts = {},
-          j,
-          totalRows = 0,
-          noSortsSoFar = 0;
+        noSorts = {},
+        j,
+        totalRows = 0,
+        noSortsSoFar = 0;
 
       for (i = 0; i < that.table.tBodies.length; i++) {
         for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
