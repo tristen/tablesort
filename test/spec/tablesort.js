@@ -131,3 +131,53 @@ tape('Appended row is sorted on refresh', function(t) {
 
   t.end();
 });
+
+
+tape('sort works for divs', function(t) {
+  var el = divTable.querySelector('.th:nth-child(1)');
+  var event = document.createEvent('HTMLEvents');
+
+  t.equal(divTable.getElementsByClassName('td')[0].innerHTML, '2');
+  t.equal(divTable.getElementsByClassName('td')[1].innerHTML, '1');
+  t.equal(divTable.getElementsByClassName('td')[2].innerHTML, '3');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(divTable.getElementsByClassName('td')[0].innerHTML, '1');
+  t.equal(divTable.getElementsByClassName('td')[1].innerHTML, '2');
+  t.equal(divTable.getElementsByClassName('td')[2].innerHTML, '3');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(divTable.getElementsByClassName('td')[0].innerHTML, '3');
+  t.equal(divTable.getElementsByClassName('td')[1].innerHTML, '2');
+  t.equal(divTable.getElementsByClassName('td')[2].innerHTML, '1');
+
+  t.end();
+});
+
+
+tape('saves sort to cookie', function(t) {
+  var el = tableSave.querySelector('th:nth-child(1)');
+  var event = document.createEvent('HTMLEvents');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(tableSave.rows[1].cells[0].innerHTML, '3');
+  t.equal(tableSave.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableSave.rows[3].cells[0].innerHTML, '1');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(tableSave.rows[1].cells[0].innerHTML, '1');
+  t.equal(tableSave.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableSave.rows[3].cells[0].innerHTML, '3');
+
+  t.equal(document.cookie, 'saved-table=0; saved-tableDir=sort-down');
+
+  t.end();
+});

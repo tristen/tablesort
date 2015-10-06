@@ -1,119 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title></title>
+  <meta charset=utf-8 />
+  <title></title>
 </head>
 <body>
 
 <table id='sort'>
   <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Birthday</th>
-      <th>Grocery item</th>
-      <th>Price</th>
-      <th>Version</th>
-      <th>Filesize</th>
-      <th>Insensitive</th>
-      <th>data-sort</th>
-      <th data-sort-method="monthname">Monthname</th>
-    </tr>
+  <tr>
+    <th>#</th>
+    <th>Name</th>
+    <th>Birthday</th>
+    <th>Grocery item</th>
+    <th>Price</th>
+    <th>Version</th>
+    <th>Filesize</th>
+    <th>Insensitive</th>
+    <th>data-sort</th>
+    <th data-sort-method="monthname">Monthname</th>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>2</td>
-      <td>Gonzo the Great</td>
-      <td>12-2-70</td>
-      <td>Radishes</td>
-      <td>63€</td>
-      <td>31.0.1650.57</td>
-      <td>124k</td>
-      <td>B</td>
-      <td data-sort='b'>3</td>
-      <td>February</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Ernie</td>
-      <td>10/11/69</td>
-      <td>Fish</td>
-      <td>£2.79</td>
-      <td>11.0.1</td>
-      <td>134.56 GB</td>
-      <td>1</td>
-      <td data-sort='a'>2</td>
-      <td>April</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Bert</td>
-      <td>10/11/1969</td>
-      <td>Broccoli</td>
-      <td>$0.79</td>
-      <td>18.0.1284.49</td>
-      <td>134 B</td>
-      <td>A</td>
-      <td data-sort='c'>1</td>
-      <td>January</td>
-    </tr>
+  <tr>
+    <td>2</td>
+    <td>Gonzo the Great</td>
+    <td>12-2-70</td>
+    <td>Radishes</td>
+    <td>63€</td>
+    <td>31.0.1650.57</td>
+    <td>124k</td>
+    <td>B</td>
+    <td data-sort='b'>3</td>
+    <td>February</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Ernie</td>
+    <td>10/11/69</td>
+    <td>Fish</td>
+    <td>£2.79</td>
+    <td>11.0.1</td>
+    <td>134.56 GB</td>
+    <td>1</td>
+    <td data-sort='a'>2</td>
+    <td>April</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Bert</td>
+    <td>10/11/1969</td>
+    <td>Broccoli</td>
+    <td>$0.79</td>
+    <td>18.0.1284.49</td>
+    <td>134 B</td>
+    <td>A</td>
+    <td data-sort='c'>1</td>
+    <td>January</td>
+  </tr>
   </tbody>
 </table>
 
 <table id='sort-descend'>
   <thead>
-    <tr><th>Numbers descending</th></tr>
+  <tr><th>Numbers descending</th></tr>
   </thead>
   <tbody>
-    <tr><td>2</td></tr>
-    <tr><td>1</td></tr>
-    <tr><td>3</td></tr>
+  <tr><td>2</td></tr>
+  <tr><td>1</td></tr>
+  <tr><td>3</td></tr>
   </tbody>
 </table>
 
 <table id='sort-exclude'>
   <thead>
-    <tr>
-      <th class='no-sort'>Column exclusion</th>
-      <th>Row exclusion</th>
-    </tr>
+  <tr>
+    <th class='no-sort'>Column exclusion</th>
+    <th>Row exclusion</th>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>2</td>
-      <td>2</td>
-    </tr>
-    <tr class='no-sort'>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>3</td>
-    </tr>
+  <tr>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr class='no-sort'>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>3</td>
+  </tr>
   </tbody>
 </table>
 
 <table id='sort-default'>
   <thead>
-    <tr><th class='sort-default'>Sort on initialization</th></tr>
+  <tr><th class='sort-default'>Sort on initialization</th></tr>
   </thead>
   <tbody>
-    <tr><td>2</td></tr>
-    <tr><td>1</td></tr>
-    <tr><td>3</td></tr>
+  <tr><td>2</td></tr>
+  <tr><td>1</td></tr>
+  <tr><td>3</td></tr>
   </tbody>
 </table>
 
 <table id='sort-refresh'>
   <thead>
-    <tr><th class='sort-default'>Refresh method</th></tr>
+  <tr><th class='sort-default'>Refresh method</th></tr>
   </thead>
   <tbody>
-    <tr><td>2</td></tr>
-    <tr><td>1</td></tr>
-    <tr><td>3</td></tr>
+  <tr><td>2</td></tr>
+  <tr><td>1</td></tr>
+  <tr><td>3</td></tr>
+  </tbody>
+</table>
+
+<div class="table" id='div-table-sort'>
+  <div class="thead">
+    <div class="tr"><div class='th'>Div table</div></div>
+  </div>
+  <div class="tbody">
+    <div class="tr"><div class="td">2</div></div>
+    <div class="tr"><div class="td">1</div></div>
+    <div class="tr"><div class="td">3</div></div>
+  </div>
+</div>
+
+<table id='sort-and-save-to-cookie'>
+  <thead>
+  <tr><th class='sort-default'>Save to cookie</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>2</td></tr>
+  <tr><td>1</td></tr>
+  <tr><td>3</td></tr>
   </tbody>
 </table>
 
@@ -128,23 +150,28 @@
 
 <!-- Tests -->
 <script>
-table = document.getElementById('sort');
-tableDescend = document.getElementById('sort-descend');
-tableExclude = document.getElementById('sort-exclude');
-tableDefault = document.getElementById('sort-default');
-tableRefresh = document.getElementById('sort-refresh');
-new Tablesort(table);
-new Tablesort(tableDescend, { descending: true });
-new Tablesort(tableExclude);
-new Tablesort(tableDefault);
-var refresh = new Tablesort(tableRefresh);
+  table = document.getElementById('sort');
+  tableDescend = document.getElementById('sort-descend');
+  tableExclude = document.getElementById('sort-exclude');
+  tableDefault = document.getElementById('sort-default');
+  tableRefresh = document.getElementById('sort-refresh');
+  divTable     = document.getElementById('div-table-sort');
+  tableSave    = document.getElementById('sort-and-save-to-cookie');
 
-var rowCount = tableRefresh.rows.length;
-var row = tableRefresh.insertRow(rowCount);
-var cellName = row.insertCell(0);
-    cellName.innerHTML = 0;
+  new Tablesort(table);
+  new Tablesort(tableDescend, { descending: true });
+  new Tablesort(tableExclude);
+  new Tablesort(tableDefault);
+  new Tablesort(divTable);
+  new Tablesort(tableSave, {saveToCookie: 'saved-table'});
+  var refresh = new Tablesort(tableRefresh);
 
-refresh.refresh();
+  var rowCount = tableRefresh.rows.length;
+  var row = tableRefresh.insertRow(rowCount);
+  var cellName = row.insertCell(0);
+  cellName.innerHTML = 0;
+
+  refresh.refresh();
 </script>
 
 <script src='spec/tablesort.js'></script>
