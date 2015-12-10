@@ -128,7 +128,7 @@
           items = [],
           i = that.thead ? 0 : 1,
           sortDir,
-          sortMethod = header.getAttribute('data-sort-method');
+          sortMethod = header.getAttribute('data-sort-method'),
           sortOrder = header.getAttribute('data-sort-order');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
