@@ -35,6 +35,14 @@ new Tablesort(document.getElementById('table-id'), {
 });
 ```
 
+To override the sort order of a particular column, a `data-sort-order`
+attribute can be added to its `th` element. Accepted values are `asc` for
+ascending and `desc` for descending.
+
+``` html
+<th data-sort-order='desc'>Name</th>
+```
+
 #### Exclude columns or rows
 For columns or rows that do not require sorting, you can add a class of
 `no-sort` to a columns `th` or a `tr` element.

@@ -58,6 +58,44 @@ tape('uses data-sort', function(t) {
   t.end();
 });
 
+tape('uses data-sort-order', function(t) {
+  // Ascending table, descending column.
+  var el1 = table.querySelector('th:nth-child(11)');
+  // Descending table, ascending column.
+  var el2 = tableDescend.querySelector('th:nth-child(2)');
+  var event = document.createEvent('HTMLEvents');
+
+  event.initEvent('click', true, false);
+  el1.dispatchEvent(event);
+
+  t.equal(table.rows[1].cells[0].innerHTML, '3');
+  t.equal(table.rows[2].cells[0].innerHTML, '2');
+  t.equal(table.rows[3].cells[0].innerHTML, '1');
+
+  event.initEvent('click', true, false);
+  el1.dispatchEvent(event);
+
+  t.equal(table.rows[1].cells[0].innerHTML, '1');
+  t.equal(table.rows[2].cells[0].innerHTML, '2');
+  t.equal(table.rows[3].cells[0].innerHTML, '3');
+
+  event.initEvent('click', true, false);
+  el2.dispatchEvent(event);
+
+  t.equal(tableDescend.rows[1].cells[0].innerHTML, '1');
+  t.equal(tableDescend.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableDescend.rows[3].cells[0].innerHTML, '3');
+
+  event.initEvent('click', true, false);
+  el2.dispatchEvent(event);
+
+  t.equal(tableDescend.rows[1].cells[0].innerHTML, '3');
+  t.equal(tableDescend.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableDescend.rows[3].cells[0].innerHTML, '1');
+
+  t.end();
+});
+
 tape('sorts descending', function(t) {
   var el = tableDescend.querySelector('th:nth-child(1)');
   var event = document.createEvent('HTMLEvents');

@@ -128,7 +128,8 @@
           items = [],
           i = that.thead ? 0 : 1,
           sortDir,
-          sortMethod = header.getAttribute('data-sort-method');
+          sortMethod = header.getAttribute('data-sort-method'),
+          sortOrder = header.getAttribute('data-sort-order');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
 
@@ -139,6 +140,10 @@
         if (header.classList.contains('sort-up')) {
           sortDir = 'sort-down';
         } else if (header.classList.contains('sort-down')) {
+          sortDir = 'sort-up';
+        } else if (sortOrder === 'asc') {
+          sortDir = 'sort-down';
+        } else if (sortOrder === 'desc') {
           sortDir = 'sort-up';
         } else {
           sortDir = that.options.descending ? 'sort-up' : 'sort-down';
