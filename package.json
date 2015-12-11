@@ -1,7 +1,7 @@
 {
   "name": "tablesort",
   "description": "A sorting component for HTML tables",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "author": "tristen",
   "ender": "./ender.js",
   "main": "./src/tablesort.js",

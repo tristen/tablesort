@@ -1,3 +1,7 @@
+### v3.2.0
+
+- __Addition:__ Option to sort on a particular column [Ref](https://github.com/tristen/tablesort/pull/97).
+
 ### v3.1.0
 
 - __Addition:__ Sort by month name [Ref](https://github.com/tristen/tablesort/pull/89).
