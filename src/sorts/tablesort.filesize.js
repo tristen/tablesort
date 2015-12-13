@@ -14,18 +14,6 @@
     return i.replace(/[^\-?0-9.]/g, '');
   },
 
-  // Converts filesize to bytes
-  // Ex. filesize2num('123 KB') -> 123000
-  // Ex. filesize2num('123 KiB') -> 125952
-  filesize2num = function(filesize) {
-    var matches = filesize.match(/^(\d+(\.\d+)?) ?((K|M|G|T|P|E|Z|Y|B$)i?B?)$/i);
-
-    var num    = parseFloat(cleanNumber(matches[1])),
-      suffix = matches[3];
-
-    return num * suffix2num(suffix);
-  },
-
   // Returns suffix multiplier
   // Ex. suffix2num('KB') -> 1000
   // Ex. suffix2num('KiB') -> 1024
@@ -53,6 +41,18 @@
       default:
         return base;
     }
+  },
+  
+  // Converts filesize to bytes
+  // Ex. filesize2num('123 KB') -> 123000
+  // Ex. filesize2num('123 KiB') -> 125952
+  filesize2num = function(filesize) {
+    var matches = filesize.match(/^(\d+(\.\d+)?) ?((K|M|G|T|P|E|Z|Y|B$)i?B?)$/i);
+
+    var num  = parseFloat(cleanNumber(matches[1])),
+      suffix = matches[3];
+
+    return num * suffix2num(suffix);
   };
 
   Tablesort.extend('filesize', function(item) {
