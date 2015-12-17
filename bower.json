@@ -1,7 +1,7 @@
 {
   "name": "tablesort",
   "description": "A sorting component for HTML tables",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "license": "MIT",
   "main": "tablesort.min.js",
   "authors": [
