@@ -18,6 +18,13 @@ A small & simple sorting component for tables written in Javascript.
   new Tablesort(document.getElementById('table-id'));
 </script>
 ```
+
+### Browser Support
+
+| <img src="http://i.imgur.com/dJC1GUv.png" width="48px" height="48px" alt="Chrome logo"> | <img src="http://i.imgur.com/o1m5RcQ.png" width="48px" height="48px" alt="Firefox logo"> | <img src="http://i.imgur.com/8h3iz5H.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="http://i.imgur.com/iQV4nmJ.png" width="48px" height="48px" alt="Opera logo"> | <img src="http://i.imgur.com/j3tgNKJ.png" width="48px" height="48px" alt="Safari logo"> |
+|:---:|:---:|:---:|:---:|:---:|
+| 8+ ✔ | 3.6+ ✔ | 10+ ✔ | 11.50+ ✔ | 5.1+ ✔ |
+
 ### Sort Types
 
 See all available sort types in the [sorts](https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/)
