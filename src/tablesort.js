@@ -194,7 +194,7 @@
             totalRows = 0,
             noSortsSoFar = 0;
 
-        if (that.table.tBodies[i].rows.length < 2) return;
+        if (that.table.tBodies[i].rows.length < 2) continue;
 
         for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
           item = that.table.tBodies[i].rows[j];
