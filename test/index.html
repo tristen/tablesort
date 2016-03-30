@@ -133,6 +133,22 @@
   </tbody>
 </table>
 
+<table id="sort-multi">
+  <thead>
+    <tr><th></th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+  </tbody>
+  <tbody>
+    <tr><td>3</td></tr>
+    <tr><td>2</td></tr>
+    <tr><td>4</td></tr>
+  </tbody>
+</table>
+
 <script src='tape.js'></script>
 
 <script src='../src/tablesort.js'></script>
@@ -149,10 +165,12 @@ tableDescend = document.getElementById('sort-descend');
 tableExclude = document.getElementById('sort-exclude');
 tableDefault = document.getElementById('sort-default');
 tableRefresh = document.getElementById('sort-refresh');
+tableMulti = document.getElementById('sort-multi');
 new Tablesort(table);
 new Tablesort(tableDescend, { descending: true });
 new Tablesort(tableExclude);
 new Tablesort(tableDefault);
+new Tablesort(tableMulti);
 var refresh = new Tablesort(tableRefresh);
 
 var rowCount = tableRefresh.rows.length;
@@ -165,6 +183,7 @@ refresh.refresh();
 
 <script src='spec/tablesort.js'></script>
 <script src='spec/dotsep.js'></script>
+<script src='spec/multibody.js'></script>
 <script src='spec/filesize.js'></script>
 <script src='spec/date.js'></script>
 <script src='spec/number.js'></script>

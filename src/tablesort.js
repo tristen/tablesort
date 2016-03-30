@@ -186,13 +186,16 @@
       }
 
       that.col = column;
-      var newRows = [],
-          noSorts = {},
-          j,
-          totalRows = 0,
-          noSortsSoFar = 0;
 
       for (i = 0; i < that.table.tBodies.length; i++) {
+        var newRows = [],
+            noSorts = {},
+            j,
+            totalRows = 0,
+            noSortsSoFar = 0;
+
+        if (that.table.tBodies[i].rows.length < 2) continue;
+
         for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
           item = that.table.tBodies[i].rows[j];
           if (item.classList.contains('no-sort')) {
@@ -209,30 +212,29 @@
           }
           totalRows++;
         }
-      }
-
-      // Before we append should we reverse the new array or not?
-      // If we reverse, the sort needs to be `anti-stable` so that
-      // the double negatives cancel out
-      if (sortDir === 'sort-down') {
-        newRows.sort(stabilize(sortFunction, true));
-        newRows.reverse();
-      } else {
-        newRows.sort(stabilize(sortFunction, false));
-      }
-
-      // append rows that already exist rather than creating new ones
-      for (i = 0; i < totalRows; i++) {
-        if (noSorts[i]) {
-          // We have a no-sort row for this position, insert it here.
-          item = noSorts[i];
-          noSortsSoFar++;
+        // Before we append should we reverse the new array or not?
+        // If we reverse, the sort needs to be `anti-stable` so that
+        // the double negatives cancel out
+        if (sortDir === 'sort-down') {
+          newRows.sort(stabilize(sortFunction, true));
+          newRows.reverse();
         } else {
-          item = newRows[i - noSortsSoFar].tr;
+          newRows.sort(stabilize(sortFunction, false));
         }
 
-        // appendChild(x) moves x if already present somewhere else in the DOM
-        that.table.tBodies[0].appendChild(item);
+        // append rows that already exist rather than creating new ones
+        for (j = 0; j < totalRows; j++) {
+          if (noSorts[j]) {
+            // We have a no-sort row for this position, insert it here.
+            item = noSorts[j];
+            noSortsSoFar++;
+          } else {
+            item = newRows[j - noSortsSoFar].tr;
+          }
+
+          // appendChild(x) moves x if already present somewhere else in the DOM
+          that.table.tBodies[i].appendChild(item);
+        }
       }
 
       that.table.dispatchEvent(createEvent('afterSort'));
