@@ -81,7 +81,15 @@
 
       if (el.rows && el.rows.length > 0) {
         if (el.tHead && el.tHead.rows.length > 0) {
-          firstRow = el.tHead.rows[el.tHead.rows.length - 1];
+          for (i = 0; i < el.tHead.rows.length; i++) {
+            if (el.tHead.rows[i].classList.contains("sort-row")) {
+              firstRow = el.tHead.rows[i];
+              break;
+            }
+          }
+          if (!firstRow) {
+            firstRow = el.tHead.rows[el.tHead.rows.length - 1];
+          }
           that.thead = true;
         } else {
           firstRow = el.rows[0];
