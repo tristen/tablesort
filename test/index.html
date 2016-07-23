@@ -150,6 +150,30 @@
   </tbody>
 </table>
 
+<table id="sort-row-set">
+  <thead>
+    <tr class="sort-row"><th>Sort Row</th></tr>
+    <tr><th>Not Sort Row</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+  </tbody>
+</table>
+
+<table id="sort-row-auto">
+  <thead>
+    <tr><th>Not Sort Row</th></tr>
+    <tr><th>Sort Row</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+  </tbody>
+</table>
+
 <script src='tape.js'></script>
 
 <script src='../src/tablesort.js'></script>
@@ -167,11 +191,15 @@ tableExclude = document.getElementById('sort-exclude');
 tableDefault = document.getElementById('sort-default');
 tableRefresh = document.getElementById('sort-refresh');
 tableMulti = document.getElementById('sort-multi');
+tableSortRowSet = document.getElementById('sort-row-set');
+tableSortRowAuto = document.getElementById('sort-row-auto');
 new Tablesort(table);
 new Tablesort(tableDescend, { descending: true });
 new Tablesort(tableExclude);
 new Tablesort(tableDefault);
 new Tablesort(tableMulti);
+new Tablesort(tableSortRowSet);
+new Tablesort(tableSortRowAuto);
 var refresh = new Tablesort(tableRefresh);
 
 var rowCount = tableRefresh.rows.length;

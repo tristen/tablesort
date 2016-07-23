@@ -169,3 +169,13 @@ tape('Appended row is sorted on refresh', function(t) {
 
   t.end();
 });
+
+tape('sort row is first', function(t) {
+  t.equal(tableSortRowSet.querySelector(".sort-header").innerHTML, 'Sort Row');
+  t.end();
+});
+
+tape('sort row is last', function(t) {
+  t.equal(tableSortRowAuto.querySelector(".sort-header").innerHTML, 'Sort Row');
+  t.end();
+});
