@@ -78,8 +78,8 @@
 
       defaultOptions = {
         sortedClass: 'sorted',
-        ascendingClass: 'sort-up',
-        descendingClass: 'sort-down',
+        ascendingClass: 'sort-down',
+        descendingClass: 'sort-up',
         descending: false
       }
 
@@ -168,11 +168,11 @@
         } else if (header.classList.contains(that.descendingClass)) {
           sortDir = that.ascendingClass;
         } else if (sortOrder === 'asc') {
-          sortDir = that.descendingClass;
-        } else if (sortOrder === 'desc') {
           sortDir = that.ascendingClass;
+        } else if (sortOrder === 'desc') {
+          sortDir = that.descendingClass;
         } else {
-          sortDir = that.options.descending ? that.ascendingClass : that.descendingClass;
+          sortDir = that.options.descending ? that.descendingClass : that.ascendingClass;
         }
 
         header.classList.remove(sortDir === that.descendingClass ? that.ascendingClass : that.descendingClass);
@@ -242,7 +242,7 @@
         // Before we append should we reverse the new array or not?
         // If we reverse, the sort needs to be `anti-stable` so that
         // the double negatives cancel out
-        if (sortDir === that.descendingClass) {
+        if (sortDir === that.ascendingClass) {
           newRows.sort(stabilize(sortFunction, true));
           newRows.reverse();
         } else {
