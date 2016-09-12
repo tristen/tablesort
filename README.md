@@ -35,12 +35,24 @@ directory. Defaults to string if no sort types are provided.
 ### Additional options
 
 #### Ascending/Descending
-You can pass in options as a second parameter. Currently one option is
-supported: `descending: true`. By default, sort is set to ascending.
+You can pass in options as a second parameter. One of them is:
+`descending: true`. By default, sort is set to ascending.
 
 ``` js
 new Tablesort(document.getElementById('table-id'), {
   descending: true
+});
+```
+
+#### Custom classes
+By default tablesort is appending sort-up and sort-down classes to the th
+tag. If you need different css classes you can specify them as follows:
+
+``` js
+new Tablesort(document.getElementById('table-id'), {
+  sortedClass: 'sorted',
+  ascendingClass: 'ascending',
+  descendingClass: 'descending'
 });
 ```
 

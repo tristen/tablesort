@@ -72,12 +72,29 @@
       var that = this,
           firstRow,
           defaultSort,
+          defaultOptions,
           i,
           cell;
+
+      defaultOptions = {
+        sortedClass: 'sorted',
+        ascendingClass: 'sort-down',
+        descendingClass: 'sort-up',
+        descending: false
+      }
+
+      for (key in defaultOptions) {
+        if (options[key] === undefined) {
+          options[key] = defaultOptions[key];
+        }
+      }
 
       that.table = el;
       that.thead = false;
       that.options = options;
+      that.sortedClass = that.options.sortedClass;
+      that.ascendingClass = that.options.ascendingClass;
+      that.descendingClass = that.options.descendingClass;
 
       if (el.rows && el.rows.length > 0) {
         if (el.tHead && el.tHead.rows.length > 0) {
@@ -100,8 +117,9 @@
 
       var onClick = function() {
         if (that.current && that.current !== this) {
-          that.current.classList.remove('sort-up');
-          that.current.classList.remove('sort-down');
+          that.current.classList.remove(that.sortedClass);
+          that.current.classList.remove(that.ascendingClass);
+          that.current.classList.remove(that.descendingClass);
         }
 
         that.current = this;
@@ -143,21 +161,22 @@
 
       // If updating an existing sort `sortDir` should remain unchanged.
       if (update) {
-        sortDir = header.classList.contains('sort-up') ? 'sort-up' : 'sort-down';
+        sortDir = header.classList.contains(that.ascendingClass) ? that.ascendingClass : that.descendingClass;
       } else {
-        if (header.classList.contains('sort-up')) {
-          sortDir = 'sort-down';
-        } else if (header.classList.contains('sort-down')) {
-          sortDir = 'sort-up';
+        if (header.classList.contains(that.ascendingClass)) {
+          sortDir = that.descendingClass;
+        } else if (header.classList.contains(that.descendingClass)) {
+          sortDir = that.ascendingClass;
         } else if (sortOrder === 'asc') {
-          sortDir = 'sort-down';
+          sortDir = that.ascendingClass;
         } else if (sortOrder === 'desc') {
-          sortDir = 'sort-up';
+          sortDir = that.descendingClass;
         } else {
-          sortDir = that.options.descending ? 'sort-up' : 'sort-down';
+          sortDir = that.options.descending ? that.descendingClass : that.ascendingClass;
         }
 
-        header.classList.remove(sortDir === 'sort-down' ? 'sort-up' : 'sort-down');
+        header.classList.remove(sortDir === that.descendingClass ? that.ascendingClass : that.descendingClass);
+        header.classList.add(that.sortedClass);
         header.classList.add(sortDir);
       }
 
@@ -223,7 +242,7 @@
         // Before we append should we reverse the new array or not?
         // If we reverse, the sort needs to be `anti-stable` so that
         // the double negatives cancel out
-        if (sortDir === 'sort-down') {
+        if (sortDir === that.ascendingClass) {
           newRows.sort(stabilize(sortFunction, true));
           newRows.reverse();
         } else {
