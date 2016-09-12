@@ -50,6 +50,7 @@ tag. If you need different css classes you can specify them as follows:
 
 ``` js
 new Tablesort(document.getElementById('table-id'), {
+  sortedClass: 'sorted',
   ascendingClass: 'sort-up',
   descendingClass: 'sort-down'
 });

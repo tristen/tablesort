@@ -77,6 +77,7 @@
           cell;
 
       defaultOptions = {
+        sortedClass: 'sorted',
         ascendingClass: 'sort-up',
         descendingClass: 'sort-down',
         descending: false
@@ -91,6 +92,7 @@
       that.table = el;
       that.thead = false;
       that.options = options;
+      that.sortedClass = that.options.sortedClass;
       that.ascendingClass = that.options.ascendingClass;
       that.descendingClass = that.options.descendingClass;
 
@@ -115,6 +117,7 @@
 
       var onClick = function() {
         if (that.current && that.current !== this) {
+          that.current.classList.remove(that.sortedClass);
           that.current.classList.remove(that.ascendingClass);
           that.current.classList.remove(that.descendingClass);
         }
@@ -173,6 +176,7 @@
         }
 
         header.classList.remove(sortDir === that.descendingClass ? that.ascendingClass : that.descendingClass);
+        header.classList.add(that.sortedClass);
         header.classList.add(sortDir);
       }
 
