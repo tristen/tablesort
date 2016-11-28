@@ -99,10 +99,6 @@
       if (!firstRow) return;
 
       var onClick = function() {
-        if (that.current && that.current !== this) {
-          that.current.classList.remove('sort-up');
-          that.current.classList.remove('sort-down');
-        }
 
         that.current = this;
         that.sortTable(this);
@@ -113,7 +109,6 @@
         cell = firstRow.cells[i];
         if (!cell.classList.contains('no-sort')) {
           cell.setAttribute('role','columnheader');
-          cell.classList.add('sort-header');
           cell.tabindex = 0;
           cell.addEventListener('click', onClick, false);
 
@@ -137,7 +132,6 @@
           items = [],
           i = that.thead ? 0 : 1,
           sortDir,
-          sortClass,
           sortMethod = header.getAttribute('data-sort-method'),
           sortOrder = header.getAttribute('aria-sort');
 
@@ -145,38 +139,20 @@
 
       // If updating an existing sort `sortDir` should remain unchanged.
       if (update) {
-        if (header.classList.contains('ascending')) {
-          sortDir = 'ascending';
-          sortClass = 'sort-up';
-        } else {
-          sortDir = 'descending';
-          sortClass = 'sort-down';
-        }
+        sortDir = header.classList.contains('ascending') ? 'ascending' : 'descending';
       } else {
         if (header.classList.contains('ascending')) {
           sortDir = 'descending';
-          sortClass = 'sort-down';
         } else if (header.classList.contains('descending')) {
           sortDir = 'ascending';
-          sortClass = 'sort-up';
         } else if (sortOrder === 'ascending') {
           sortDir = 'descending';
-          sortClass = 'sort-down';
         } else if (sortOrder === 'descending') {
           sortDir = 'ascending';
-          sortClass = 'sort-up';
         } else {
-          if (that.options.descending) {
-            sortDir = 'ascending';
-            sortClass = 'sort-up';
-          } else {
-            sortDir = 'descending';
-            sortClass = 'sort-down';
-          }
+          sortDir = that.options.descending ? 'ascending' : 'descending';
         }
 
-        header.classList.remove(sortClass === 'sort-down' ? 'sort-up' : 'sort-down');
-        header.classList.add(sortClass);
         header.setAttribute('aria-sort',sortDir);
       }
 
