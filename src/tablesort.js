@@ -99,6 +99,9 @@
       if (!firstRow) return;
 
       var onClick = function() {
+        if (that.current && that.current !== this) {
+          that.current.removeAttribute('aria-sort');
+        }
 
         that.current = this;
         that.sortTable(this);
