@@ -161,16 +161,10 @@ $('.table').tablesort();
 Add the styling below to your CSS or roll with your own.
 
 ``` css
-th.sort-header::-moz-selection { background:transparent; }
-th.sort-header::selection      { background:transparent; }
-th.sort-header {
-  cursor:pointer;
-  }
-th.sort-header::-moz-selection,
-th.sort-header::selection {
-  background:transparent;
-  }
-table th.sort-header:after {
+th[role=columnheader]::-moz-selection { background:transparent; }
+th[role=columnheader]::selection      { background:transparent; }
+th[role=columnheader] { cursor:pointer; }
+table th[role=columnheader]:after {
   content:'';
   float:right;
   margin-top:7px;
@@ -179,16 +173,16 @@ table th.sort-header:after {
   border-color:#404040 transparent;
   visibility:hidden;
   }
-table th.sort-header:hover:after {
+table th[role=columnheader]:hover:after {
   visibility:visible;
   }
-table th.sort-up:after,
-table th.sort-down:after,
-table th.sort-down:hover:after {
+table th[aria-sort=ascending]:after,
+table th[aria-sort=descending]:after,
+table th[aria-sort=descending]:hover:after {
   visibility:visible;
   opacity:0.4;
   }
-table th.sort-up:after {
+table th[aria-sort=ascending]:after {
   border-bottom:none;
   border-width:4px 4px 0;
   }
