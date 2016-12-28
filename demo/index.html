@@ -4,6 +4,7 @@
 <meta charset=utf-8 />
 <title>tablesort | tristen</title>
 <link href='style.css' rel='stylesheet'>
+<link href='../tablesort.css' rel='stylesheet'>
 </head>
 <body onload='prettyPrint()'>
 
@@ -15,7 +16,7 @@
     <table id='sort' class='sort'>
       <thead>
         <tr>
-          <th>#</th>
+          <th class='no-sort' title='This column is not sortable, by adding no-sort class'>#</th>
           <th>Name</th>
           <th>Birthday</th>
           <th>Grocery item</th>
@@ -265,33 +266,7 @@ sort.refresh();
 </div>
 
 <h2 id='style'>CSS styling</h2>
-<p>Add the styling below to your CSS or roll with your own.</p>
-<pre class='prettyprint' style='font-weight:normal;'>
-th[role=columnheader]::-moz-selection { background:transparent; }
-th[role=columnheader]::selection      { background:transparent; }
-th[role=columnheader] { cursor:pointer; }
-table th[role=columnheader]:after {
-  content:'';
-  float:right;
-  margin-top:7px;
-  border-width:0 4px 4px;
-  border-style:solid;
-  border-color:#404040 transparent;
-  visibility:hidden;
-  }
-table th[role=columnheader]:hover:after {
-  visibility:visible;
-  }
-table th[aria-sort=ascending]:after,
-table th[aria-sort=descending]:after,
-table th[aria-sort=descending]:hover:after {
-  visibility:visible;
-  opacity:0.4;
-  }
-table th[aria-sort=ascending]:after {
-  border-bottom:none;
-  border-width:4px 4px 0;
-  }</pre>
+<p>Add the styling from <a href="../tablesort.css">tablesort.css</a> file to your CSS or roll with your own.</p>
 
     <h2 id='licence'>Licence</h2>
     <p>MIT</p>

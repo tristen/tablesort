@@ -158,35 +158,8 @@ $('.table').tablesort();
 ```
 
 ### Default CSS
-Add the styling below to your CSS or roll with your own.
+Add the styling from [tablesort.css](tablesort.css) file to your CSS or roll with your own.
 
-``` css
-th[role=columnheader]::-moz-selection { background:transparent; }
-th[role=columnheader]::selection      { background:transparent; }
-th[role=columnheader] { cursor:pointer; }
-table th[role=columnheader]:after {
-  content:'';
-  float:right;
-  margin-top:7px;
-  border-width:0 4px 4px;
-  border-style:solid;
-  border-color:#404040 transparent;
-  visibility:hidden;
-  }
-table th[role=columnheader]:hover:after {
-  visibility:visible;
-  }
-table th[aria-sort=ascending]:after,
-table th[aria-sort=descending]:after,
-table th[aria-sort=descending]:hover:after {
-  visibility:visible;
-  opacity:0.4;
-  }
-table th[aria-sort=ascending]:after {
-  border-bottom:none;
-  border-width:4px 4px 0;
-  }
-```
 
 ### Extending Tablesort
 
