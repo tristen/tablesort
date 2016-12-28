@@ -147,16 +147,6 @@ var tablesort = require('tablesort');
 tablesort(el, options);
 ```
 
-### Ender support
-Add `tablesort` as an internal chain method to your [Ender](https://github.com/ender-js/Ender/)
-compilation.
-
-``` js
-// ender add tablesort
-
-$('.table').tablesort();
-```
-
 ### Default CSS
 Add the styling from [tablesort.css](tablesort.css) file to your CSS or roll with your own.
 
