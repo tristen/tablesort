@@ -110,8 +110,8 @@
       // Assume first row is the header and attach a click handler to each.
       for (i = 0; i < firstRow.cells.length; i++) {
         cell = firstRow.cells[i];
+        cell.setAttribute('role','columnheader');
         if (!cell.classList.contains('no-sort')) {
-          cell.setAttribute('role','columnheader');
           cell.tabindex = 0;
           cell.addEventListener('click', onClick, false);
 
