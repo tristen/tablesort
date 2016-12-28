@@ -214,7 +214,7 @@ are gladly accepted!
 ### Contributing
 
 Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run
-`grunt` to package code from any contributions you make to `src/tablesort.js`
+`npm run build` to package code from any contributions you make to `src/tablesort.js`
 before submitting pull requests.
 
 Tests are run via:
