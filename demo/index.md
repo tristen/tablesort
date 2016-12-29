@@ -32,11 +32,11 @@ You can pass an alternate sort order as a second parameter. By default sort is a
 
 ### Exclude columns or rows
 
-For columns or rows that do not require sorting, you can add a class of `no-sort` to a columns `th` or a `tr` element.
+For columns or rows that do not require sorting, you can add attribute `data-sort-method='none'` to a columns `th` or a `tr` element.
 
-{% highlight html %}<th class='no-sort'>Name</th>
+{% highlight html %}<th data-sort-method='none'>Name</th>
 
-<tr class='no-sort'>
+<tr data-sort-method='none'>
   <td>1</td>
   <td>Gonzo the Great</td>
   <td>12-2-70</td>
@@ -159,16 +159,16 @@ sort.refresh();
 <a href='#' id='remove' class='button'>Remove a row</a>
 
 ### Default sort on tablesort initialization
-It is possible to automatically sort the table once you create a Tablesort instance by adding `sort-default` class.
+It is possible to automatically sort the table once you create a Tablesort instance by adding `data-sort-default` attribute.
 
-{% highlight html %}<th class='sort-default'>Born</th>
+{% highlight html %}<th data-sort-default>Born</th>
 {% endhighlight %} 
 
 <table id='defaulting' class='sort'>
 <thead>
   <tr>
     <th>Name</th>
-    <th class='sort-default'>Born</th>
+    <th data-sort-default>Born</th>
   </tr>
 </thead>
 <tbody>
