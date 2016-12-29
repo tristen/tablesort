@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>tablesort | tristen</title>
+<link href='style.css' rel='stylesheet'>
+<link href='../tablesort.css' rel='stylesheet'>
+</head>
+<body onload='prettyPrint()'>
+
+<div class='page'>
+  <div class='inner'>
+    <div class='heading'>
+      <h1><a href='http://github.com/tristen/tablesort'>tablesort</a><span class='description'> a small &amp; simple sorting component for tables. Written in Javascript and dependency free.</h1>
+    </div>
+    <table id='sort' class='sort'>
+      <thead>
+        <tr>
+          <th class='no-sort' title='This column is not sortable, by adding no-sort class'>#</th>
+          <th>Name</th>
+          <th>Birthday</th>
+          <th>Grocery item</th>
+          <th>Price</th>
+          <th>Version</th>
+          <th>Filesize</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Gonzo the Great</td>
+          <td>12-2-70</td>
+          <td>Radishes</td>
+          <td>$0.63</td>
+          <td>31.0.1650.57</td>
+          <td>124k</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Ernie</td>
+          <td>10/11/69</td>
+          <td>Fish</td>
+          <td>$12.09</td>
+          <td>11.0.1</td>
+          <td>134.56 GB</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Bert</td>
+          <td>10/11/1969</td>
+          <td>Broccoli</td>
+          <td>$0.79</td>
+          <td>18.0.1284.49</td>
+          <td>134 B</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Cookie Monster</td>
+          <td>1/09/1966</td>
+          <td>Oreo cookies</td>
+          <td>$2.78</td>
+          <td>3.0.0</td>
+          <td>4.13 TiB</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Kermit</td>
+          <td>12-05-1955</td>
+          <td>Granola</td>
+          <td>$4.73</td>
+          <td>3.0.9</td>
+          <td>12 YB</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Sam the Eagle</td>
+          <td>04/07/75</td>
+          <td>Corn dog</td>
+          <td>$5.50</td>
+          <td>3.1.2</td>
+          <td>19.4 K</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='content'>
+    <div class='inner'>
+      <a class='button stretch' href='https://raw.github.com/tristen/tablesort/gh-pages/tablesort.min.js'>Download the minified script</a>
+
+      <div class='col12 center pad1y'>
+        <a href='https://github.com/tristen/tablesort'>tablesort on GitHub</a>
+      </div>
+
+      <h2 id='usage'>Quick start</h2>
+  <pre class='prettyprint'>
+&lt;script src='tablesort.min.js'&gt;&lt;/script&gt;
+
+&lt;!-- Include sort types you need --&gt;
+&lt;script src='tablesort.number.js'&gt;&lt;/script&gt;
+&lt;script src='tablesort.date.js'&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  new Tablesort(document.getElementById('table-id'));
+&lt;/script&gt;</pre>
+
+      <h2 id='types'>Sort Types</h2>
+      <p>See all available sort types in the <a href='https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/'> sort directory of the project</a>. Defaults to string if no sort types are provided.</p>
+
+      <h2 id='options'>Additional options</h2>
+      <div class='options'>
+        <h3 id='direction'>Ascending/Descending</h3>
+        <p>You can pass an alternate sort order as a second parameter. By default sort is ascending. To change this, set:</p>
+  <pre class='prettyprint'>
+new Tablesort(document.getElementById('table-id'), {
+  descending: true
+});</pre>
+<p class='notice'><strong>Note:</strong> If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</p>
+        <h3 id='exclude'>Exclude columns or rows</h3>
+        For columns or rows that do not require sorting, you can add a class of <code>no-sort</code> to a columns <code>th</code> or a <code>tr</code> element.
+<pre class='prettyprint'>
+&lt;th class='no-sort'&gt;Name&lt;/th&gt;
+
+&lt;tr class='no-sort'&gt;
+  &lt;td&gt;1&lt;/td&gt;
+  &lt;td&gt;Gonzo the Great&lt;/td&gt;
+  &lt;td&gt;12-2-70&lt;/td&gt;
+  &lt;td&gt;Radishes&lt;/td&gt;
+  &lt;td&gt;$0.63&lt;/td&gt;
+&lt;/tr&gt;
+</pre>
+
+
+        <h3 id='data-sort'>Override data that is sorted on</h3>
+        <p>Sometimes text inside cells is not normalized. Using a <code>data-sort</code> attribute you can use optional data to sort on.</p>
+<pre class='prettyprint'>
+&lt;tr&gt;
+  &lt;td&gt;1&lt;/td&gt;
+  &lt;td data-sort='1357656438'&gt;01/08/13 @ 8:47:18am EST&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;2&lt;/td&gt;
+  &lt;td data-sort='1078673085'&gt;3/7/2004 @ 9:24:45 EST&lt;/td&gt;
+&lt;/tr&gt;
+</pre>
+
+        <h3 id='data-sort-method'>Specify the sort method for a column</h3>
+        <p>By adding a <code>data-sort-method</code> attribute to a table heading you can force Tablesort to use a specific sorting method rather than guessing it. The value of <code>data-sort-method</code> corresponds to the name of a sort function.</p>
+<pre class='prettyprint'>
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Number&lt;/th&gt;
+      &lt;th data-sort-method='dotsep'&gt;Version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;3.7.2004&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;1.08.2013&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+
+        <h3 id='events'>Events</h3>
+        <p>Tablesort supports two custom events <code>beforeSort</code> & <code>afterSort</code>.</p>
+        <pre class='prettyprint'>
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table);
+
+table.addEventListener('beforeSort', function() {
+  alert('Table is about to be sorted!');
+});
+
+table.addEventListener('afterSort', function() {
+  alert('Table sorted!');
+});</pre>
+        <table id='event-table' class='sort'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Born</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Roy Eldridge</td>
+              <td>1911</td>
+            </tr>
+            <tr>
+              <td>Tim Hagans</td>
+              <td>1954</td>
+            </tr>
+            <tr>
+              <td>Freddie Hubbard</td>
+              <td>1938</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 id='refresh'>Refresh sort on appended data</h3>
+        <p>Tablesort supports sorting when new data has been added. Simply call the refresh method.</p>
+        <pre class='prettyprint'>
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table);
+
+// Make some Ajax request to fetch new data and on success:
+sort.refresh();
+</pre>
+        <table id='refresh-table' class='sort'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Born</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Roy Eldridge</td>
+              <td>1911</td>
+            </tr>
+            <tr>
+              <td>Tim Hagans</td>
+              <td>1954</td>
+            </tr>
+            <tr>
+              <td>Freddie Hubbard</td>
+              <td>1938</td>
+            </tr>
+          </tbody>
+        </table>
+        <a href='#' id='add' class='button'>Append a row</a>
+        <a href='#' id='remove' class='button'>Remove a row</a>
+
+<h3 id='sort-default'>Default sort on tablesort initialization</h3>
+<p>It is possible to automatically sort the table once you create a Tablesort instance by adding <code>sort-default</code> class.</p>
+<pre class='prettyprint'>
+&lt;th class='sort-default'&gt;Born&lt;/th&gt;
+</pre>
+  <table id='defaulting' class='sort'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class='sort-default'>Born</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Roy Eldridge</td>
+        <td>1911</td>
+      </tr>
+      <tr>
+        <td>Tim Hagans</td>
+        <td>1954</td>
+      </tr>
+      <tr>
+        <td>Freddie Hubbard</td>
+        <td>1938</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id='style'>CSS styling</h2>
+<p>Add the styling from <a href="../tablesort.css">tablesort.css</a> file to your CSS or roll with your own.</p>
+
+    <h2 id='licence'>Licence</h2>
+    <p>MIT</p>
+
+    <h2 id='issues'>Bugs?</h2>
+    <a href='https://github.com/tristen/tablesort/issues'>File Them</a>
+    </div>
+  </div>
+</div>
+<script src='prettify.js'></script>
+
+<script src='../src/tablesort.js'></script>
+<script src='../src/sorts/tablesort.date.js'></script>
+<script src='../src/sorts/tablesort.dotsep.js'></script>
+<script src='../src/sorts/tablesort.filesize.js'></script>
+<script src='../src/sorts/tablesort.number.js'></script>
+
+<script>
+  new Tablesort(document.getElementById('sort'));
+  new Tablesort(document.getElementById('defaulting'));
+
+  var events = document.getElementById('event-table')
+  new Tablesort(events);
+
+  addEvent(events, 'beforeSort', function(e) {
+    alert('Table is about to be sorted!');
+  });
+  addEvent(events, 'afterSort', function(e) {
+    alert('Table sorted!');
+  });
+
+  var trumpeters = [
+    {
+      "name": "Miles Davis",
+      "born": 1926
+    },
+    {
+      "name": "Dizzy Gillespie",
+      "born": 1917
+    },
+    {
+      "name": "Wynton Marsalis",
+      "born": 1961
+    },
+    {
+      "name": "Tom Harell",
+      "born": 1946
+    },
+    {
+      "name": "Roy Hargrove",
+      "born": 1969
+    },
+    {
+      "name": "Chet Baker",
+      "born": 1929
+    },
+    {
+      "name": "Nicholas Payton",
+      "born": 1973
+    },
+    {
+      "name": "Wallace Roney",
+      "born": 1960
+    },
+    {
+      "name": "Rex Stewart",
+      "born": 1907
+    },
+    {
+      "name": "Tim Hagans",
+      "born": 1954
+    },
+    {
+      "name": "Roy Eldridge",
+      "born": 1911
+    },
+    {
+      "name": "Freddie Hubbard",
+      "born": 1938
+    }
+  ]
+  var r = document.getElementById('refresh-table');
+  var add = document.getElementById('add');
+  var remove = document.getElementById('remove');
+  var refresh = new Tablesort(r);
+
+  function cancel(event) {
+    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+    (event.stopPropagation) ? event.stopPropagation() : event.cancelBubble = true;
+  }
+  function addEvent(object, event, method) {
+      if (object.attachEvent) {
+          object['e' + event + method] = method;
+          object[event + method] = function(){object['e' + event + method](window.event);};
+          object.attachEvent('on' + event, object[event + method]);
+      } else {
+      object.addEventListener(event, method, false);
+      }
+  };
+
+  addEvent(add, 'click', function(e) {
+    cancel(e);
+    var player = trumpeters[Math.floor(Math.random() * trumpeters.length)];
+
+    var rowCount = r.rows.length;
+    var row = r.insertRow(rowCount);
+
+    var cellName = row.insertCell(0);
+        cellName.innerHTML = player.name;
+
+    var cellBorn = row.insertCell(1);
+        cellBorn.innerHTML = player.born;
+
+    refresh.refresh();
+  });
+  addEvent(remove, 'click', function(e) {
+    cancel(e);
+    var rowCount = r.rows.length;
+    if (rowCount === 2) return;
+    r.deleteRow(rowCount - 1);
+  });
+
+var analytics=analytics||[];(function(){var e=["identify","track","trackLink","trackForm","trackClick","trackSubmit","page","pageview","ab","alias","ready","group"],t=function(e){return function(){analytics.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var n=0;n<e.length;n++)analytics[e[n]]=t(e[n])})(),analytics.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"d2dq2ahtl5zl1z.cloudfront.net/analytics.js/v1/"+e+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)};
+analytics.load("ppyh4q5xb3");
+</script>
+
+</body>
+</html>
