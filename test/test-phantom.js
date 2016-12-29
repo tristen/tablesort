@@ -1,3 +1,7 @@
+'use strict';
+
+/* global phantom */
+
 var page = require('webpage').create();
 var system = require('system');
 var url = system.env.url;
@@ -24,4 +28,3 @@ page.open(url, function(status) {
 setTimeout(function() {
   phantom.exit(1);
 }, 60000);
-

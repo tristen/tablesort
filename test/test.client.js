@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var path = require('path');
 var url = require('url');
 var execFile = require('child_process').execFile;
@@ -21,7 +23,7 @@ server.listen(0, function() {
     protocol: 'http',
     hostname: 'localhost',
     port: port,
-    pathname: '/test/',
+    pathname: '/test/'
   });
 
   var opts = { env: { url: uri } };
