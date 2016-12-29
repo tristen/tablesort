@@ -2,12 +2,15 @@
   "name": "tablesort",
   "description": "A sorting component for HTML tables",
   "version": "4.1.0",
-  "author": "tristen",
+  "author": {
+    "name": "tristen",
+    "url": "http://tristen.ca"
+  },
   "license": "MIT",
   "main": "./src/tablesort.js",
   "homepage": "http://tristen.ca/tablesort/demo/",
   "scripts": {
-    "build": "grunt",
+    "build": "{ preamble & uglifyjs src/tablesort.js -c -m; } > tablesort.min.js",
     "test": "tape test/test.client.js | tap-spec"
   },
   "repository": {
@@ -15,13 +18,12 @@
     "url": "git://github.com/tristen/tablesort.git"
   },
   "devDependencies": {
-    "finalhandler": "0.2.x",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "phantomjs": "~1.9.x",
-    "serve-static": "1.6.x",
-    "tap-spec": "^2.2.0",
-    "tape": "^3.0.0"
+    "finalhandler": "0.5.x",
+    "package-preamble": "0.0.2",
+    "phantomjs": "~2.1.x",
+    "serve-static": "1.11.x",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3",
+    "uglify-js": "^2.7.5"
   }
 }
