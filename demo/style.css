@@ -39,7 +39,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 /* remember to define focus styles. Hee Haw */
 :focus { outline: 0; }
 *, *:before, *:after {
-  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+       box-sizing:border-box;
   }
 body {
   margin:0;
@@ -196,7 +197,6 @@ a.button {
           transition:box-shadow 150ms linear;
   }
   a.button:hover {
-    background-color:#0081ff;
     -webkit-box-shadow:0 1px 5px rgba(0,0,0,0.25);
             box-shadow:0 1px 5px rgba(0,0,0,0.25);
     border:1px solid #1f4fff;
@@ -254,20 +254,6 @@ pre code {
   padding:0;
   margin:0;
   }
-
-.col12 { width:100%; }
-.col6 { width:50%; float:left; display:block; }
-
-.pill-group {
-  margin:40px 0 0;
-  }
-  .pill-group a:first-child {
-    border-radius:20px 0 0 20px;
-    border-right-width:0;
-    }
-  .pill-group a:last-child {
-    border-radius:0 20px 20px 0;
-    }
 
 /*-----------------------------------
   Markup free clearing
