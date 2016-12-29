@@ -4,7 +4,6 @@
   "version": "4.1.0",
   "author": "tristen",
   "license": "MIT",
-  "ender": "./ender.js",
   "main": "./src/tablesort.js",
   "homepage": "http://tristen.ca/tablesort/demo/",
   "scripts": {
