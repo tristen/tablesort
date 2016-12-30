@@ -82,7 +82,7 @@
       if (el.rows && el.rows.length > 0) {
         if (el.tHead && el.tHead.rows.length > 0) {
           for (i = 0; i < el.tHead.rows.length; i++) {
-            if (el.tHead.rows[i].classList.contains("sort-row")) {
+            if (el.tHead.rows[i].getAttribute('data-sort-method') === 'thead') {
               firstRow = el.tHead.rows[i];
               break;
             }
@@ -111,11 +111,11 @@
       for (i = 0; i < firstRow.cells.length; i++) {
         cell = firstRow.cells[i];
         cell.setAttribute('role','columnheader');
-        if (!cell.classList.contains('no-sort')) {
+        if (cell.getAttribute('data-sort-method') !== 'none') {
           cell.tabindex = 0;
           cell.addEventListener('click', onClick, false);
 
-          if (cell.classList.contains('sort-default')) {
+          if (cell.getAttribute('data-sort-default') !== null) {
             defaultSort = cell;
           }
         }
@@ -134,29 +134,22 @@
           item = '',
           items = [],
           i = that.thead ? 0 : 1,
-          sortDir,
           sortMethod = header.getAttribute('data-sort-method'),
           sortOrder = header.getAttribute('aria-sort');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
 
-      // If updating an existing sort `sortDir` should remain unchanged.
-      if (update) {
-        sortDir = header.classList.contains('ascending') ? 'ascending' : 'descending';
-      } else {
-        if (header.classList.contains('ascending')) {
-          sortDir = 'descending';
-        } else if (header.classList.contains('descending')) {
-          sortDir = 'ascending';
-        } else if (sortOrder === 'ascending') {
-          sortDir = 'descending';
+      // If updating an existing sort, direction should remain unchanged.
+      if (!update) {
+        if (sortOrder === 'ascending') {
+          sortOrder = 'descending';
         } else if (sortOrder === 'descending') {
-          sortDir = 'ascending';
+          sortOrder = 'ascending';
         } else {
-          sortDir = that.options.descending ? 'ascending' : 'descending';
+          sortOrder = that.options.descending ? 'ascending' : 'descending';
         }
 
-        header.setAttribute('aria-sort',sortDir);
+        header.setAttribute('aria-sort', sortOrder);
       }
 
       if (that.table.rows.length < 2) return;
@@ -204,7 +197,7 @@
 
         for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
           item = that.table.tBodies[i].rows[j];
-          if (item.classList.contains('no-sort')) {
+          if (item.getAttribute('data-sort-method') === 'none') {
             // keep no-sorts in separate list to be able to insert
             // them back at their original position later
             noSorts[totalRows] = item;
@@ -221,7 +214,7 @@
         // Before we append should we reverse the new array or not?
         // If we reverse, the sort needs to be `anti-stable` so that
         // the double negatives cancel out
-        if (sortDir === 'descending') {
+        if (sortOrder === 'descending') {
           newRows.sort(stabilize(sortFunction, true));
           newRows.reverse();
         } else {
