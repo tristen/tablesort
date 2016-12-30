@@ -83,6 +83,24 @@ By adding a `data-sort-method` attribute to a table heading you can force Tables
 </table>
 {% endhighlight %} 
 
+### Specify which table heading row enables sorting
+
+If you have two or more table heading rows you can specify the one that enables sorting by adding a `data-sort-method='thead'` attribute to desired `<tr>` element.
+
+{% highlight html %}<table>
+  <thead>
+    <tr data-sort-method='thead'><th>Sort Row</th></tr>
+    <tr><th>Not Sort Row</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+  </tbody>
+</table>
+{% endhighlight %}
+
+
 ### Events
 
 Tablesort supports two custom events `beforeSort` & `afterSort`.
