@@ -13,9 +13,14 @@ module.exports = function(grunt) {
                     ' Licensed <%= pkg.license %>\n' +
                     '*/'
             },
-            build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: '<%= pkg.name %>.min.js'
+            files: {
+                expand: true,
+                cwd: 'src',
+                src: ['**/*.js'],
+                dest: 'dist',
+                rename: function (dst, src) {
+                    return dst + '/' + src.replace('.js', '.min.js');
+                }
             }
         }
     });
