@@ -23,7 +23,25 @@
     return evt;
   };
 
-  var getInnerText = function(el) {
+  var visualColumnIndexes = function(row) {
+    var i, t = 0, indexes = [];
+
+    for (i = 0; i < row.cells.length; i++) {
+      indexes.push(t);
+      t += row.cells[i].colSpan;
+    }
+    return indexes;
+  }
+
+  var getEffectiveColumn = function(cell) {
+    var row = cell.parentElement, cols = visualColumnIndexes(row);
+
+    return cols[Array.prototype.indexOf.call(row.cells, cell)];
+  }
+
+  var getCellText = function(row, col) {
+    var idx = visualColumnIndexes(row).indexOf(col), el = row.cells[idx];
+
     return el.getAttribute('data-sort') || el.textContent || el.innerText || '';
   };
 
@@ -129,7 +147,7 @@
 
     sortTable: function(header, update) {
       var that = this,
-          column = header.cellIndex,
+          column = getEffectiveColumn(header),
           sortFunction = caseInsensitiveSort,
           item = '',
           items = [],
@@ -157,7 +175,7 @@
       // If we force a sort method, it is not necessary to check rows
       if (!sortMethod) {
         while (items.length < 3 && i < that.table.tBodies[0].rows.length) {
-          item = getInnerText(that.table.tBodies[0].rows[i].cells[column]);
+          item = getCellText(that.table.tBodies[0].rows[i], column);
           item = item.trim();
 
           if (item.length > 0) {
@@ -205,7 +223,7 @@
             // Save the index for stable sorting
             newRows.push({
               tr: item,
-              td: getInnerText(item.cells[that.col]),
+              td: getCellText(item, that.col),
               index: totalRows
             });
           }
