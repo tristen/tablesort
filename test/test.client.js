@@ -8,7 +8,7 @@ var execFile = require('child_process').execFile;
 var http = require('http');
 var finalhandler = require('finalhandler');
 var serveStatic = require('serve-static');
-var phantombin = require('phantomjs').path;
+var phantombin = require('phantomjs-prebuilt').path;
 
 var staticHandler = serveStatic(path.join(__dirname, '/../'), {
   'index': ['index.html']
