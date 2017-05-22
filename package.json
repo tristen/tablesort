@@ -19,7 +19,7 @@
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-uglify": "^2.0.0",
-    "phantomjs": "~1.9.x",
+    "phantomjs-prebuilt": "~2.1.x",
     "serve-static": "1.6.x",
     "tap-spec": "^2.2.0",
     "tape": "^3.0.0"
