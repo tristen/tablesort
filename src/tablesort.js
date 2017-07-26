@@ -24,7 +24,9 @@
   };
 
   var getInnerText = function(el) {
-    return el.getAttribute('data-sort') || el.textContent || el.innerText || '';
+    return (typeof el==="undefined" || !el)
+      ? ""
+      : (el.getAttribute('data-sort') || el.textContent || el.innerText || '');
   };
 
   // Default sort method if no better sort method is found
