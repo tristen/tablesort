@@ -68,23 +68,16 @@ tape('uses data-sort-order', function(t) {
   event.initEvent('click', true, false);
   el1.dispatchEvent(event);
 
-  t.equal(table.rows[1].cells[0].innerHTML, '3');
-  t.equal(table.rows[2].cells[0].innerHTML, '2');
-  t.equal(table.rows[3].cells[0].innerHTML, '1');
-
-  event.initEvent('click', true, false);
-  el1.dispatchEvent(event);
-
   t.equal(table.rows[1].cells[0].innerHTML, '1');
   t.equal(table.rows[2].cells[0].innerHTML, '2');
   t.equal(table.rows[3].cells[0].innerHTML, '3');
 
   event.initEvent('click', true, false);
-  el2.dispatchEvent(event);
+  el1.dispatchEvent(event);
 
-  t.equal(tableDescend.rows[1].cells[0].innerHTML, '1');
-  t.equal(tableDescend.rows[2].cells[0].innerHTML, '2');
-  t.equal(tableDescend.rows[3].cells[0].innerHTML, '3');
+  t.equal(table.rows[1].cells[0].innerHTML, '3');
+  t.equal(table.rows[2].cells[0].innerHTML, '2');
+  t.equal(table.rows[3].cells[0].innerHTML, '1');
 
   event.initEvent('click', true, false);
   el2.dispatchEvent(event);
@@ -92,6 +85,13 @@ tape('uses data-sort-order', function(t) {
   t.equal(tableDescend.rows[1].cells[0].innerHTML, '3');
   t.equal(tableDescend.rows[2].cells[0].innerHTML, '2');
   t.equal(tableDescend.rows[3].cells[0].innerHTML, '1');
+
+  event.initEvent('click', true, false);
+  el2.dispatchEvent(event);
+
+  t.equal(tableDescend.rows[1].cells[0].innerHTML, '1');
+  t.equal(tableDescend.rows[2].cells[0].innerHTML, '2');
+  t.equal(tableDescend.rows[3].cells[0].innerHTML, '3');
 
   t.end();
 });
