@@ -29,8 +29,8 @@
 
   // Default sort method if no better sort method is found
   var caseInsensitiveSort = function(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
+    a = a.trim().toLowerCase();
+    b = b.trim().toLowerCase();
 
     if (a === b) return 0;
     if (a < b) return 1;
