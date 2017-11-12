@@ -146,7 +146,7 @@
         } else if (sortOrder === 'descending') {
           sortOrder = 'ascending';
         } else {
-          sortOrder = that.options.descending ? 'ascending' : 'descending';
+          sortOrder = that.options.descending ? 'descending' : 'ascending';
         }
 
         header.setAttribute('aria-sort', sortOrder);
@@ -216,9 +216,9 @@
         // the double negatives cancel out
         if (sortOrder === 'descending') {
           newRows.sort(stabilize(sortFunction, true));
-          newRows.reverse();
         } else {
           newRows.sort(stabilize(sortFunction, false));
+          newRows.reverse();
         }
 
         // append rows that already exist rather than creating new ones
