@@ -166,8 +166,6 @@
 
           i++;
         }
-
-        if (!items) return;
       }
 
       for (i = 0; i < sortOptions.length; i++) {
