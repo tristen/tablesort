@@ -7,6 +7,14 @@ A small & simple sorting component for tables written in JavaScript.
 
 ### Quick start
 
+Download the ZIP of this repository or install via command line: 
+
+``` cli 
+npm install tablesort 
+# Or if you're using Yarn 
+yarn add tablesort 
+```
+
 ``` html
 <script src='tablesort.min.js'></script>
 
