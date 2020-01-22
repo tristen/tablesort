@@ -41,7 +41,7 @@
   var getCellByKey = function(cells, key) {
     return [].slice.call(cells).find(function(cell) {
       return cell.getAttribute('data-sort-column-key') === key;
-    })
+    });
   };
 
   // Stable sort function
@@ -163,7 +163,7 @@
 
       // If we force a sort method, it is not necessary to check rows
       if (!sortMethod) {
-        var cells, cell;
+        var cell;
         while (items.length < 3 && i < that.table.tBodies[0].rows.length) {
           if(columnKey) {
             cell = getCellByKey(that.table.tBodies[0].rows[i].cells, columnKey);
@@ -221,7 +221,7 @@
             noSorts[totalRows] = item;
           } else {
             if (columnKey) {
-              cell = getCellByKey(item.cells, columnKey)
+              cell = getCellByKey(item.cells, columnKey);
             } else {
               cell = item.cells[that.col];
             }
