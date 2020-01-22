@@ -179,3 +179,16 @@ tape('sort row is last', function(t) {
   t.equal(tableSortRowAuto.querySelector("[role=columnheader]").innerHTML, 'Sort Row');
   t.end();
 });
+
+tape('sorts with column keys', function(t) {
+  console.log(tableSortColumnKeys.rows[0].cells[0].innerHTML);
+  var el = tableSortColumnKeys.querySelector('th:nth-child(2)');
+  var event = document.createEvent('HTMLEvents');
+
+  event.initEvent('click', true, false);
+  el.dispatchEvent(event);
+
+  t.equal(tableSortColumnKeys.rows[1].cells[1].innerHTML, '1', 'was 1');
+  t.equal(tableSortColumnKeys.rows[2].cells[1].innerHTML, '2', 'was 2');
+  t.equal(tableSortColumnKeys.rows[3].cells[1].innerHTML, '3', 'was 3');
+})
