@@ -129,6 +129,7 @@
 
     sortTable: function(header, update) {
       var that = this,
+          columnKey = header.getAttribute('data-sort-column-key'),
           column = header.cellIndex,
           sortFunction = caseInsensitiveSort,
           item = '',
@@ -136,6 +137,8 @@
           i = that.thead ? 0 : 1,
           sortMethod = header.getAttribute('data-sort-method'),
           sortOrder = header.getAttribute('aria-sort');
+
+      console.log("Header index:", column)
 
       that.table.dispatchEvent(createEvent('beforeSort'));
 
@@ -156,8 +159,21 @@
 
       // If we force a sort method, it is not necessary to check rows
       if (!sortMethod) {
+        var cells, cell;
         while (items.length < 3 && i < that.table.tBodies[0].rows.length) {
-          item = getInnerText(that.table.tBodies[0].rows[i].cells[column]);
+          if(columnKey) {
+            cells = [].slice.call(that.table.tBodies[0].rows[i].cells);
+
+            cell = cells.find(function(c) {
+              return c.getAttribute('data-sort-column-key') === columnKey;
+            })
+          } else {
+            cell = that.table.tBodies[0].rows[i].cells[column];
+          }
+
+          // Treat missing cells as empty cells
+          item = cell ? getInnerText(cell) : "";
+
           item = item.trim();
 
           if (item.length > 0) {
@@ -196,16 +212,25 @@
         if (that.table.tBodies[i].rows.length < 2) continue;
 
         for (j = 0; j < that.table.tBodies[i].rows.length; j++) {
+          var cell;
+
           item = that.table.tBodies[i].rows[j];
           if (item.getAttribute('data-sort-method') === 'none') {
             // keep no-sorts in separate list to be able to insert
             // them back at their original position later
             noSorts[totalRows] = item;
           } else {
+            if (columnKey) {
+              cell = [].slice.call(item.cells).find(function(c) {
+                return c.getAttribute('data-sort-column-key') === columnKey;
+              })
+            } else {
+              cell = item.cells[that.col];
+            }
             // Save the index for stable sorting
             newRows.push({
               tr: item,
-              td: getInnerText(item.cells[that.col]),
+              td: cell ? getInnerText(cell) : '',
               index: totalRows
             });
           }
