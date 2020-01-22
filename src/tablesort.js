@@ -38,6 +38,12 @@
     return -1;
   };
 
+  var getCellByKey = function(cells, key) {
+    return [].slice.call(cells).find(function(cell) {
+      return cell.getAttribute('data-sort-column-key') === key;
+    })
+  };
+
   // Stable sort function
   // If two elements are equal under the original sort function,
   // then there relative order is reversed
@@ -138,8 +144,6 @@
           sortMethod = header.getAttribute('data-sort-method'),
           sortOrder = header.getAttribute('aria-sort');
 
-      console.log("Header index:", column)
-
       that.table.dispatchEvent(createEvent('beforeSort'));
 
       // If updating an existing sort, direction should remain unchanged.
@@ -162,11 +166,7 @@
         var cells, cell;
         while (items.length < 3 && i < that.table.tBodies[0].rows.length) {
           if(columnKey) {
-            cells = [].slice.call(that.table.tBodies[0].rows[i].cells);
-
-            cell = cells.find(function(c) {
-              return c.getAttribute('data-sort-column-key') === columnKey;
-            })
+            cell = getCellByKey(that.table.tBodies[0].rows[i].cells, columnKey);
           } else {
             cell = that.table.tBodies[0].rows[i].cells[column];
           }
@@ -221,9 +221,7 @@
             noSorts[totalRows] = item;
           } else {
             if (columnKey) {
-              cell = [].slice.call(item.cells).find(function(c) {
-                return c.getAttribute('data-sort-column-key') === columnKey;
-              })
+              cell = getCellByKey(item.cells, columnKey)
             } else {
               cell = item.cells[that.col];
             }
