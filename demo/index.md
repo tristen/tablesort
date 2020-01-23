@@ -213,11 +213,11 @@ attribute.
 
 This example sorts products by price, even though the prices are not in the same column as their header.
 
-{% highlight html %}<table id='column-keys' class='sort'>
+{% highlight html %}<table class='sort'>
 <thead>
   <tr>
     <th >Product</th>
-    <th colspan=2 data-sort-column-key="price">Price</th>
+    <th colspan="2" data-sort-column-key="price">Price</th>
   </tr>
 </thead>
 <tbody>
@@ -244,7 +244,7 @@ This example sorts products by price, even though the prices are not in the same
 <thead>
   <tr>
     <th>Product</th>
-    <th colspan=2 data-sort-column-key="price">Price</th>
+    <th colspan="2" data-sort-column-key="price">Price</th>
   </tr>
 </thead>
 <tbody>
@@ -280,6 +280,7 @@ MIT
 
 <script>
   new Tablesort(document.getElementById('defaulting'));
+  new Tablesort(document.getElementById('column-keys'));
 
   var events = document.getElementById('event-table')
   new Tablesort(events);
