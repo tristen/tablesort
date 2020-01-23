@@ -175,6 +175,32 @@
   </tbody>
 </table>
 
+<table id="sort-column-keys">
+  <thead>
+    <tr>
+      <th class="sort-header" colspan="2">Column 1</th>
+      <th >Column 2</th>
+      <th id="third-header" data-sort-column-key="third">Column 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="no-sort">
+      <td colspan="3">2</td>
+      <td data-sort-column-key="third">2</td>
+    </tr>
+    <tr>
+      <td colspan="2">3</td>
+      <td>3</td>
+      <td data-sort-column-key="third">3</td>
+    </tr>
+    <tr>
+      <td colspan="2">1</td>
+      <td>1</td>
+      <td data-sort-column-key="third">1</td>
+    </tr>
+  </tbody>
+</table>
+
 <script src='tape.js'></script>
 
 <script src='../src/tablesort.js'></script>
@@ -194,6 +220,7 @@ tableRefresh = document.getElementById('sort-refresh');
 tableMulti = document.getElementById('sort-multi');
 tableSortRowSet = document.getElementById('sort-row-set');
 tableSortRowAuto = document.getElementById('sort-row-auto');
+tableSortColumnKeys = document.getElementById('sort-column-keys');
 new Tablesort(table);
 new Tablesort(tableDescend, { descending: true });
 new Tablesort(tableExclude);
@@ -201,6 +228,7 @@ new Tablesort(tableDefault);
 new Tablesort(tableMulti);
 new Tablesort(tableSortRowSet);
 new Tablesort(tableSortRowAuto);
+new Tablesort(tableSortColumnKeys);
 var refresh = new Tablesort(tableRefresh);
 
 var rowCount = tableRefresh.rows.length;

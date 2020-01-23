@@ -12,7 +12,7 @@ layout: default
 
 <script>
   new Tablesort(document.getElementById('table-id'));
-</script>{% endhighlight %} 
+</script>{% endhighlight %}
 
 ## Sort types
 
@@ -26,7 +26,7 @@ You can pass an alternate sort order as a second parameter. By default sort is a
 {% highlight js %}new Tablesort(document.getElementById('table-id'), {
   descending: true
 });
-{% endhighlight %} 
+{% endhighlight %}
 
 <div class='notice'>**Note:** If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</div>
 
@@ -43,7 +43,7 @@ For columns or rows that do not require sorting, you can add attribute `data-sor
   <td>Radishes</td>
   <td>$0.63</td>
 </tr>
-{% endhighlight %} 
+{% endhighlight %}
 
 ### Override data that is sorted on
 
@@ -57,7 +57,7 @@ Sometimes text inside cells is not normalized. Using a `data-sort` attribute you
   <td>2</td>
   <td data-sort='1078673085'>3/7/2004 @ 9:24:45 EST</td>
 </tr>
-{% endhighlight %} 
+{% endhighlight %}
 
 ### Specify the sort method for a column
 
@@ -81,7 +81,7 @@ By adding a `data-sort-method` attribute to a table heading you can force Tables
     </tr>
   </tbody>
 </table>
-{% endhighlight %} 
+{% endhighlight %}
 
 ### Specify which table heading row enables sorting
 
@@ -115,7 +115,7 @@ table.addEventListener('beforeSort', function() {
 table.addEventListener('afterSort', function() {
   alert('Table sorted!');
 });
-{% endhighlight %} 
+{% endhighlight %}
 
 <table id='event-table' class='sort'>
   <thead>
@@ -149,7 +149,7 @@ var sort = new Tablesort(table);
 
 // Make some Ajax request to fetch new data and on success:
 sort.refresh();
-{% endhighlight %} 
+{% endhighlight %}
 
 <table id='refresh-table' class='sort'>
   <thead>
@@ -180,7 +180,7 @@ sort.refresh();
 It is possible to automatically sort the table once you create a Tablesort instance by adding `data-sort-default` attribute.
 
 {% highlight html %}<th data-sort-default>Born</th>
-{% endhighlight %} 
+{% endhighlight %}
 
 <table id='defaulting' class='sort'>
 <thead>
@@ -205,6 +205,67 @@ It is possible to automatically sort the table once you create a Tablesort insta
 </tbody>
 </table>
 
+### Sorting by column keys
+
+Sometimes, tables can have more complex column structures, especially when using colspans. In these cases, you can
+explicitly connect a header to the cells in each row that it should sort by, by using the `data-sort-column-key`
+attribute.
+
+This example sorts products by price, even though the prices are not in the same column as their header.
+
+{% highlight html %}<table class='sort'>
+<thead>
+  <tr>
+    <th >Product</th>
+    <th colspan="2" data-sort-column-key="price">Price</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Apples</td>
+    <td>Sale!</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td>Out of stock</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>Radishes</td>
+    <td>In Stock!</td>
+    <td>30</td>
+  </tr>
+</tbody>
+</table>
+{% endhighlight %}
+
+<table id='column-keys' class='sort'>
+<thead>
+  <tr>
+    <th>Product</th>
+    <th colspan="2" data-sort-column-key="price">Price</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Apples</td>
+    <td>Sale!</td>
+    <td data-sort-column-key="price">20</td>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td>Out of stock</td>
+    <td data-sort-column-key="price">10</td>
+  </tr>
+  <tr>
+    <td>Radishes</td>
+    <td>In Stock!</td>
+    <td data-sort-column-key="price">30</td>
+  </tr>
+</tbody>
+</table>
+
 ## CSS styling
 
 Add the styling from [tablesort.css](../tablesort.css) file to your CSS or roll with your own.
@@ -219,6 +280,7 @@ MIT
 
 <script>
   new Tablesort(document.getElementById('defaulting'));
+  new Tablesort(document.getElementById('column-keys'));
 
   var events = document.getElementById('event-table')
   new Tablesort(events);
