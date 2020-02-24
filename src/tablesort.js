@@ -24,7 +24,7 @@
   };
 
   var getInnerText = function(el) {
-    if(el.haseAttribute('data-sort')) {
+    if(el.hasAttribute('data-sort')) {
       return el.getAttribute('data-sort');
     }
     return el.textContent || el.innerText || '';
