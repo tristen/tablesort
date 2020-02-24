@@ -24,7 +24,10 @@
   };
 
   var getInnerText = function(el) {
-    return el.getAttribute('data-sort') || el.textContent || el.innerText || '';
+    if(el.haseAttribute('data-sort') {
+      return el.getAttribute('data-sort');
+    }
+    return el.textContent || el.innerText || '';
   };
 
   // Default sort method if no better sort method is found
