@@ -69,7 +69,7 @@ Tablesort.extend('name', function(item) {
 });
 ```
 
-If you've made an extend function that others would benifit from pull requests
+If you've made an extend function that others would benefit from pull requests
 are gladly accepted!
 
 ### Contributing
