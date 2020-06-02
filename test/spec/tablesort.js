@@ -191,4 +191,5 @@ tape('sorts with column keys', function(t) {
   t.equal(tableSortColumnKeys.rows[1].cells[1].innerHTML, '1', 'was 1');
   t.equal(tableSortColumnKeys.rows[2].cells[1].innerHTML, '2', 'was 2');
   t.equal(tableSortColumnKeys.rows[3].cells[1].innerHTML, '3', 'was 3');
+  t.end();
 })
