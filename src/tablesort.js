@@ -23,8 +23,8 @@
     return evt;
   };
 
-  var getInnerText = function(el) {
-    return el.getAttribute('data-sort') || el.textContent || el.innerText || '';
+  var getInnerText = function(el,options) {
+    return el.getAttribute(options.sortAttribute || 'data-sort') || el.textContent || el.innerText || '';
   };
 
   // Default sort method if no better sort method is found
@@ -172,7 +172,7 @@
           }
 
           // Treat missing cells as empty cells
-          item = cell ? getInnerText(cell) : "";
+          item = cell ? getInnerText(cell,that.options) : "";
 
           item = item.trim();
 
@@ -228,7 +228,7 @@
             // Save the index for stable sorting
             newRows.push({
               tr: item,
-              td: cell ? getInnerText(cell) : '',
+              td: cell ? getInnerText(cell,that.options) : '',
               index: totalRows
             });
           }
