@@ -8,13 +8,15 @@ tape('sorts filesize', function(t) {
   t.equal(table.rows[1].cells[6].innerHTML, '134 B');
   t.equal(table.rows[2].cells[6].innerHTML, '124k');
   t.equal(table.rows[3].cells[6].innerHTML, '134.56 GB');
+  t.equal(table.rows[4].cells[6].innerHTML, '250 GB');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
 
-  t.equal(table.rows[1].cells[6].innerHTML, '134.56 GB');
-  t.equal(table.rows[2].cells[6].innerHTML, '124k');
-  t.equal(table.rows[3].cells[6].innerHTML, '134 B');
+  t.equal(table.rows[1].cells[6].innerHTML, '250 GB');
+  t.equal(table.rows[2].cells[6].innerHTML, '134.56 GB');
+  t.equal(table.rows[3].cells[6].innerHTML, '124k');
+  t.equal(table.rows[4].cells[6].innerHTML, '134 B');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
@@ -22,6 +24,7 @@ tape('sorts filesize', function(t) {
   t.equal(table.rows[1].cells[6].innerHTML, '134 B');
   t.equal(table.rows[2].cells[6].innerHTML, '124k');
   t.equal(table.rows[3].cells[6].innerHTML, '134.56 GB');
+  t.equal(table.rows[4].cells[6].innerHTML, '250 GB');
 
   t.end();
 });
