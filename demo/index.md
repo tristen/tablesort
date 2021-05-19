@@ -59,6 +59,13 @@ Sometimes text inside cells is not normalized. Using a `data-sort` attribute you
 </tr>
 {% endhighlight %}
 
+You can use a custom attribute (instead of `data-sort`) using the `sortAttribute` option:
+
+{% highlight js %}
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table, { sortAttribute: 'data-custom-sort-val'});
+{% endhighlight %}
+
 ### Specify the sort method for a column
 
 By adding a `data-sort-method` attribute to a table heading you can force Tablesort to use a specific sorting method rather than guessing it. The value of `data-sort-method` corresponds to the name of a sort function.

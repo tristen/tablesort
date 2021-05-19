@@ -201,6 +201,28 @@
   </tbody>
 </table>
 
+<table id="sort-custom-attribute">
+  <thead>
+    <tr>
+      <th>Heros</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-realname="Tony Stark">Iron Man (Tony Stark)</td>
+    </tr>
+    <tr>
+      <td data-realname="Peter Parker">Spider-Man (Peter Parker)</td>
+    </tr>
+    <tr>
+      <td data-realname="Natasha Romanoff">Black Widow (Natasha Romanoff)</td>
+    </tr>
+    <tr>
+      <td data-realname="Steve Rogers">Captain America (Steve Rogers)</td>
+    </tr>
+  </tbody>
+</table>
+
 <script src='tape.js'></script>
 
 <script src='../src/tablesort.js'></script>
@@ -221,6 +243,7 @@ tableMulti = document.getElementById('sort-multi');
 tableSortRowSet = document.getElementById('sort-row-set');
 tableSortRowAuto = document.getElementById('sort-row-auto');
 tableSortColumnKeys = document.getElementById('sort-column-keys');
+tableSortCustomAttr = document.getElementById('sort-custom-attribute');
 new Tablesort(table);
 new Tablesort(tableDescend, { descending: true });
 new Tablesort(tableExclude);
@@ -229,6 +252,7 @@ new Tablesort(tableMulti);
 new Tablesort(tableSortRowSet);
 new Tablesort(tableSortRowAuto);
 new Tablesort(tableSortColumnKeys);
+new Tablesort(tableSortCustomAttr, { sortAttribute: "data-realname" });
 var refresh = new Tablesort(tableRefresh);
 
 var rowCount = tableRefresh.rows.length;
