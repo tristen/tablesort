@@ -8,22 +8,25 @@ tape('sorts insensitive', function(t) {
   // Test that more than one table cell is evaluated
   // to determine sort type.
   t.equal(table.rows[1].cells[7].innerHTML, '1');
-  t.equal(table.rows[2].cells[7].innerHTML, 'A');
-  t.equal(table.rows[3].cells[7].innerHTML, 'B');
+  t.equal(table.rows[2].cells[7].innerHTML, '2');
+  t.equal(table.rows[3].cells[7].innerHTML, 'A');
+  t.equal(table.rows[4].cells[7].innerHTML, 'B');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
 
   t.equal(table.rows[1].cells[7].innerHTML, 'B');
   t.equal(table.rows[2].cells[7].innerHTML, 'A');
-  t.equal(table.rows[3].cells[7].innerHTML, '1');
+  t.equal(table.rows[3].cells[7].innerHTML, '2');
+  t.equal(table.rows[4].cells[7].innerHTML, '1');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
 
   t.equal(table.rows[1].cells[7].innerHTML, '1');
-  t.equal(table.rows[2].cells[7].innerHTML, 'A');
-  t.equal(table.rows[3].cells[7].innerHTML, 'B');
+  t.equal(table.rows[2].cells[7].innerHTML, '2');
+  t.equal(table.rows[3].cells[7].innerHTML, 'A');
+  t.equal(table.rows[4].cells[7].innerHTML, 'B');
 
   t.end();
 });
@@ -40,13 +43,15 @@ tape('uses data-sort', function(t) {
   t.equal(table.rows[1].cells[8].innerHTML, '2', 'cell is 2 but data-sort is a');
   t.equal(table.rows[2].cells[8].innerHTML, '3', 'cell is 3 but data-sort is b');
   t.equal(table.rows[3].cells[8].innerHTML, '1', 'cell is 1 but data-sort is c');
+  t.equal(table.rows[4].cells[8].innerHTML, '1', 'cell is 1 but data-sort is d');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
 
-  t.equal(table.rows[1].cells[8].innerHTML, '1', 'cell is 1 but data-sort is c');
-  t.equal(table.rows[2].cells[8].innerHTML, '3', 'cell is 3 but data-sort is b');
-  t.equal(table.rows[3].cells[8].innerHTML, '2', 'cell is 2 but data-sort is a');
+  t.equal(table.rows[1].cells[8].innerHTML, '1', 'cell is 1 but data-sort is d');
+  t.equal(table.rows[2].cells[8].innerHTML, '1', 'cell is 1 but data-sort is c');
+  t.equal(table.rows[3].cells[8].innerHTML, '3', 'cell is 3 but data-sort is b');
+  t.equal(table.rows[4].cells[8].innerHTML, '2', 'cell is 2 but data-sort is a');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
@@ -54,6 +59,7 @@ tape('uses data-sort', function(t) {
   t.equal(table.rows[1].cells[8].innerHTML, '2', 'cell is 2 but data-sort is a');
   t.equal(table.rows[2].cells[8].innerHTML, '3', 'cell is 3 but data-sort is b');
   t.equal(table.rows[3].cells[8].innerHTML, '1', 'cell is 1 but data-sort is c');
+  t.equal(table.rows[4].cells[8].innerHTML, '1', 'cell is 1 but data-sort is d');
 
   t.end();
 });
@@ -69,15 +75,18 @@ tape('uses data-sort-order', function(t) {
   el1.dispatchEvent(event);
 
   t.equal(table.rows[1].cells[0].innerHTML, '1');
-  t.equal(table.rows[2].cells[0].innerHTML, '2');
+  t.equal(table.rows[2].cells[0].innerHTML, '4');
   t.equal(table.rows[3].cells[0].innerHTML, '3');
+  t.equal(table.rows[4].cells[0].innerHTML, '2');
+
 
   event.initEvent('click', true, false);
   el1.dispatchEvent(event);
 
-  t.equal(table.rows[1].cells[0].innerHTML, '3');
-  t.equal(table.rows[2].cells[0].innerHTML, '2');
-  t.equal(table.rows[3].cells[0].innerHTML, '1');
+  t.equal(table.rows[1].cells[0].innerHTML, '2');
+  t.equal(table.rows[2].cells[0].innerHTML, '3');
+  t.equal(table.rows[3].cells[0].innerHTML, '4');
+  t.equal(table.rows[4].cells[0].innerHTML, '1');
 
   event.initEvent('click', true, false);
   el2.dispatchEvent(event);
