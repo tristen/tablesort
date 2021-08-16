@@ -8,13 +8,15 @@ tape('sorts dot separated numbers', function(t) {
   t.equal(table.rows[1].cells[5].innerHTML, '11.0.1');
   t.equal(table.rows[2].cells[5].innerHTML, '18.0.1284.49');
   t.equal(table.rows[3].cells[5].innerHTML, '31.0.1650.57');
+  t.equal(table.rows[4].cells[5].innerHTML, '350.0.1284.49');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
 
-  t.equal(table.rows[1].cells[5].innerHTML, '31.0.1650.57');
-  t.equal(table.rows[2].cells[5].innerHTML, '18.0.1284.49');
-  t.equal(table.rows[3].cells[5].innerHTML, '11.0.1');
+  t.equal(table.rows[1].cells[5].innerHTML, '350.0.1284.49');
+  t.equal(table.rows[2].cells[5].innerHTML, '31.0.1650.57');
+  t.equal(table.rows[3].cells[5].innerHTML, '18.0.1284.49');
+  t.equal(table.rows[4].cells[5].innerHTML, '11.0.1');
 
   event.initEvent('click', true, false);
   el.dispatchEvent(event);
@@ -22,6 +24,7 @@ tape('sorts dot separated numbers', function(t) {
   t.equal(table.rows[1].cells[5].innerHTML, '11.0.1');
   t.equal(table.rows[2].cells[5].innerHTML, '18.0.1284.49');
   t.equal(table.rows[3].cells[5].innerHTML, '31.0.1650.57');
+  t.equal(table.rows[4].cells[5].innerHTML, '350.0.1284.49');
 
   t.end();
 });
