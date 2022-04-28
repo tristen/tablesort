@@ -1,4 +1,5 @@
-# tablesort
+tablesort
+---
 
 A small & simple sorting component for tables written in JavaScript
 
