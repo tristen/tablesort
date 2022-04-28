@@ -1,15 +1,15 @@
+dist: focal
 language: node_js
-
+node_js:
+  - node
+  - lts/*
 branches:
   only:
-    - gh-pages
-
-cache:
-  directories:
-    - node_modules
-
+    - master
+before_install:
+  - npm i -g npm@^8
 install:
-  - npm install
-
+  - npm ci
 script:
-  - npm test
+  - npm t
+  - npm run build

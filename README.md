@@ -1,16 +1,16 @@
-tablesort
----
+# tablesort
 
-A small & simple sorting component for tables written in JavaScript.
+A small & simple sorting component for tables written in JavaScript
 
-[![npm version](http://img.shields.io/npm/v/tablesort.svg)](https://npmjs.org/package/tablesort) [![Build Status](https://travis-ci.org/tristen/tablesort.png?Zeqckz55oF1LjKHEqHT7)](https://travis-ci.org/tristen/tablesort)
+[![Build Status](https://app.travis-ci.com/tripu/tablesort.svg?branch=master)](https://app.travis-ci.com/tripu/tablesort)
+[![npm version](http://img.shields.io/npm/v/tablesort.svg)](https://npmjs.org/package/tablesort)
 
 ### Quick start
 
 Download the ZIP of this repository or install via command line: 
 
 ``` cli 
-npm install tablesort 
+npm i tablesort 
 # Or if you're using Yarn 
 yarn add tablesort 
 ```
@@ -74,6 +74,8 @@ are gladly accepted!
 
 ### Contributing
 
+Dependencies: Node.js 16 or 18; npm 8.
+
 Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run
 `npm run build` to package code from any contributions you make to `src/tablesort.js`
 before submitting pull requests.
@@ -81,7 +83,7 @@ before submitting pull requests.
 Tests are run via:
 
 ```sh
-npm install && npm test
+npm ci && npm t
 ```
 
 ### Licence
