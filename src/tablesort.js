@@ -118,7 +118,7 @@
         cell = firstRow.cells[i];
         cell.setAttribute('role','columnheader');
         if (cell.getAttribute('data-sort-method') !== 'none') {
-          cell.tabindex = 0;
+          cell.tabIndex = 0;
           cell.addEventListener('click', onClick, false);
 
           if (cell.getAttribute('data-sort-default') !== null) {
