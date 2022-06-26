@@ -105,21 +105,35 @@
       if (!firstRow) return;
 
       var onClick = function() {
-        if (that.current && that.current !== this) {
+        var el = that.options.modeButton ? this.parentNode : this;
+
+        if (that.current && that.current !== el) {
           that.current.removeAttribute('aria-sort');
         }
 
-        that.current = this;
-        that.sortTable(this);
+        that.current = el;
+        that.sortTable(el);
       };
+
+      if(that.options.modeButton) {
+        var sortButton = document.createElement('button');
+      }
 
       // Assume first row is the header and attach a click handler to each.
       for (i = 0; i < firstRow.cells.length; i++) {
         cell = firstRow.cells[i];
         cell.setAttribute('role','columnheader');
         if (cell.getAttribute('data-sort-method') !== 'none') {
-          cell.tabIndex = 0;
-          cell.addEventListener('click', onClick, false);
+          if(that.options.modeButton) {
+            var cellButton = sortButton.cloneNode(false);
+            cellButton.addEventListener('click', onClick, false);
+            cellButton.appendChild(...cell.childNodes);
+            cell.classList.add('button-sort');
+            cell.appendChild(cellButton);
+          } else {
+            cell.tabIndex = 0;
+            cell.addEventListener('click', onClick, false);
+          }
 
           if (cell.getAttribute('data-sort-default') !== null) {
             defaultSort = cell;
