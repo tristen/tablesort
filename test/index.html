@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8 />
-<title></title>
+  <meta charset=utf-8 />
+  <title></title>
 </head>
 <link href='../demo/style.css' rel='stylesheet'>
 <link href='../tablesort.css' rel='stylesheet'>
 <body>
-
-<table id='sort'>
-  <thead>
+<div class="normal-sorting">
+  <h2>Default mode</h2>
+  <table id='sort'>
+    <thead>
     <tr>
       <th>#</th>
       <th>Name</th>
@@ -23,8 +24,8 @@
       <th data-sort-method="monthname">Monthname</th>
       <th aria-sort="descending">Descending</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
       <td>2</td>
       <td>Gonzo the Great</td>
@@ -64,17 +65,17 @@
       <td>January</td>
       <td>3</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id='sort-descend'>
-  <thead>
+  <table id='sort-descend'>
+    <thead>
     <tr>
       <th>Numbers descending</th>
       <th aria-sort="ascending">Ascending column</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
       <td>2</td>
       <td>2</td>
@@ -87,17 +88,17 @@
       <td>3</td>
       <td>3</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id='sort-exclude'>
-  <thead>
+  <table id='sort-exclude'>
+    <thead>
     <tr>
       <th data-sort-method='none'>Column exclusion</th>
       <th>Row exclusion</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
       <td>2</td>
       <td>2</td>
@@ -110,80 +111,80 @@
       <td>3</td>
       <td>3</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id='sort-default'>
-  <thead>
+  <table id='sort-default'>
+    <thead>
     <tr><th data-sort-default>Sort on initialization</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td>2</td></tr>
     <tr><td>1</td></tr>
     <tr><td>3</td></tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id='sort-refresh'>
-  <thead>
+  <table id='sort-refresh'>
+    <thead>
     <tr><th data-sort-default>Refresh method</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td>2</td></tr>
     <tr><td>1</td></tr>
     <tr><td>3</td></tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id="sort-multi">
-  <thead>
+  <table id="sort-multi">
+    <thead>
     <tr><th>Multi</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td>2</td></tr>
     <tr><td>1</td></tr>
     <tr><td>3</td></tr>
-  </tbody>
-  <tbody>
+    </tbody>
+    <tbody>
     <tr><td>3</td></tr>
     <tr><td>2</td></tr>
     <tr><td>4</td></tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id="sort-row-set">
-  <thead>
+  <table id="sort-row-set">
+    <thead>
     <tr data-sort-method='thead'><th>Sort Row</th></tr>
     <tr><th>Not Sort Row</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td>2</td></tr>
     <tr><td>1</td></tr>
     <tr><td>3</td></tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id="sort-row-auto">
-  <thead>
+  <table id="sort-row-auto">
+    <thead>
     <tr><th>Not Sort Row</th></tr>
     <tr><th>Sort Row</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td>2</td></tr>
     <tr><td>1</td></tr>
     <tr><td>3</td></tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id="sort-column-keys">
-  <thead>
+  <table id="sort-column-keys">
+    <thead>
     <tr>
       <th class="sort-header" colspan="2">Column 1</th>
       <th >Column 2</th>
       <th id="third-header" data-sort-column-key="third">Column 3</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr class="no-sort">
       <td colspan="3">2</td>
       <td data-sort-column-key="third">2</td>
@@ -198,16 +199,16 @@
       <td>1</td>
       <td data-sort-column-key="third">1</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<table id="sort-custom-attribute">
-  <thead>
+  <table id="sort-custom-attribute">
+    <thead>
     <tr>
       <th>Heros</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
       <td data-realname="Tony Stark">Iron Man (Tony Stark)</td>
     </tr>
@@ -220,8 +221,228 @@
     <tr>
       <td data-realname="Steve Rogers">Captain America (Steve Rogers)</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+
+<div class="button-sorting">
+  <h2>Button mode</h2>
+
+  <table id='b-sort'>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Birthday</th>
+      <th>Grocery item</th>
+      <th>Price</th>
+      <th>Version</th>
+      <th>Filesize</th>
+      <th>Insensitive</th>
+      <th>data-sort</th>
+      <th data-sort-method="monthname">Monthname</th>
+      <th aria-sort="descending">Descending</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>2</td>
+      <td>Gonzo the Great</td>
+      <td>12-2-70</td>
+      <td>Radishes</td>
+      <td>63€</td>
+      <td>31.0.1650.57</td>
+      <td>124k</td>
+      <td>B</td>
+      <td data-sort='b'>3</td>
+      <td>February</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Ernie</td>
+      <td>10/11/69</td>
+      <td>Fish</td>
+      <td>£2.79</td>
+      <td>11.0.1</td>
+      <td>134.56 GB</td>
+      <td>1</td>
+      <td data-sort='a'>2</td>
+      <td>April</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Bert</td>
+      <td>10/11/1969</td>
+      <td>Broccoli</td>
+      <td>$0.79</td>
+      <td>18.0.1284.49</td>
+      <td>134 B</td>
+      <td>A</td>
+      <td data-sort='c'>1</td>
+      <td>January</td>
+      <td>3</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table id='b-sort-descend'>
+    <thead>
+    <tr>
+      <th>Numbers descending</th>
+      <th aria-sort="ascending">Ascending column</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table id='b-sort-exclude'>
+    <thead>
+    <tr>
+      <th data-sort-method='none'>Column exclusion</th>
+      <th>Row exclusion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr data-sort-method='none'>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table id='b-sort-default'>
+    <thead>
+    <tr><th data-sort-default>Sort on initialization</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+    </tbody>
+  </table>
+
+  <table id='b-sort-refresh'>
+    <thead>
+    <tr><th data-sort-default>Refresh method</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+    </tbody>
+  </table>
+
+  <table id="b-sort-multi">
+    <thead>
+    <tr><th>Multi</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+    </tbody>
+    <tbody>
+    <tr><td>3</td></tr>
+    <tr><td>2</td></tr>
+    <tr><td>4</td></tr>
+    </tbody>
+  </table>
+
+  <table id="b-sort-row-set">
+    <thead>
+    <tr data-sort-method='thead'><th>Sort Row</th></tr>
+    <tr><th>Not Sort Row</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+    </tbody>
+  </table>
+
+  <table id="b-sort-row-auto">
+    <thead>
+    <tr><th>Not Sort Row</th></tr>
+    <tr><th>Sort Row</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>2</td></tr>
+    <tr><td>1</td></tr>
+    <tr><td>3</td></tr>
+    </tbody>
+  </table>
+
+  <table id="b-sort-column-keys">
+    <thead>
+    <tr>
+      <th class="sort-header" colspan="2">Column 1</th>
+      <th >Column 2</th>
+      <th id="b-third-header" data-sort-column-key="third">Column 3</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="no-sort">
+      <td colspan="3">2</td>
+      <td data-sort-column-key="third">2</td>
+    </tr>
+    <tr>
+      <td colspan="2">3</td>
+      <td>3</td>
+      <td data-sort-column-key="third">3</td>
+    </tr>
+    <tr>
+      <td colspan="2">1</td>
+      <td>1</td>
+      <td data-sort-column-key="third">1</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table id="b-sort-custom-attribute">
+    <thead>
+    <tr>
+      <th>Heros</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td data-realname="Tony Stark">Iron Man (Tony Stark)</td>
+    </tr>
+    <tr>
+      <td data-realname="Peter Parker">Spider-Man (Peter Parker)</td>
+    </tr>
+    <tr>
+      <td data-realname="Natasha Romanoff">Black Widow (Natasha Romanoff)</td>
+    </tr>
+    <tr>
+      <td data-realname="Steve Rogers">Captain America (Steve Rogers)</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
 <script src='tape.js'></script>
 
@@ -233,34 +454,66 @@
 <script src='../src/sorts/tablesort.monthname.js'></script>
 
 <!-- Tests -->
+
 <script>
-table = document.getElementById('sort');
-tableDescend = document.getElementById('sort-descend');
-tableExclude = document.getElementById('sort-exclude');
-tableDefault = document.getElementById('sort-default');
-tableRefresh = document.getElementById('sort-refresh');
-tableMulti = document.getElementById('sort-multi');
-tableSortRowSet = document.getElementById('sort-row-set');
-tableSortRowAuto = document.getElementById('sort-row-auto');
-tableSortColumnKeys = document.getElementById('sort-column-keys');
-tableSortCustomAttr = document.getElementById('sort-custom-attribute');
-new Tablesort(table);
-new Tablesort(tableDescend, { descending: true });
-new Tablesort(tableExclude);
-new Tablesort(tableDefault);
-new Tablesort(tableMulti);
-new Tablesort(tableSortRowSet);
-new Tablesort(tableSortRowAuto);
-new Tablesort(tableSortColumnKeys);
-new Tablesort(tableSortCustomAttr, { sortAttribute: "data-realname" });
-var refresh = new Tablesort(tableRefresh);
+  /* Tests for normal sorting */
+  table = document.getElementById('sort');
+  tableDescend = document.getElementById('sort-descend');
+  tableExclude = document.getElementById('sort-exclude');
+  tableDefault = document.getElementById('sort-default');
+  tableRefresh = document.getElementById('sort-refresh');
+  tableMulti = document.getElementById('sort-multi');
+  tableSortRowSet = document.getElementById('sort-row-set');
+  tableSortRowAuto = document.getElementById('sort-row-auto');
+  tableSortColumnKeys = document.getElementById('sort-column-keys');
+  tableSortCustomAttr = document.getElementById('sort-custom-attribute');
+  new Tablesort(table);
+  new Tablesort(tableDescend, { descending: true });
+  new Tablesort(tableExclude);
+  new Tablesort(tableDefault);
+  new Tablesort(tableMulti);
+  new Tablesort(tableSortRowSet);
+  new Tablesort(tableSortRowAuto);
+  new Tablesort(tableSortColumnKeys);
+  new Tablesort(tableSortCustomAttr, { sortAttribute: "data-realname" });
+  var refresh = new Tablesort(tableRefresh);
 
-var rowCount = tableRefresh.rows.length;
-var row = tableRefresh.insertRow(rowCount);
-var cellName = row.insertCell(0);
-    cellName.innerHTML = 0;
+  var rowCount = tableRefresh.rows.length;
+  var row = tableRefresh.insertRow(rowCount);
+  var cellName = row.insertCell(0);
+  cellName.innerHTML = 0;
 
-refresh.refresh();
+  refresh.refresh();
+
+  /* Tests for button sorting */
+  modeBtnTable = document.getElementById('b-sort');
+  modeBtnTableDescend = document.getElementById('b-sort-descend');
+  modeBtnTableExclude = document.getElementById('b-sort-exclude');
+  modeBtnTableDefault = document.getElementById('b-sort-default');
+  modeBtnTableRefresh = document.getElementById('b-sort-refresh');
+  modeBtnTableMulti = document.getElementById('b-sort-multi');
+  modeBtnTableSortRowSet = document.getElementById('b-sort-row-set');
+  modeBtnTableSortRowAuto = document.getElementById('b-sort-row-auto');
+  modeBtnTableSortColumnKeys = document.getElementById('b-sort-column-keys');
+  modeBtnTableSortCustomAttr = document.getElementById('b-sort-custom-attribute');
+  new Tablesort(modeBtnTable, { modeButton: true});
+  new Tablesort(modeBtnTableDescend, { descending: true, modeButton: true });
+  new Tablesort(modeBtnTableExclude, { modeButton: true});
+  new Tablesort(modeBtnTableDefault, { modeButton: true});
+  new Tablesort(modeBtnTableMulti, { modeButton: true});
+  new Tablesort(modeBtnTableSortRowSet, { modeButton: true});
+  new Tablesort(modeBtnTableSortRowAuto, { modeButton: true});
+  new Tablesort(modeBtnTableSortColumnKeys, { modeButton: true});
+  new Tablesort(modeBtnTableSortCustomAttr, { sortAttribute: "data-realname", modeButton: true });
+  var bSortRefresh = new Tablesort(modeBtnTableRefresh, { modeButton: true});
+
+  var bRowCount = modeBtnTableRefresh.rows.length;
+  var bRow = modeBtnTableRefresh.insertRow(bRowCount);
+  var bCellName = bRow.insertCell(0);
+  bCellName.innerHTML = 0;
+
+  bSortRefresh.refresh();
+
 </script>
 
 <script src='spec/tablesort.js'></script>
@@ -270,6 +523,14 @@ refresh.refresh();
 <script src='spec/date.js'></script>
 <script src='spec/number.js'></script>
 <script src='spec/monthname.js'></script>
+
+<script src='spec/modeButton/tablesort.js'></script>
+<script src='spec/modeButton/dotsep.js'></script>
+<script src='spec/modeButton/multibody.js'></script>
+<script src='spec/modeButton/filesize.js'></script>
+<script src='spec/modeButton/date.js'></script>
+<script src='spec/modeButton/number.js'></script>
+<script src='spec/modeButton/monthname.js'></script>
 
 </body>
 </html>
