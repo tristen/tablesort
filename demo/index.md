@@ -231,17 +231,17 @@ This example sorts products by price, even though the prices are not in the same
   <tr>
     <td>Apples</td>
     <td>Sale!</td>
-    <td>20</td>
+    <td data-sort-column-key="price">20</td>
   </tr>
   <tr>
     <td>Bread</td>
     <td>Out of stock</td>
-    <td>10</td>
+    <td data-sort-column-key="price">10</td>
   </tr>
   <tr>
     <td>Radishes</td>
     <td>In Stock!</td>
-    <td>30</td>
+    <td data-sort-column-key="price">30</td>
   </tr>
 </tbody>
 </table>
@@ -258,17 +258,17 @@ This example sorts products by price, even though the prices are not in the same
   <tr>
     <td>Apples</td>
     <td>Sale!</td>
-    <td>20</td>
+    <td data-sort-column-key="price">20</td>
   </tr>
   <tr>
     <td>Bread</td>
     <td>Out of stock</td>
-    <td>10</td>
+    <td data-sort-column-key="price">10</td>
   </tr>
   <tr>
     <td>Radishes</td>
     <td>In Stock!</td>
-    <td>30</td>
+    <td data-sort-column-key="price">30</td>
   </tr>
 </tbody>
 </table>
