@@ -7,8 +7,8 @@
   "main": "./src/tablesort.js",
   "homepage": "http://tristen.ca/tablesort/demo/",
   "engines": {
-    "node": "16 || 18",
-    "npm": "8"
+    "node": ">= 16",
+    "npm": ">= 8"
   },
   "scripts": {
     "build": "grunt",
