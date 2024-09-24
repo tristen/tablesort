@@ -1,3 +1,5 @@
+var Tablesort = require("../tablesort.js")
+
 // Filesizes. e.g. '5.35 K', '10 MB', '12.45 GB', or '4.67 TiB'
 (function(){
   var compareNumber = function(a, b) {

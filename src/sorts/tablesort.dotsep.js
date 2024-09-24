@@ -1,3 +1,5 @@
+var Tablesort = require("../tablesort.js")
+
 // Dot separated values. E.g. IP addresses or version numbers.
 Tablesort.extend('dotsep', function(item) {
   return /^(\d+\.)+\d+$/.test(item);
