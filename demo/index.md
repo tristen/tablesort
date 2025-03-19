@@ -30,6 +30,12 @@ You can pass an alternate sort order as a second parameter. By default sort is a
 
 <div class='notice'>**Note:** If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</div>
 
+If you want to change the default sort order for only one column you can use the attribute `data-sort-reverse`.
+
+{% highlight html %}
+<th data-sort-reverse>A table header</th>
+{% endhighlight %}
+
 ### Exclude columns or rows
 
 For columns or rows that do not require sorting, you can add attribute `data-sort-method='none'` to a columns `th` or a `tr` element.
