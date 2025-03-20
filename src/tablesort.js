@@ -154,7 +154,7 @@
         } else if (sortOrder === 'descending') {
           sortOrder = 'ascending';
         } else {
-          sortOrder = !!that.options.descending != sortRevers ? 'descending' : 'ascending';
+          sortOrder = that.options.descending ? 'descending' : 'ascending';
         }
 
         header.setAttribute('aria-sort', sortOrder);
@@ -238,7 +238,7 @@
         // Before we append should we reverse the new array or not?
         // If we reverse, the sort needs to be `anti-stable` so that
         // the double negatives cancel out
-        if (sortOrder === 'descending') {
+        if ((sortOrder === 'descending' && !sortRevers) || (sortOrder === 'ascending' && sortRevers)) {
           newRows.sort(stabilize(sortFunction, true));
         } else {
           newRows.sort(stabilize(sortFunction, false));
