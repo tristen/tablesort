@@ -142,6 +142,7 @@
           items = [],
           i = that.thead ? 0 : 1,
           sortMethod = header.getAttribute('data-sort-method'),
+          sortRevers = header.hasAttribute('data-sort-reverse'),
           sortOrder = header.getAttribute('aria-sort');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
@@ -237,7 +238,7 @@
         // Before we append should we reverse the new array or not?
         // If we reverse, the sort needs to be `anti-stable` so that
         // the double negatives cancel out
-        if (sortOrder === 'descending') {
+        if ((sortOrder === 'descending' && !sortRevers) || (sortOrder === 'ascending' && sortRevers)) {
           newRows.sort(stabilize(sortFunction, true));
         } else {
           newRows.sort(stabilize(sortFunction, false));
