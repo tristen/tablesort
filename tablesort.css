@@ -27,6 +27,7 @@ th[aria-sort]:not(.no-sort):after {
 	opacity: 0.4;
 }
 
+th[role=columnheader]:not(.no-sort):focus:after,
 th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
