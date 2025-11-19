@@ -46,17 +46,16 @@
 
   // Stable sort function
   // If two elements are equal under the original sort function,
-  // then there relative order is reversed
-  var stabilize = function(sort, antiStabilize) {
+  // then their relative order is preserved
+  var stabilize = function(sort, reversed) {
     return function(a, b) {
       var unstableResult = sort(a.td, b.td);
 
       if (unstableResult === 0) {
-        if (antiStabilize) return b.index - a.index;
         return a.index - b.index;
       }
 
-      return unstableResult;
+      return unstableResult * (reversed ? 1 : -1);
     };
   };
 
@@ -249,7 +248,6 @@
           newRows.sort(stabilize(sortFunction, true));
         } else {
           newRows.sort(stabilize(sortFunction, false));
-          newRows.reverse();
         }
 
         // append rows that already exist rather than creating new ones
