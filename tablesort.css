@@ -1,8 +1,8 @@
-th[role=columnheader]:not(.no-sort) {
+th[role=columnheader]:not([data-sort-method='none']) {
 	cursor: pointer;
 }
 
-th[role=columnheader]:not(.no-sort):after {
+th[role=columnheader]:not([data-sort-method='none']):after {
 	content: '';
 	float: right;
 	margin-top: 7px;
@@ -17,17 +17,18 @@ th[role=columnheader]:not(.no-sort):after {
 	user-select: none;
 }
 
-th[aria-sort=ascending]:not(.no-sort):after {
+th[aria-sort=ascending]:not([data-sort-method='none']):after {
 	border-bottom: none;
 	border-width: 4px 4px 0;
 }
 
-th[aria-sort]:not(.no-sort):after {
+th[aria-sort]:not([data-sort-method='none']):after {
 	visibility: visible;
 	opacity: 0.4;
 }
 
-th[role=columnheader]:not(.no-sort):hover:after {
+th[role=columnheader]:not([data-sort-method='none']):focus:after,
+th[role=columnheader]:not([data-sort-method='none']):hover:after {
 	visibility: visible;
 	opacity: 1;
 }

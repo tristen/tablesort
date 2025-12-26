@@ -1,27 +1,28 @@
 {
   "name": "tablesort",
   "description": "A sorting component for HTML tables",
-  "version": "5.2.0",
+  "version": "5.6.0",
   "author": "tristen",
   "license": "MIT",
   "main": "./src/tablesort.js",
   "homepage": "http://tristen.ca/tablesort/demo/",
+  "engines": {
+    "node": ">= 22",
+    "npm": ">= 10"
+  },
   "scripts": {
     "build": "grunt",
-    "test": "tape test/test.client.js | tap-spec"
+    "test": "node test/test.dom.js | tap-spec"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/tristen/tablesort.git"
   },
   "devDependencies": {
-    "finalhandler": "0.2.x",
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "phantomjs-prebuilt": "~2.1.x",
-    "serve-static": "1.6.x",
-    "tap-spec": "^2.2.0",
-    "tape": "^3.0.0"
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.5.0",
+    "grunt-contrib-uglify": "^5.2.1",
+    "jsdom": "^26.1.0",
+    "tap-spec": "^5.0.0"
   }
 }

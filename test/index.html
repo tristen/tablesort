@@ -22,6 +22,7 @@
       <th>data-sort</th>
       <th data-sort-method="monthname">Monthname</th>
       <th aria-sort="descending">Descending</th>
+      <th data-sort-method="intl">Greek gods</th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,7 @@
       <td data-sort='b'>3</td>
       <td>February</td>
       <td>2</td>
+      <td>Hypnos</td>
     </tr>
     <tr>
       <td>1</td>
@@ -50,6 +52,7 @@
       <td data-sort='a'>2</td>
       <td>April</td>
       <td>1</td>
+      <td>Hadès</td>
     </tr>
     <tr>
       <td>3</td>
@@ -63,6 +66,7 @@
       <td data-sort='c'>1</td>
       <td>January</td>
       <td>3</td>
+      <td>Héra</td>
     </tr>
   </tbody>
 </table>
@@ -201,6 +205,28 @@
   </tbody>
 </table>
 
+<table id="sort-custom-attribute">
+  <thead>
+    <tr>
+      <th>Heros</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-realname="Tony Stark">Iron Man (Tony Stark)</td>
+    </tr>
+    <tr>
+      <td data-realname="Peter Parker">Spider-Man (Peter Parker)</td>
+    </tr>
+    <tr>
+      <td data-realname="Natasha Romanoff">Black Widow (Natasha Romanoff)</td>
+    </tr>
+    <tr>
+      <td data-realname="Steve Rogers">Captain America (Steve Rogers)</td>
+    </tr>
+  </tbody>
+</table>
+
 <script src='tape.js'></script>
 
 <script src='../src/tablesort.js'></script>
@@ -209,6 +235,7 @@
 <script src='../src/sorts/tablesort.date.js'></script>
 <script src='../src/sorts/tablesort.number.js'></script>
 <script src='../src/sorts/tablesort.monthname.js'></script>
+<script src='../src/sorts/tablesort.intl.js'></script>
 
 <!-- Tests -->
 <script>
@@ -221,6 +248,7 @@ tableMulti = document.getElementById('sort-multi');
 tableSortRowSet = document.getElementById('sort-row-set');
 tableSortRowAuto = document.getElementById('sort-row-auto');
 tableSortColumnKeys = document.getElementById('sort-column-keys');
+tableSortCustomAttr = document.getElementById('sort-custom-attribute');
 new Tablesort(table);
 new Tablesort(tableDescend, { descending: true });
 new Tablesort(tableExclude);
@@ -229,6 +257,7 @@ new Tablesort(tableMulti);
 new Tablesort(tableSortRowSet);
 new Tablesort(tableSortRowAuto);
 new Tablesort(tableSortColumnKeys);
+new Tablesort(tableSortCustomAttr, { sortAttribute: "data-realname" });
 var refresh = new Tablesort(tableRefresh);
 
 var rowCount = tableRefresh.rows.length;
@@ -246,6 +275,7 @@ refresh.refresh();
 <script src='spec/date.js'></script>
 <script src='spec/number.js'></script>
 <script src='spec/monthname.js'></script>
+<script src='spec/intl.js'></script>
 
 </body>
 </html>

@@ -1,19 +1,12 @@
 tablesort
 ---
 
-A small & simple sorting component for tables written in JavaScript.
+A small & simple sorting component for tables written in JavaScript
 
-[![npm version](http://img.shields.io/npm/v/tablesort.svg)](https://npmjs.org/package/tablesort) [![Build Status](https://travis-ci.org/tristen/tablesort.png?Zeqckz55oF1LjKHEqHT7)](https://travis-ci.org/tristen/tablesort)
+[![Build Status](https://app.travis-ci.com/tripu/tablesort.svg?branch=master)](https://app.travis-ci.com/tripu/tablesort)
+[![npm version](http://img.shields.io/npm/v/tablesort.svg)](https://npmjs.org/package/tablesort)
 
 ### Quick start
-
-Download the ZIP of this repository or install via command line: 
-
-``` cli 
-npm install tablesort 
-# Or if you're using Yarn 
-yarn add tablesort 
-```
 
 ``` html
 <script src='tablesort.min.js'></script>
@@ -26,6 +19,7 @@ yarn add tablesort
   new Tablesort(document.getElementById('table-id'));
 </script>
 ```
+
 **[See usage and demos for more](http://tristen.ca/tablesort/demo/)**
 
 ---
@@ -39,8 +33,7 @@ yarn add tablesort
 ### Node/Browserify
 
 ``` js
-// npm install tablesort
-var tablesort = require('tablesort');
+import tablesort from 'tablesort';
 
 tablesort(el, options);
 ```
@@ -56,12 +49,12 @@ in the [sorts](https://github.com/tristen/tablesort/tree/gh-pages/src/sorts/)
 directory, you can add your own.
 
 ``` js
-Tablesort.extend('name', function(item) {
+Tablesort.extend('name', item => {
 
   // Regular expression to test against.
   // `item` is a table value to evaluate.
   return /foo/.test(item);
-}, function(a, b) {
+}, (a, b) => {
 
   // Custom sort functionality goes here.
   // e.g var n = (a > b) ? -1 : 1;
@@ -69,7 +62,7 @@ Tablesort.extend('name', function(item) {
 });
 ```
 
-If you've made an extend function that others would benifit from pull requests
+If you've made an extend function that others would benefit from pull requests
 are gladly accepted!
 
 ### Contributing
@@ -81,8 +74,16 @@ before submitting pull requests.
 Tests are run via:
 
 ```sh
-npm install && npm test
+npm test
 ```
+
+Running the demo locally
+
+```sh
+jekyll serve
+```
+
+Then open http://localhost:4000/demo/ (or whatever port it uses).
 
 ### Licence
 

@@ -191,4 +191,20 @@ tape('sorts with column keys', function(t) {
   t.equal(tableSortColumnKeys.rows[1].cells[1].innerHTML, '1', 'was 1');
   t.equal(tableSortColumnKeys.rows[2].cells[1].innerHTML, '2', 'was 2');
   t.equal(tableSortColumnKeys.rows[3].cells[1].innerHTML, '3', 'was 3');
+  t.end();
+})
+
+tape('uses custom sort attribute', function(t) {
+  var tbl = tableSortCustomAttr;
+  var h = tbl.querySelector('th');
+
+  var clickEvent = document.createEvent('HTMLEvents');
+  clickEvent.initEvent('click', true, false);
+  h.dispatchEvent(clickEvent);
+
+  t.equal(tbl.rows[1].cells[0].innerHTML, 'Black Widow (Natasha Romanoff)');
+  t.equal(tbl.rows[2].cells[0].innerHTML, 'Spider-Man (Peter Parker)');
+  t.equal(tbl.rows[3].cells[0].innerHTML, 'Captain America (Steve Rogers)');
+  t.equal(tbl.rows[4].cells[0].innerHTML, 'Iron Man (Tony Stark)');
+  t.end();
 })

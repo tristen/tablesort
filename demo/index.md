@@ -30,6 +30,12 @@ You can pass an alternate sort order as a second parameter. By default sort is a
 
 <div class='notice'>**Note:** If you are using the default CSS provided you'll need to reverse the class names that style the arrows.</div>
 
+If you want to change the default sort order for only one column you can use the attribute `data-sort-reverse`.
+
+{% highlight html %}
+<th data-sort-reverse>A table header</th>
+{% endhighlight %}
+
 ### Exclude columns or rows
 
 For columns or rows that do not require sorting, you can add attribute `data-sort-method='none'` to a columns `th` or a `tr` element.
@@ -57,6 +63,13 @@ Sometimes text inside cells is not normalized. Using a `data-sort` attribute you
   <td>2</td>
   <td data-sort='1078673085'>3/7/2004 @ 9:24:45 EST</td>
 </tr>
+{% endhighlight %}
+
+You can use a custom attribute (instead of `data-sort`) using the `sortAttribute` option:
+
+{% highlight js %}
+var table = document.getElementById('table-id');
+var sort = new Tablesort(table, { sortAttribute: 'data-custom-sort-val'});
 {% endhighlight %}
 
 ### Specify the sort method for a column
@@ -216,7 +229,7 @@ This example sorts products by price, even though the prices are not in the same
 {% highlight html %}<table class='sort'>
 <thead>
   <tr>
-    <th >Product</th>
+    <th>Product</th>
     <th colspan="2" data-sort-column-key="price">Price</th>
   </tr>
 </thead>
@@ -224,17 +237,17 @@ This example sorts products by price, even though the prices are not in the same
   <tr>
     <td>Apples</td>
     <td>Sale!</td>
-    <td>20</td>
+    <td data-sort-column-key="price">20</td>
   </tr>
   <tr>
     <td>Bread</td>
     <td>Out of stock</td>
-    <td>10</td>
+    <td data-sort-column-key="price">10</td>
   </tr>
   <tr>
     <td>Radishes</td>
     <td>In Stock!</td>
-    <td>30</td>
+    <td data-sort-column-key="price">30</td>
   </tr>
 </tbody>
 </table>

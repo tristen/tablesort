@@ -22,10 +22,11 @@
 
     return evt;
   };
-
-  var getInnerText = function(el) {
-    if(el.hasAttribute('data-sort')) {
-      return el.getAttribute('data-sort');
+  
+  var getInnerText = function(el, options) {
+    var sortAttribute = options.sortAttribute || 'data-sort';
+    if(el.hasAttribute(sortAttribute)) {
+      return el.getAttribute(sortAttribute);
     }
     return el.textContent || el.innerText || '';
   };
@@ -121,8 +122,15 @@
         cell = firstRow.cells[i];
         cell.setAttribute('role','columnheader');
         if (cell.getAttribute('data-sort-method') !== 'none') {
-          cell.tabindex = 0;
+          cell.tabIndex = 0;
           cell.addEventListener('click', onClick, false);
+
+          cell.addEventListener('keydown', function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                onClick.call(this);
+            }
+          });
 
           if (cell.getAttribute('data-sort-default') !== null) {
             defaultSort = cell;
@@ -145,6 +153,7 @@
           items = [],
           i = that.thead ? 0 : 1,
           sortMethod = header.getAttribute('data-sort-method'),
+          sortReverse = header.hasAttribute('data-sort-reverse'),
           sortOrder = header.getAttribute('aria-sort');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
@@ -156,7 +165,7 @@
         } else if (sortOrder === 'descending') {
           sortOrder = 'ascending';
         } else {
-          sortOrder = that.options.descending ? 'descending' : 'ascending';
+          sortOrder = !!that.options.descending != sortReverse ? 'descending' : 'ascending';
         }
 
         header.setAttribute('aria-sort', sortOrder);
@@ -175,7 +184,7 @@
           }
 
           // Treat missing cells as empty cells
-          item = cell ? getInnerText(cell) : "";
+          item = cell ? getInnerText(cell,that.options) : "";
 
           item = item.trim();
 
@@ -231,7 +240,7 @@
             // Save the index for stable sorting
             newRows.push({
               tr: item,
-              td: cell ? getInnerText(cell) : '',
+              td: cell ? getInnerText(cell,that.options) : '',
               index: totalRows
             });
           }
