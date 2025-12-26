@@ -25,7 +25,7 @@
   
   var getInnerText = function(el, options) {
     var sortAttribute = options.sortAttribute || 'data-sort';
-    if(el.hasAttribute(sortAttribute)) {
+    if (el.hasAttribute(sortAttribute)) {
       return el.getAttribute(sortAttribute);
     }
     return el.textContent || el.innerText || '';
