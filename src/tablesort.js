@@ -149,7 +149,7 @@
           items = [],
           i = that.thead ? 0 : 1,
           sortMethod = header.getAttribute('data-sort-method'),
-          sortRevers = header.hasAttribute('data-sort-reverse'),
+          sortReverse = header.hasAttribute('data-sort-reverse'),
           sortOrder = header.getAttribute('aria-sort');
 
       that.table.dispatchEvent(createEvent('beforeSort'));
@@ -161,7 +161,7 @@
         } else if (sortOrder === 'descending') {
           sortOrder = 'ascending';
         } else {
-          sortOrder = that.options.descending ? 'descending' : 'ascending';
+          sortOrder = !!that.options.descending != sortReverse ? 'descending' : 'ascending';
         }
 
         header.setAttribute('aria-sort', sortOrder);
@@ -245,7 +245,7 @@
         // Before we append should we reverse the new array or not?
         // If we reverse, the sort needs to be `anti-stable` so that
         // the double negatives cancel out
-        if ((sortOrder === 'descending' && !sortRevers) || (sortOrder === 'ascending' && sortRevers)) {
+        if (sortOrder === 'descending') {
           newRows.sort(stabilize(sortFunction, true));
         } else {
           newRows.sort(stabilize(sortFunction, false));
