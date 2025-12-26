@@ -22,9 +22,13 @@
 
     return evt;
   };
-
-  var getInnerText = function(el,options) {
-    return el.getAttribute(options.sortAttribute || 'data-sort') || el.textContent || el.innerText || '';
+  
+  var getInnerText = function(el, options) {
+    var sortAttribute = options.sortAttribute || 'data-sort';
+    if (el.hasAttribute(sortAttribute)) {
+      return el.getAttribute(sortAttribute);
+    }
+    return el.textContent || el.innerText || '';
   };
 
   // Default sort method if no better sort method is found
