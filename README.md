@@ -66,6 +66,7 @@ If you've made an extend function that others would benefit from pull requests
 are gladly accepted!
 
 ### Contributing
+Dependencies: Node.js 22.
 
 Tablesort relies on [Grunt](http://gruntjs.com) as its build tool. Simply run
 `npm run build` to package code from any contributions you make to `src/tablesort.js`
