@@ -10,14 +10,14 @@
 
   var sortOptions = [];
 
-  var createEvent = function(name) {
+  var createEvent = function(name, detail) {
     var evt;
 
-    if (!window.CustomEvent || typeof window.CustomEvent !== 'function') {
+    if (!window.CustomEvent || typeof window.CustomEvent !== 'function') { // IE
       evt = document.createEvent('CustomEvent');
-      evt.initCustomEvent(name, false, false, undefined);
+      evt.initCustomEvent(name, /*canBubble:*/ false, /*cancelable:*/ false, detail);
     } else {
-      evt = new CustomEvent(name);
+      evt = new CustomEvent(name, { detail: detail });
     }
 
     return evt;
@@ -156,7 +156,7 @@
           sortReverse = header.hasAttribute('data-sort-reverse'),
           sortOrder = header.getAttribute('aria-sort');
 
-      that.table.dispatchEvent(createEvent('beforeSort'));
+      that.table.dispatchEvent(createEvent('beforeSort', { header: header, update: update }));
 
       // If updating an existing sort, direction should remain unchanged.
       if (!update) {
@@ -171,7 +171,10 @@
         header.setAttribute('aria-sort', sortOrder);
       }
 
-      if (that.table.rows.length < 2) return;
+      if( that.table.rows.length < 2 ) {
+        that.table.dispatchEvent(createEvent('sortCanceled', { header: header, update: update }));
+        return;
+      }
 
       // If we force a sort method, it is not necessary to check rows
       if (!sortMethod) {
@@ -195,7 +198,10 @@
           i++;
         }
 
-        if (!items) return;
+        if (!items) {
+          that.table.dispatchEvent(createEvent('sortCanceled', { header: header, update: update }));
+          return;
+        }
       }
 
       for (i = 0; i < sortOptions.length; i++) {
@@ -271,7 +277,7 @@
         }
       }
 
-      that.table.dispatchEvent(createEvent('afterSort'));
+      that.table.dispatchEvent(createEvent('afterSort', { header: header, update: update }));
     },
 
     refresh: function() {
