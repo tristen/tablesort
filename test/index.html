@@ -205,6 +205,19 @@
   </tbody>
 </table>
 
+<table id="sort-dotsep">
+  <thead>
+    <tr>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>6.8</td></tr>
+    <tr><td>6.8.2</td></tr>
+    <tr><td>6.7.1</td></tr>
+  </tbody>
+</table>
+
 <table id="sort-custom-attribute">
   <thead>
     <tr>
@@ -248,6 +261,7 @@ tableMulti = document.getElementById('sort-multi');
 tableSortRowSet = document.getElementById('sort-row-set');
 tableSortRowAuto = document.getElementById('sort-row-auto');
 tableSortColumnKeys = document.getElementById('sort-column-keys');
+tableSortDotsep = document.getElementById('sort-dotsep');
 tableSortCustomAttr = document.getElementById('sort-custom-attribute');
 new Tablesort(table);
 new Tablesort(tableDescend, { descending: true });
@@ -257,6 +271,7 @@ new Tablesort(tableMulti);
 new Tablesort(tableSortRowSet);
 new Tablesort(tableSortRowAuto);
 new Tablesort(tableSortColumnKeys);
+new Tablesort(tableSortDotsep);
 new Tablesort(tableSortCustomAttr, { sortAttribute: "data-realname" });
 var refresh = new Tablesort(tableRefresh);
 

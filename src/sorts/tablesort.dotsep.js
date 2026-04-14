@@ -5,9 +5,9 @@ Tablesort.extend('dotsep', function(item) {
   a = a.split('.');
   b = b.split('.');
 
-  for (var i = 0, len = a.length, ai, bi; i < len; i++) {
-    ai = parseInt(a[i], 10);
-    bi = parseInt(b[i], 10);
+  for (var i = 0, len = Math.max(a.length, b.length), ai, bi; i < len; i++) {
+    ai = parseInt(i < a.length ? a[i] : '0', 10);
+    bi = parseInt(i < b.length ? b[i] : '0', 10);
 
     if (ai === bi) continue;
     if (ai > bi) return -1;
